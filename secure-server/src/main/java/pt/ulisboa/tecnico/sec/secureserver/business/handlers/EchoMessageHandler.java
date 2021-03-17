@@ -25,7 +25,5 @@ public class EchoMessageHandler {
 	public List<String> getAllMessages() {
 		return this.messageCatalog.readAllMessages();
 	}
-	
-	
 
 }
