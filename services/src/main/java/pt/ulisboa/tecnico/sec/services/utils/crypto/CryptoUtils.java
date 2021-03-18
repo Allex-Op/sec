@@ -1,28 +1,89 @@
 package pt.ulisboa.tecnico.sec.services.utils.crypto;
 
+import pt.ulisboa.tecnico.sec.services.configs.CryptoConfiguration;
+
+import javax.crypto.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
+import java.nio.charset.StandardCharsets;
+import java.security.*;
 import java.security.cert.CertificateException;
+import java.util.Base64;
+import java.util.UUID;
 
 public class CryptoUtils {
-
-    // Key sizes
-    protected static final int SYMMETRIC_KEY_SIZE = 256;
-    protected static final int ASYMMETRIC_KEY_SIZE = 2048;
-
-    // Algorithms
-    protected static final String ASYMMETRIC_ENCRYPTION_ALGO = "RSA";
-    protected static final String SYMMETRIC_ENCRYPTION_ALGO = "AES";
-    private static final String CIPHER_ALGO = SYMMETRIC_ENCRYPTION_ALGO + "/GCM/PKCS5Padding";
-    private static final String SIGN_ALGO = "SHA256withRSA";
 
     // Key Store Type
     private static final String KEYSTORE_TYPE = "JCEKS";
     private static KeyStore keyStore;
+
+    // Nonce and Secure Random
+
+    public static String generateNonce() {
+        return UUID.randomUUID().toString();
+    }
+
+    public static SecureRandom generateSecureRandom() {
+        return new SecureRandom();
+    }
+
+    // Encryption
+
+    public static String encrypt(SecretKey secretKey, String dataToEncrypt) throws NoSuchAlgorithmException,
+            NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+
+        Cipher cipher = Cipher.getInstance(CryptoConfiguration.CIPHER_ALGO);
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+        byte[] cipherBytes = cipher.doFinal(dataToEncrypt.getBytes());
+        return encodeBase64(cipherBytes);
+
+    }
+
+    public static String decrypt(SecretKey secretKey, String encryptedData) throws NoSuchAlgorithmException,
+            NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException  {
+
+        Cipher cipher = Cipher.getInstance(CryptoConfiguration.CIPHER_ALGO);
+        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+        byte[] cipherBytes = cipher.doFinal(decodeBase64(encryptedData));
+        return new String(cipherBytes, StandardCharsets.UTF_8);
+
+    }
+
+    // Signatures
+
+    public static String sign(PrivateKey privateKey, String message)
+            throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+
+        Signature signature = Signature.getInstance(CryptoConfiguration.SIGN_ALGO);
+        signature.initSign(privateKey, generateSecureRandom());
+        signature.update(message.getBytes());
+        byte[] signatureBytes = signature.sign();
+        return encodeBase64(signatureBytes);
+
+    }
+
+    public static boolean confirmSignature(PublicKey publicKey, String message, String signatureString)
+            throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+
+        Signature signature = Signature.getInstance(CryptoConfiguration.SIGN_ALGO);
+        signature.initVerify(publicKey);
+        signature.update(message.getBytes());
+        return signature.verify(decodeBase64(signatureString));
+
+    }
+
+    // Base64
+
+    public static String encodeBase64(byte[] dataArray) {
+        return Base64.getEncoder().encodeToString(dataArray);
+    }
+
+    public static byte[] decodeBase64(String encodedData) {
+        return Base64.getDecoder().decode(encodedData);
+    }
+
+    // Keystore Management
 
     private static void loadKeyStore(String keystorePath, String keystorePwd) {
         try (FileInputStream kfile = new FileInputStream(keystorePath)) {
@@ -30,7 +91,6 @@ public class CryptoUtils {
             keyStore = KeyStore.getInstance(KEYSTORE_TYPE);
             // Load the null Keystore and set  the password to “keystorePwd”
             keyStore.load(kfile, keystorePwd.toCharArray());
-            KeyStore.SecretKeyEntry skEntry = new KeyStore.(mykey);
         } catch (IOException e) {
             try {
                 File newKsFile = new File(keystorePath);

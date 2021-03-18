@@ -1,5 +1,7 @@
 package pt.ulisboa.tecnico.sec.services.utils.crypto;
 
+import pt.ulisboa.tecnico.sec.services.configs.CryptoConfiguration;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,8 +36,8 @@ public class AESKeyGenerator {
     }
 
     public static Key generateSecretKey() throws NoSuchAlgorithmException {
-        KeyGenerator keyGen = KeyGenerator.getInstance(CryptoUtils.SYMMETRIC_ENCRYPTION_ALGO);
-        keyGen.init(CryptoUtils.SYMMETRIC_KEY_SIZE);
+        KeyGenerator keyGen = KeyGenerator.getInstance(CryptoConfiguration.SYMMETRIC_ENCRYPTION_ALGO);
+        keyGen.init(CryptoConfiguration.SYMMETRIC_KEY_SIZE);
         return keyGen.generateKey();
     }
 
@@ -56,7 +58,7 @@ public class AESKeyGenerator {
         try (FileInputStream fis = new FileInputStream(keyPath)) {
             byte[] encoded = new byte[fis.available()];
             fis.read(encoded);
-            return new SecretKeySpec(encoded, 0, 16, "AES");
+            return new SecretKeySpec(encoded, 0, 16, CryptoConfiguration.SYMMETRIC_ENCRYPTION_ALGO);
         }
 
     }

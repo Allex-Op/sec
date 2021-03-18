@@ -1,5 +1,7 @@
 package pt.ulisboa.tecnico.sec.services.utils.crypto;
 
+import pt.ulisboa.tecnico.sec.services.configs.CryptoConfiguration;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -38,8 +40,8 @@ public class RSAKeyGenerator {
     }
 
     public static KeyPair generateKeyPair() throws NoSuchAlgorithmException {
-        KeyPairGenerator keyGen = KeyPairGenerator.getInstance(CryptoUtils.ASYMMETRIC_ENCRYPTION_ALGO);
-        keyGen.initialize(CryptoUtils.ASYMMETRIC_KEY_SIZE);
+        KeyPairGenerator keyGen = KeyPairGenerator.getInstance(CryptoConfiguration.ASYMMETRIC_ENCRYPTION_ALGO);
+        keyGen.initialize(CryptoConfiguration.ASYMMETRIC_KEY_SIZE);
         return keyGen.generateKeyPair();
     }
 
@@ -74,14 +76,14 @@ public class RSAKeyGenerator {
             pubFis.read(pubEncoded);
 
             X509EncodedKeySpec pubSpec = new X509EncodedKeySpec(pubEncoded);
-            KeyFactory keyFacPub = KeyFactory.getInstance("RSA");
+            KeyFactory keyFacPub = KeyFactory.getInstance(CryptoConfiguration.ASYMMETRIC_ENCRYPTION_ALGO);
             PublicKey pub = keyFacPub.generatePublic(pubSpec);
 
             byte[] privEncoded = new byte[privFis.available()];
             privFis.read(privEncoded);
 
             PKCS8EncodedKeySpec privSpec = new PKCS8EncodedKeySpec(privEncoded);
-            KeyFactory keyFacPriv = KeyFactory.getInstance("RSA");
+            KeyFactory keyFacPriv = KeyFactory.getInstance(CryptoConfiguration.ASYMMETRIC_ENCRYPTION_ALGO);
             PrivateKey priv = keyFacPriv.generatePrivate(privSpec);
 
             return new KeyPair(pub, priv);
