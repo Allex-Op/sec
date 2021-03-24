@@ -22,19 +22,19 @@ public class UserController {
 		this.userService = userService;
 	}
 	
-	@GetMapping("/locations/{id}")
-	public String obtainLocationReport(@PathVariable String userID, @RequestBody int epoch) {
+	@GetMapping("/locations/{userID}/{epoch}")
+	public String obtainLocationReport(@PathVariable String userID, @PathVariable int epoch) {
 		return this.userService.obtainLocationReport(userID, epoch);
 	}
 	
-	@PostMapping("/locations/{id}")
+	@PostMapping("/locations/{userID}")
 	public void submitLocationReport(@PathVariable String userID, @RequestBody int epoch, @RequestBody String report) throws ApplicationException {
 		this.userService.submitLocationReport(userID, epoch, report);
 	}
 	
-	@GetMapping("/locations")
-	public List<String> obtainUsersAtLocation(@RequestBody String pos, @RequestBody int epoch) {
-		return this.userService.obtainUsersAtLocation(pos, epoch);
+	@GetMapping("/locations/management/{x}/{y}/{epoch}")
+	public List<String> obtainUsersAtLocation(@PathVariable int x, @PathVariable int y, @PathVariable int epoch) {
+		return this.userService.obtainUsersAtLocation(x + "," + y, epoch);
 	}
 	
 }
