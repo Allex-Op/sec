@@ -4,7 +4,7 @@ public class RequestProofDTO {
 
     private int x;
     private int y;
-    private String epoch;
+    private int epoch;
     private String userID; // Prover
     private String digitalSignature;
 
@@ -24,11 +24,11 @@ public class RequestProofDTO {
         this.y = y;
     }
 
-    public String getEpoch() {
+    public int getEpoch() {
         return epoch;
     }
 
-    public void setEpoch(String epoch) {
+    public void setEpoch(int epoch) {
         this.epoch = epoch;
     }
 
@@ -47,4 +47,10 @@ public class RequestProofDTO {
     public void setDigitalSignature(String digitalSignature) {
         this.digitalSignature = digitalSignature;
     }
+
+    @Override
+    public String toString() {
+        return "Request of epoch " + epoch + " at location (" + x + "," + y + ") made by " + userID + " with the Digital Signature " + digitalSignature;
+    }
+
 }

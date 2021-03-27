@@ -30,8 +30,8 @@ public class UserService implements ISpecialUserService {
 	}
 	
 	@Override
-	public void submitLocationReport(String userID, int epoch, String report) throws ApplicationException {
-		this.createReportHandler.sumbitLocationReport(userID, epoch, report);
+	public void submitLocationReport(String userID, ReportDTO reportDTO) throws ApplicationException {
+		this.createReportHandler.submitLocationReport(userID, reportDTO);
 	}
 
 	@Override

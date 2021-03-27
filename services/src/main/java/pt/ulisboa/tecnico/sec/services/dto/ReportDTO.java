@@ -22,4 +22,14 @@ public class ReportDTO {
     public void setProofsList(List<ProofDTO> proofsList) {
         this.proofsList = proofsList;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (ProofDTO proofDTO : proofsList)
+            sb.append(proofDTO.toString() + "\n");
+
+        return  "Report:\n" + requestProofDTO.toString() + "\n" + sb.toString();
+    }
 }

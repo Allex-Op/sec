@@ -30,10 +30,10 @@ public class User {
 		return reports;
 	}
 	
-	public Report createAndSaveReport(String userId, int epoch, String report) throws InvalidReportException {
-		Report newReport = new Report(this, epoch, report);
+	public Report createAndSaveReport(String userId, int epoch, int x, int y, String digitalSignature) throws InvalidReportException {
+		Report newReport = new Report(this, epoch, x, y, digitalSignature);
 		
-		if (report != null)
+		if (newReport == null)
 			throw new InvalidReportException("Report is not valid. A report must not be empty.");
 		
 		this.reports.add(newReport);

@@ -16,12 +16,12 @@ public class DTOConverter {
 	
 	public static ReportDTO makeReportDTO(Report report) {
 		// generate Request Proof DTO
-		RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(0, 0, report.getEpoch() + "", report.getUser().getUserId(), null); //TODO
+		RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(report.getX(), report.getY(), report.getEpoch(), report.getUser().getUserId(), report.getDigitalSignature());
 		
 		// generate the Proof List DTO
 		List<ProofDTO> proofs = new ArrayList<>();
 		for (ReportProof proof : report.getReportProofList()) {
-			ProofDTO proofDTO = DTOFactory.makeProofDTO(proof.getEpoch() + "", proof.getUserId(), requestProofDTO, null); //TODO
+			ProofDTO proofDTO = DTOFactory.makeProofDTO(proof.getEpoch(), proof.getUserId(), requestProofDTO, proof.getDigitalSignature());
 			proofs.add(proofDTO);
 		}
 		

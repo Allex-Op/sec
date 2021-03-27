@@ -10,15 +10,36 @@ public class Report {
 	private User user;
 	
 	private int epoch;
-	
-	private String location;
+
+	// location
+	private int x, y;
 	
 	private List<ReportProof> reportProofList = new ArrayList<>();
-	
-	public Report(User user, int epoch, String location) {
+
+	private String digitalSignature;
+
+	public Report(User user, int epoch, int x, int y, String digitalSignature) {
 		this.user = user;
 		this.epoch = epoch;
-		this.location = location;
+		this.x = x;
+		this.y = y;
+		this.reportProofList = reportProofList;
+		this.digitalSignature = digitalSignature;
+
+	}
+
+	/**
+	 * @return the x of the location
+	 */
+	public int getX() {
+		return x;
+	}
+
+	/**
+	 * @return the y of the location
+	 */
+	public int getY() {
+		return y;
 	}
 
 	/**
@@ -35,12 +56,6 @@ public class Report {
 		return epoch;
 	}
 
-	/**
-	 * @return the location of the report
-	 */
-	public String getLocation() {
-		return location;
-	}
 	
 	/**
 	 * @return the reportProofList
@@ -48,10 +63,21 @@ public class Report {
 	public List<ReportProof> getReportProofList() {
 		return reportProofList;
 	}
-	
+
+	/**
+	 * @return the digitalSignature
+	 */
+	public String getDigitalSignature() {
+		return digitalSignature;
+	}
+
+	public void setReportProofList(List<ReportProof> reportProofList) {
+		this.reportProofList = reportProofList;
+	}
+
 	@Override
 	public String toString() {
-		return "Report of " + user + " at " + epoch + " epoch. Location: " + location.toString();
+		return "Report of " + user + " at " + epoch + " epoch. Location: " + x + "," + y;
 	}
 
 }

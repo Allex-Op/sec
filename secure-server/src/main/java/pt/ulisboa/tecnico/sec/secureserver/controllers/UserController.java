@@ -19,18 +19,16 @@ public class UserController {
 	private ISpecialUserService userService;
 
 	@Autowired
-	public UserController(ISpecialUserService userService) {
-		this.userService = userService;
-	}
-	
+	public UserController(ISpecialUserService userService) { this.userService = userService; }
+
 	@GetMapping("/locations/{userID}/{epoch}")
 	public ReportDTO obtainLocationReport(@PathVariable String userID, @PathVariable int epoch) {
 		return this.userService.obtainLocationReport(userID, epoch);
 	}
 	
 	@PostMapping("/locations/{userID}")
-	public void submitLocationReport(@PathVariable String userID, @RequestBody int epoch, @RequestBody String report) throws ApplicationException {
-		this.userService.submitLocationReport(userID, epoch, report);
+	public void submitLocationReport(@PathVariable String userID, @RequestBody ReportDTO report) throws ApplicationException {
+		this.userService.submitLocationReport(userID, report);
 	}
 	
 	@GetMapping("/locations/management/{x}/{y}/{epoch}")

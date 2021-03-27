@@ -7,6 +7,6 @@ public interface IUserService {
 	
 	public ReportDTO obtainLocationReport(String userID, int epoch);
 	
-	public void submitLocationReport(String userID, int epoch, String report) throws ApplicationException;
+	public void submitLocationReport(String userID, ReportDTO reportDTO) throws ApplicationException;
 
 }

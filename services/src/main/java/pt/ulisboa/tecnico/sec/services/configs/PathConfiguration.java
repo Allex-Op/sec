@@ -6,6 +6,8 @@ public class PathConfiguration {
 	public static final String HOST = ACCESS_PROTOCOL + "://localhost:8080";
 	public static final String MESSAGES_API = HOST + "/messages";
 
+	public static final String USER_API = HOST + "/locations";
+
 	// Key Paths
 
 	public static final String CLIENT_KEY_FOLDER = "/home/thunder-marks/IdeaProjects/Secure-Communication/services/src/main/java/pt/ulisboa/tecnico/sec/services/keys/client";//change

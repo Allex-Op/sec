@@ -1,18 +1,17 @@
 package pt.ulisboa.tecnico.sec.services.dto;
 
+
 public class ProofDTO {
 
-    private String nonce;
+    private int epoch;
     private String userID; // Witness
     private RequestProofDTO requestProofDTO;
     private String digitalSignature;
 
-    public String getNonce() {
-        return nonce;
-    }
+    public int getEpoch() { return epoch; }
 
-    public void setNonce(String nonce) {
-        this.nonce = nonce;
+    public void setEpoch(int epoch) {
+        this.epoch = epoch;
     }
 
     public String getUserID() {
@@ -37,6 +36,11 @@ public class ProofDTO {
 
     public void setDigitalSignature(String digitalSignature) {
         this.digitalSignature = digitalSignature;
+    }
+
+    @Override
+    public String toString() {
+        return "Proof of epoch " + epoch + " made by " + userID + " with the Digital Signature " + digitalSignature + " of {" + requestProofDTO.toString() + "}";
     }
 
 }

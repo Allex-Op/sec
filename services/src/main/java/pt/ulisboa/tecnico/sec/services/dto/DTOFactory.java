@@ -6,7 +6,7 @@ public class DTOFactory {
 	
 	private DTOFactory() {}
 	
-	public static RequestProofDTO makeRequestProofDTO(int x, int y, String epoch, String userID, String digitalSignature) {
+	public static RequestProofDTO makeRequestProofDTO(int x, int y, int epoch, String userID, String digitalSignature) {
 		RequestProofDTO requestProofDTO = new RequestProofDTO();
 		
 		requestProofDTO.setX(x);
@@ -18,10 +18,10 @@ public class DTOFactory {
 		return requestProofDTO;
 	}
 	
-	public static ProofDTO makeProofDTO(String epoch, String userID, RequestProofDTO requestProofDTO, String digitalSignature) {
+	public static ProofDTO makeProofDTO(int epoch, String userID, RequestProofDTO requestProofDTO, String digitalSignature) {
 		ProofDTO proofDTO = new ProofDTO();
 		
-		proofDTO.setNonce(epoch);
+		proofDTO.setEpoch(epoch);
 		proofDTO.setUserID(userID);
 		proofDTO.setRequestProofDTO(requestProofDTO);
 		proofDTO.setDigitalSignature(digitalSignature);
