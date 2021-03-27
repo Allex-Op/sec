@@ -18,7 +18,6 @@ public class Grid {
         generateGrid();
         getUserLocation();
 
-
     }
 
     public static void generateGrid(){

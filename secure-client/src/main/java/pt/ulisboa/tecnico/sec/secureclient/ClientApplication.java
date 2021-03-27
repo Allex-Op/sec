@@ -1,6 +1,5 @@
 package pt.ulisboa.tecnico.sec.secureclient;
 
-import org.graalvm.compiler.lir.LIRInstruction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -8,26 +7,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
-import pt.ulisboa.tecnico.sec.secureclient.services.MessageService;
 import pt.ulisboa.tecnico.sec.secureclient.services.UserService;
 import pt.ulisboa.tecnico.sec.services.dto.DTOFactory;
 import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 @SpringBootApplication
 public class ClientApplication {
-	
-	private MessageService messageService;
+
 	private UserService userService;
 	
 	@Autowired
-	public ClientApplication(MessageService messageService, UserService userService) {
-		this.messageService = messageService;
+	public ClientApplication(UserService userService) {
 		this.userService = userService;
 	}
 	
