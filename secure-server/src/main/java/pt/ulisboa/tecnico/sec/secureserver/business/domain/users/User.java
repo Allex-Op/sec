@@ -16,11 +16,25 @@ public class User {
 		this.userId = userId;
 	}
 	
+	/**
+	 * @return the userId
+	 */
+	public String getUserId() {
+		return userId;
+	}
+
+	/**
+	 * @return the reports
+	 */
+	public List<Report> getReports() {
+		return reports;
+	}
+	
 	public Report createAndSaveReport(String userId, int epoch, String report) throws InvalidReportException {
-		Report newReport = new Report(userId, epoch, report);
+		Report newReport = new Report(this, epoch, report);
 		
-		if (!isValidReport(newReport))
-			throw new InvalidReportException("Report is not valid. A report must not be empty and should be MY report.");
+		if (report != null)
+			throw new InvalidReportException("Report is not valid. A report must not be empty.");
 		
 		this.reports.add(newReport);
 		return newReport;
@@ -43,10 +57,4 @@ public class User {
 		return "I am " + userId + " and i have the following Reports:\n" + sb.toString();
 	}
 	
-	// PRIVATES
-	
-	private boolean isValidReport(Report report) {
-		return report != null && report.getUserId().equals(this.userId);
-	}
-
 }

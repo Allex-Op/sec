@@ -35,7 +35,7 @@ public class ViewReportHandler {
 		List<String> users = new ArrayList<>();
 		
 		for (Report report : reportsFound) {
-			User user = userCatalog.getUserById(report.getUserId());
+			User user = userCatalog.getUserById(report.getUser().getUserId());
 			users.add(user.toString());
 		}
 		

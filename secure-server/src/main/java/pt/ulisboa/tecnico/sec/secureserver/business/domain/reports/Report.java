@@ -1,15 +1,22 @@
 package pt.ulisboa.tecnico.sec.secureserver.business.domain.reports;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import pt.ulisboa.tecnico.sec.secureserver.business.domain.users.User;
+
 public class Report {
 	
-	private String userId;
+	private User user;
 	
 	private int epoch;
 	
 	private String location;
 	
-	public Report(String userId, int epoch, String location) {
-		this.userId = userId;
+	private List<ReportProof> reportProofList = new ArrayList<>();
+	
+	public Report(User user, int epoch, String location) {
+		this.user = user;
 		this.epoch = epoch;
 		this.location = location;
 	}
@@ -17,8 +24,8 @@ public class Report {
 	/**
 	 * @return the userId of the report's owner
 	 */
-	public String getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
 	/**
@@ -35,9 +42,16 @@ public class Report {
 		return location;
 	}
 	
+	/**
+	 * @return the reportProofList
+	 */
+	public List<ReportProof> getReportProofList() {
+		return reportProofList;
+	}
+	
 	@Override
 	public String toString() {
-		return "Report of " + userId + " at " + epoch + " epoch. Location: " + location.toString();
+		return "Report of " + user + " at " + epoch + " epoch. Location: " + location.toString();
 	}
 
 }
