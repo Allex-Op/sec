@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 import pt.ulisboa.tecnico.sec.services.interfaces.ISpecialUserService;
 
@@ -23,7 +24,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/locations/{userID}/{epoch}")
-	public String obtainLocationReport(@PathVariable String userID, @PathVariable int epoch) {
+	public ReportDTO obtainLocationReport(@PathVariable String userID, @PathVariable int epoch) {
 		return this.userService.obtainLocationReport(userID, epoch);
 	}
 	

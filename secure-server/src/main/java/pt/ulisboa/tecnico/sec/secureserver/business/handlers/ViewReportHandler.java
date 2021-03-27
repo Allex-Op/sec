@@ -10,6 +10,8 @@ import pt.ulisboa.tecnico.sec.secureserver.business.domain.reports.Report;
 import pt.ulisboa.tecnico.sec.secureserver.business.domain.reports.ReportCatalog;
 import pt.ulisboa.tecnico.sec.secureserver.business.domain.users.User;
 import pt.ulisboa.tecnico.sec.secureserver.business.domain.users.UserCatalog;
+import pt.ulisboa.tecnico.sec.secureserver.utils.DTOConverter;
+import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 
 @Service
 public class ViewReportHandler {
@@ -24,10 +26,10 @@ public class ViewReportHandler {
 		this.reportCatalog = reportCatalog;
 	}
 	
-	public String obtainLocationReport(String userID, int epoch) {
+	public ReportDTO obtainLocationReport(String userID, int epoch) {
 		User user = userCatalog.getUserById(userID);
 		Report report = user.getReportOfEpoch(epoch);
-		return report.toString(); //TODO create DTO
+		return DTOConverter.makeReportDTO(report);
 	}
 	
 	public List<String> obtainUsersAtLocation(String pos, int epoch) {

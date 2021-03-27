@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import pt.ulisboa.tecnico.sec.secureserver.business.handlers.CreateReportHandler;
 import pt.ulisboa.tecnico.sec.secureserver.business.handlers.ViewReportHandler;
+import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 import pt.ulisboa.tecnico.sec.services.interfaces.ISpecialUserService;
 
@@ -24,7 +25,7 @@ public class UserService implements ISpecialUserService {
 	}
 
 	@Override
-	public String obtainLocationReport(String userID, int epoch) {
+	public ReportDTO obtainLocationReport(String userID, int epoch) {
 		return this.viewReportHandler.obtainLocationReport(userID, epoch);
 	}
 	
