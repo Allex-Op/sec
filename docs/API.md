@@ -22,9 +22,11 @@ Accept: application/json
 200 OK
 
 {
-    'userId':'1',
+    'proofs':[{'nonce':epoch,'userId':x'pedidoProof':{'x':1,'y':2,'epoch':1,'proverId':'1','digitalSignature':''},'digitalSignature':''}],
+    'x':1,
+    'y':2,
     'epoch':1,
-    'location':'x,y
+    'userId':1
     'digitalSignature':''
 }
 ```
@@ -46,8 +48,12 @@ POST /locations/1
 Content-type: application/json
 
 {
-  'epoch':1,
-  'report':'12,8'
+    'proofs':[{'nonce':epoch,'userId':x'pedidoProof':{'x':1,'y':2,'epoch':1,'proverId':'y','digitalSignature':''},'digitalSignature':''}],
+    'x':1,
+    'y':2,
+    'epoch':1,
+    'userId':y
+    'digitalSignature':''
 }
 ```
 
@@ -84,7 +90,7 @@ Accept: application/json
 }
 ```
 
-## `POST /proof/{userId}`
+## `POST /proof`
 
 ### Description:
 - Regular User asks for a location proof (x,y) to neighbors
@@ -97,13 +103,14 @@ Accept: application/json
 
 ### E.g. Request:
 ```
-POST /proof/1
+POST /proof
 Content-type: application/json
 
 {
     'x':12,
     'y':8,
     'epoch':1,
+    'proverId':'y'
     'digitalSignature':''
 }
 ```
@@ -113,7 +120,10 @@ Content-type: application/json
 200 OK
 
 {
-    'digitalSignature':'assinatura_objeto_inteiro'
+    'nonce':epoch,
+    'userId':x
+    'pedidoProof':{'x':12,'y':8,'epoch':1,'proverId':'y','digitalSignature':''},
+    'digitalSignature':''
 }
 ```
 Note: If it's not a valid proof it responds with a 404 code
