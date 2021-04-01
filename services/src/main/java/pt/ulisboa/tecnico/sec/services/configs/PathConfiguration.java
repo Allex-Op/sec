@@ -3,10 +3,11 @@ package pt.ulisboa.tecnico.sec.services.configs;
 public class PathConfiguration {
 	
 	public static final String ACCESS_PROTOCOL = "http";
-	public static final String HOST = ACCESS_PROTOCOL + "://localhost:8080";
-	public static final String MESSAGES_API = HOST + "/messages";
+	public static final String HOST = ACCESS_PROTOCOL + "://localhost";
+	
+	public static final String SERVER_URL = HOST + ":8080";
 
-	public static final String USER_API = HOST + "/locations";
+	public static final String USER_API = SERVER_URL + "/locations";
 
 	// Key Paths
 
@@ -24,5 +25,9 @@ public class PathConfiguration {
 	public static final String SERVER_PRIVATE_KEY = SERVER_KEY_FOLDER + "/" + SERVER_PRIVATE_KEY_NAME;
 
 	private PathConfiguration() {}
+	
+	public static String getClientURL(int client) {
+		return HOST + ":" + (9000 + client) + "/proof";
+	}
 
 }
