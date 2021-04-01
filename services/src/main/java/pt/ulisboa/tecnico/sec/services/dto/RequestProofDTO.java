@@ -50,7 +50,7 @@ public class RequestProofDTO {
 
     @Override
     public String toString() {
-        return "Request of epoch " + epoch + " at location (" + x + "," + y + ") made by " + userID + " with the Digital Signature " + digitalSignature;
+        return "Request of epoch " + epoch + " at location (" + x + "," + y + ") made by user " + userID + " with the Digital Signature " + digitalSignature;
     }
 
 }
