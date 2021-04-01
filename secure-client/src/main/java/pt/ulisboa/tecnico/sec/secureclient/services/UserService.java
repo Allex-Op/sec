@@ -20,7 +20,7 @@ public class UserService implements IUserService {
     public ReportDTO obtainLocationReport(String userID, int epoch) {
         String urlAPI = PathConfiguration.USER_API+"/"+userID+"/"+epoch;
 
-        HttpHeaders headers = new org.springframework.http.HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
         HttpEntity<ReportDTO> entity = new HttpEntity<>(null, headers);
@@ -33,7 +33,7 @@ public class UserService implements IUserService {
     public void submitLocationReport(String userID, ReportDTO reportDTO) throws ApplicationException {
         String urlAPI = PathConfiguration.USER_API+"/"+userID;
 
-        HttpHeaders headers = new org.springframework.http.HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
         HttpEntity<ReportDTO> entity = new HttpEntity<>(reportDTO, headers);

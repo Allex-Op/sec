@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class EpochTriggerMonitor {
 
-	@Scheduled(fixedRate = 10000, initialDelay = 5000)
+	@Scheduled(fixedRate = 10000, initialDelay = 10000)
 	public void publish() {
-		System.out.println("HTTP -> Clients");
-		System.out.println("HTTP -> Server");
+		//System.out.println("HTTP -> Clients");
+		//System.out.println("HTTP -> Server");
 	}
 
 
