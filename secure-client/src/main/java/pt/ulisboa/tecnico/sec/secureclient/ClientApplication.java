@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import pt.ulisboa.tecnico.sec.secureclient.services.UserService;
 import pt.ulisboa.tecnico.sec.services.dto.DTOFactory;
@@ -16,6 +17,7 @@ import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
 import java.util.Arrays;
 
 @SpringBootApplication
+@EnableScheduling
 public class ClientApplication {
 
 	private UserService userService;
@@ -27,7 +29,7 @@ public class ClientApplication {
 	
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(ClientApplication.class, args);
-		SpringApplication.exit(context, () -> 0);
+		// SpringApplication.exit(context, () -> 0);
 	}
 	
 	@Bean
