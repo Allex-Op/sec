@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import pt.ulisboa.tecnico.sec.services.configs.PathConfiguration;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
+import pt.ulisboa.tecnico.sec.services.dto.SecureDTO;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 import pt.ulisboa.tecnico.sec.services.interfaces.IUserService;
+import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
 
 import java.util.Arrays;
 
@@ -32,13 +34,16 @@ public class UserService implements IUserService {
 
     @Override
     public void submitLocationReport(String userID, ReportDTO reportDTO) throws ApplicationException {
+        // Build secure DTO
+        SecureDTO secDTO = CryptoService.createSecureDTO(reportDTO);
+
         String urlAPI = PathConfiguration.USER_API+"/"+userID;
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
-        HttpEntity<ReportDTO> entity = new HttpEntity<>(reportDTO, headers);
+        HttpEntity<SecureDTO> entity = new HttpEntity<>(secDTO, headers);
 
-        restTemplate.exchange(urlAPI, HttpMethod.POST, entity, ReportDTO.class);
+        restTemplate.exchange(urlAPI, HttpMethod.POST, entity, SecureDTO.class);
     }
 }

@@ -1,6 +1,5 @@
 package pt.ulisboa.tecnico.sec.secureserver.business.handlers;
 
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

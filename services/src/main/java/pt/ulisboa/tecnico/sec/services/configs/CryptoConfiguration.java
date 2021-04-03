@@ -9,7 +9,7 @@ public class CryptoConfiguration {
     // Algorithms
     public static final String ASYMMETRIC_ENCRYPTION_ALGO = "RSA";
     public static final String SYMMETRIC_ENCRYPTION_ALGO = "AES";
-    public static final String CIPHER_ALGO = SYMMETRIC_ENCRYPTION_ALGO + "/GCM/PKCS5Padding";
+    public static final String CIPHER_ALGO = SYMMETRIC_ENCRYPTION_ALGO + "/ECB/PKCS5Padding";   //Replace by CBC in the future for super extra security, needs IV or parameter missing exception (add to SecureDTO object)
     public static final String SIGN_ALGO = "SHA256withRSA";
 
     private CryptoConfiguration(){}

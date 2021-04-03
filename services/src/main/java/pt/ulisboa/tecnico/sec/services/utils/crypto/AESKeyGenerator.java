@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.spec.SecretKeySpec;
@@ -38,6 +39,12 @@ public class AESKeyGenerator {
     public static Key generateSecretKey() throws NoSuchAlgorithmException {
         KeyGenerator keyGen = KeyGenerator.getInstance(CryptoConfiguration.SYMMETRIC_ENCRYPTION_ALGO);
         keyGen.init(CryptoConfiguration.SYMMETRIC_KEY_SIZE);
+        return keyGen.generateKey();
+    }
+
+    public static Key generateSecretKey(byte[] randomString) throws NoSuchAlgorithmException {
+        KeyGenerator keyGen = KeyGenerator.getInstance(CryptoConfiguration.SYMMETRIC_ENCRYPTION_ALGO);
+        keyGen.init(CryptoConfiguration.SYMMETRIC_KEY_SIZE, new SecureRandom(randomString));
         return keyGen.generateKey();
     }
 

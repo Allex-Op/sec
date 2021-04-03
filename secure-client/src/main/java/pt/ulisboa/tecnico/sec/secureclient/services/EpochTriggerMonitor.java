@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.sec.secureclient.services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,11 @@ public class EpochTriggerMonitor {
 		this.locationProofService = locationProofService;
 	}
 	
-	@Scheduled(fixedRate = 10000, initialDelay = 10000)
+	@Scheduled(fixedRate = 3000, initialDelay = 3000)
 	public void publish() {
+		/*
 		int myId = Integer.parseInt(ClientApplication.userId);
-		
+
 		System.out.println("Going to grid...");
 		int[] myLocation = Grid.getLocationOfUserAtEpoch(myId, ClientApplication.epoch);
 		System.out.println("My location: (" + myLocation[0] + "," + myLocation[1] + ")");
@@ -52,7 +54,12 @@ public class EpochTriggerMonitor {
 		
 		ReportDTO reportDTO = DTOFactory.makeReportDTO(requestProofDTO, proofs);
 		System.out.println("SENDING REPORT TO SERVER:\n" + reportDTO.toString());
-		
+		*/
+		RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(10, 2, 1, ClientApplication.userId, "aaa");
+		ProofDTO proofDTO1 = DTOFactory.makeProofDTO(1, "2", requestProofDTO, "bbb");
+		ProofDTO proofDTO2 = DTOFactory.makeProofDTO(1, "3", requestProofDTO, "ccc");
+		ReportDTO reportDTO = DTOFactory.makeReportDTO(requestProofDTO, Arrays.asList(proofDTO1,proofDTO2));
+
 		try {
 			System.out.println("Submitting report to server...");
 			userService.submitLocationReport(ClientApplication.userId, reportDTO);

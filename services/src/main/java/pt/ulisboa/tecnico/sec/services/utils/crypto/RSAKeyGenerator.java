@@ -45,7 +45,7 @@ public class RSAKeyGenerator {
         return keyGen.generateKeyPair();
     }
 
-    public static void generateKeyPairToFile(String privateKeyPath, String publicKeyPath)
+    public static void generateKeyPairToFile(String publicKeyPath, String privateKeyPath)
             throws NoSuchAlgorithmException, IOException {
 
         try (FileOutputStream privFos = new FileOutputStream(privateKeyPath);
@@ -77,7 +77,7 @@ public class RSAKeyGenerator {
 
             X509EncodedKeySpec pubSpec = new X509EncodedKeySpec(pubEncoded);
             KeyFactory keyFacPub = KeyFactory.getInstance(CryptoConfiguration.ASYMMETRIC_ENCRYPTION_ALGO);
-            PublicKey pub = keyFacPub.generatePublic(pubSpec);
+            PublicKey pub = keyFacPub.generatePublic(pubSpec);  // Error
 
             byte[] privEncoded = new byte[privFis.available()];
             privFis.read(privEncoded);

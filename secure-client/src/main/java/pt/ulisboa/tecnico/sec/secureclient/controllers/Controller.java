@@ -22,6 +22,9 @@ public class Controller {
 	@Autowired
 	private UserService userService;
 
+	/**
+	 *	Another client asked for a location proof
+	 */
 	@PostMapping("/proof")
 	public ProofDTO requestLocationProof(@RequestBody RequestProofDTO request) throws ProverOutOfRangeException {
 		System.out.println("Received proof request");
@@ -36,6 +39,9 @@ public class Controller {
 			throw new ProverOutOfRangeException("Prover is not in range, can't generate proof...");
 	}
 
+	/**
+	 *	Submit report to server, connection must be secure
+	 */
 	@GetMapping("/locations/{epoch}")
 	public ReportDTO requestLocationInformation(@PathVariable int epoch) {
 		System.out.println("Sending report request for user "+ ClientApplication.userId + " at epoch" + epoch);
