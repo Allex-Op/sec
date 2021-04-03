@@ -6,10 +6,15 @@ import org.springframework.web.bind.annotation.*;
 import pt.ulisboa.tecnico.sec.secureclient.ClientApplication;
 import pt.ulisboa.tecnico.sec.secureclient.services.LocationProofService;
 import pt.ulisboa.tecnico.sec.secureclient.services.UserService;
+import pt.ulisboa.tecnico.sec.services.configs.ByzantineConfigurations;
 import pt.ulisboa.tecnico.sec.services.dto.DTOFactory;
 import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
+import pt.ulisboa.tecnico.sec.services.exceptions.ProverOutOfRangeException;
+import pt.ulisboa.tecnico.sec.services.utils.Grid;
+
+import java.util.List;
 
 @RestController
 public class Controller {
@@ -18,8 +23,17 @@ public class Controller {
 	private UserService userService;
 
 	@PostMapping("/proof")
-	public ProofDTO requestLocationProof(@RequestBody RequestProofDTO request) {
-		return DTOFactory.makeProofDTO(ClientApplication.epoch, ClientApplication.userId, request, "bbb");
+	public ProofDTO requestLocationProof(@RequestBody RequestProofDTO request) throws ProverOutOfRangeException {
+		System.out.println("Received proof request");
+
+		// Check if the prover is in my range
+		int proverId = Integer.parseInt(request.getUserID());
+		List<Integer> usersNearby = Grid.getUsersInRangeAtEpoch(Integer.parseInt(ClientApplication.userId), ClientApplication.epoch, ByzantineConfigurations.RANGE);
+
+		if(usersNearby.contains(proverId))
+			return DTOFactory.makeProofDTO(ClientApplication.epoch, ClientApplication.userId, request, "bbb");
+		else
+			throw new ProverOutOfRangeException("Prover is not in range, can't generate proof...");
 	}
 
 	@GetMapping("/locations/{epoch}")
