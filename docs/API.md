@@ -1,6 +1,8 @@
 # Highly Dependable Location Tracker
 
-## `GET /locations/{userID}/{epoch}`
+## Server Endpoints
+
+## `POST /locations/{userID}/{epoch}`
 
 ### Description:
 - Returns the location report of a user at an epoch
@@ -15,6 +17,12 @@
 ```
 GET /locations/1/1
 Accept: application/json
+
+{
+    'userId':1,
+    'epoch':1,
+    'digitalSignature':'fields userId & epoch digitally signed'
+}
 ```
 
 ### E.g. Response:
@@ -62,7 +70,7 @@ Content-type: application/json
 200 OK
 ```
 
-## `GET /locations/management/{x}/{y}/{epoch}`
+## `POST /locations/management/{x}/{y}/{epoch}`
 
 ### Description:
 - Special User gets all location report of an epoch at location (x,y)
@@ -76,8 +84,15 @@ Content-type: application/json
 
 ### E.g. Request:
 ```
-GET /patient/1/12/8/1
+GET /locations/management/1/2/1
 Accept: application/json
+
+{
+    'x':1,
+    'y':2,
+    'epoch':1,
+    'digitalSignature': 'fields above digitally signed'
+}
 ```
 
 ### E.g. Response:
@@ -86,6 +101,39 @@ Accept: application/json
 
 {
     'users':[1,2,3,4],
+    'digitalSignature':''
+}
+```
+
+## Client Endpoints
+
+## `GET /locations/{epoch}`
+
+### Description:
+- Asks to obtain the location of itself at a certain epoch.
+
+### Parameters:
+- epoch -  int
+
+### Authorization Scope:
+- User
+
+### E.g. Request:
+```
+GET /locations/1
+Accept: application/json
+```
+
+### E.g. Response:
+```
+200 OK
+
+{
+    'proofs':[{'nonce':epoch,'userId':x'pedidoProof':{'x':1,'y':2,'epoch':1,'proverId':'1','digitalSignature':''},'digitalSignature':''}],
+    'x':1,
+    'y':2,
+    'epoch':1,
+    'userId':1
     'digitalSignature':''
 }
 ```
