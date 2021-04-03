@@ -1,10 +1,14 @@
 package pt.ulisboa.tecnico.sec.services.configs;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 public class PathConfiguration {
 	
 	public static final String ACCESS_PROTOCOL = "http";
-	public static final String HOST = ACCESS_PROTOCOL + "://localhost";
-	
+
+	public static final String HOST = ACCESS_PROTOCOL + "://127.0.0.1";
+
 	public static final String SERVER_URL = HOST + ":8080";
 
 	public static final String USER_API = SERVER_URL + "/locations";
