@@ -22,6 +22,7 @@ public class UserService implements IUserService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        headers.set("Authorization", "assinatura-digital-do-url");
 
         HttpEntity<ReportDTO> entity = new HttpEntity<>(null, headers);
 
