@@ -63,7 +63,7 @@ public class EpochTriggerMonitor {
 			e.printStackTrace();
 		}
 		
-		//ClientApplication.incrementEpoch();
+		ClientApplication.incrementEpoch();
 	}
 
 }
