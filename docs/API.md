@@ -2,7 +2,7 @@
 
 ## Server Endpoints
 
-## `POST /locations/{userID}/{epoch}`
+## `GET /locations/{userID}/{epoch}`
 
 ### Description:
 - Returns the location report of a user at an epoch
@@ -17,12 +17,7 @@
 ```
 GET /locations/1/1
 Accept: application/json
-
-{
-    'userId':1,
-    'epoch':1,
-    'digitalSignature':'fields userId & epoch digitally signed'
-}
+Authorization: base64-da-assinatura-digital-do-url-/locations/1/1
 ```
 
 ### E.g. Response:
@@ -70,7 +65,7 @@ Content-type: application/json
 200 OK
 ```
 
-## `POST /locations/management/{x}/{y}/{epoch}`
+## `GET /locations/management/{x}/{y}/{epoch}`
 
 ### Description:
 - Special User gets all location report of an epoch at location (x,y)
@@ -86,13 +81,7 @@ Content-type: application/json
 ```
 GET /locations/management/1/2/1
 Accept: application/json
-
-{
-    'x':1,
-    'y':2,
-    'epoch':1,
-    'digitalSignature': 'fields above digitally signed'
-}
+Authorization: base64-da-assinatura-digital-do-url-/locations/management/1/2/1
 ```
 
 ### E.g. Response:
