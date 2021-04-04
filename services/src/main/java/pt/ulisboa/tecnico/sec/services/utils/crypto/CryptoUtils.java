@@ -1,24 +1,24 @@
 package pt.ulisboa.tecnico.sec.services.utils.crypto;
 
 import pt.ulisboa.tecnico.sec.services.configs.CryptoConfiguration;
+import pt.ulisboa.tecnico.sec.services.configs.PathConfiguration;
 
 import javax.crypto.*;
-import java.io.File;
-import java.io.FileInputStream;
+import javax.crypto.spec.SecretKeySpec;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
-import java.security.cert.CertificateException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
+import java.util.Random;
 import java.util.UUID;
 
 public class CryptoUtils {
+	
+	private CryptoUtils() {}
 
-    // Key Store Type
-    private static final String KEYSTORE_TYPE = "JCEKS";
-    private static KeyStore keyStore;
-
-    // Nonce and Secure Random
+    // Nonce and Randoms
 
     public static String generateNonce() {
         return UUID.randomUUID().toString();
@@ -27,8 +27,14 @@ public class CryptoUtils {
     public static SecureRandom generateSecureRandom() {
         return new SecureRandom();
     }
+    
+    public static byte[] generateRandom32Bytes() {
+        byte[] randomBytes = new byte[32];
+        new Random().nextBytes(randomBytes);
+        return randomBytes;
+    }
 
-    // Encryption
+    // Encryption - Symmetric
 
     public static String encrypt(SecretKey secretKey, String dataToEncrypt) throws NoSuchAlgorithmException,
             NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
@@ -49,6 +55,27 @@ public class CryptoUtils {
         return new String(cipherBytes, StandardCharsets.UTF_8);
 
     }
+    
+    // Encryption - Asymmetric
+    
+    public static byte[] encrypt(byte[] data, PublicKey publicKey) throws NoSuchPaddingException, 
+    NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException, InvalidKeyException {
+    	
+        Cipher cipher = Cipher.getInstance(CryptoConfiguration.ASYMMETRIC_ENCRYPTION_ALGO);
+        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+        return cipher.doFinal(data);
+        
+    }
+    
+    public static byte[] decrypt(byte[] data, PrivateKey privateKey) throws NoSuchPaddingException, 
+    NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException, InvalidKeyException {
+    	
+        Cipher cipher = Cipher.getInstance(CryptoConfiguration.ASYMMETRIC_ENCRYPTION_ALGO);
+        cipher.init(Cipher.DECRYPT_MODE, privateKey);
+        return cipher.doFinal(data);
+        
+    }
+    
 
     // Signatures
 
@@ -82,31 +109,69 @@ public class CryptoUtils {
     public static byte[] decodeBase64(String encodedData) {
         return Base64.getDecoder().decode(encodedData);
     }
-
-    // Keystore Management
-
-    private static void loadKeyStore(String keystorePath, String keystorePwd) {
-        try (FileInputStream kfile = new FileInputStream(keystorePath)) {
-            // Create an instance of KeyStore of type “JCEKS”
-            keyStore = KeyStore.getInstance(KEYSTORE_TYPE);
-            // Load the null Keystore and set  the password to “keystorePwd”
-            keyStore.load(kfile, keystorePwd.toCharArray());
-        } catch (IOException e) {
-            try {
-                File newKsFile = new File(keystorePath);
-                // If file already exists will do nothing
-                newKsFile.createNewFile();
-                keyStore = KeyStore.getInstance(KEYSTORE_TYPE);
-                FileInputStream fis = new FileInputStream(newKsFile);
-                // Write  the KeyStore into the file
-                keyStore.load(fis, keystorePwd.toCharArray());
-                // Close  the file  stream
-                fis.close();
-            } catch (IOException | KeyStoreException | NoSuchAlgorithmException | CertificateException ioException) {
-                e.printStackTrace();
-            }
-        } catch(KeyStoreException | NoSuchAlgorithmException | CertificateException e2) {
-            e2.printStackTrace();
-        }
+    
+    // Keys Management - Symmetric
+    
+    public static Key generateSecretKey() throws NoSuchAlgorithmException {
+    	return AESKeyGenerator.generateSecretKey();
     }
+    
+    public static Key generateSecretKey(byte[] randomString) throws NoSuchAlgorithmException {
+    	return AESKeyGenerator.generateSecretKey(randomString);
+    }
+    
+    public static void generateSecretKeyToFile(String keyPath)
+            throws NoSuchAlgorithmException, IOException {
+    	AESKeyGenerator.generateSecretKeyToFile(keyPath);
+    }
+    
+    public static Key readSecretKey(String keyPath) throws IOException {
+    	return AESKeyGenerator.readSecretKey(keyPath);
+    }
+    
+    /**
+     *  Generate a shared key from random bytes
+     */
+    public static SecretKeySpec createSharedKeyFromString(byte[] randomBytes) {
+        return new SecretKeySpec(randomBytes, 0, randomBytes.length, CryptoConfiguration.SYMMETRIC_ENCRYPTION_ALGO);
+    }
+    
+    /**
+     *  Used by the server to generate a shared key from a string.
+     *
+     *  First base64 decode the binary data, which is RSA encrypted with the server public key.
+     *  With the decrypted bytes then, generate the shared key.
+     */
+    public static SecretKeySpec generateSecretKey(String randomString) throws NoSuchAlgorithmException, IOException, 
+    InvalidKeySpecException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
+    	
+        // Getting the encrypted random string from CustomProtocolResponse
+        byte[] encryptedStringBytes = decodeBase64(randomString);
+
+        // Extract private key from SERVER
+        KeyPair kp = readKeyPairFromFile(PathConfiguration.SERVER_PUBLIC_KEY, PathConfiguration.SERVER_PRIVATE_KEY);
+
+        // Decrypt random string received
+        byte[] decryptedStringBytes = decrypt(encryptedStringBytes, kp.getPrivate());
+
+        return new SecretKeySpec(decryptedStringBytes, 0, decryptedStringBytes.length, CryptoConfiguration.SYMMETRIC_ENCRYPTION_ALGO);
+        
+    }
+    
+    // Keys Management - Asymmetric
+    
+    public static KeyPair generateKeyPair() throws NoSuchAlgorithmException {
+    	return RSAKeyGenerator.generateKeyPair();
+    }
+    
+    public static void generateKeyPairToFile(String publicKeyPath, String privateKeyPath)
+            throws NoSuchAlgorithmException, IOException {
+    	RSAKeyGenerator.generateKeyPairToFile(publicKeyPath, privateKeyPath);
+    }
+    
+    public static KeyPair readKeyPairFromFile(String publicKeyPath, String privateKeyPath)
+            throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+    	return RSAKeyGenerator.readKeyPairFromFile(publicKeyPath, privateKeyPath);
+    }
+
 }
