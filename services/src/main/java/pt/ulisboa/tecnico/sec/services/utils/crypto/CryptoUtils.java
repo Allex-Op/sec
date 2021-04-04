@@ -1,7 +1,6 @@
 package pt.ulisboa.tecnico.sec.services.utils.crypto;
 
 import pt.ulisboa.tecnico.sec.services.configs.CryptoConfiguration;
-import pt.ulisboa.tecnico.sec.services.configs.PathConfiguration;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
@@ -134,28 +133,6 @@ public class CryptoUtils {
      */
     public static SecretKeySpec createSharedKeyFromString(byte[] randomBytes) {
         return new SecretKeySpec(randomBytes, 0, randomBytes.length, CryptoConfiguration.SYMMETRIC_ENCRYPTION_ALGO);
-    }
-    
-    /**
-     *  Used by the server to generate a shared key from a string.
-     *
-     *  First base64 decode the binary data, which is RSA encrypted with the server public key.
-     *  With the decrypted bytes then, generate the shared key.
-     */
-    public static SecretKeySpec generateSecretKey(String randomString) throws NoSuchAlgorithmException, IOException, 
-    InvalidKeySpecException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
-    	
-        // Getting the encrypted random string from CustomProtocolResponse
-        byte[] encryptedStringBytes = decodeBase64(randomString);
-
-        // Extract private key from SERVER
-        KeyPair kp = readKeyPairFromFile(PathConfiguration.SERVER_PUBLIC_KEY, PathConfiguration.SERVER_PRIVATE_KEY);
-
-        // Decrypt random string received
-        byte[] decryptedStringBytes = decrypt(encryptedStringBytes, kp.getPrivate());
-
-        return new SecretKeySpec(decryptedStringBytes, 0, decryptedStringBytes.length, CryptoConfiguration.SYMMETRIC_ENCRYPTION_ALGO);
-        
     }
     
     // Keys Management - Asymmetric

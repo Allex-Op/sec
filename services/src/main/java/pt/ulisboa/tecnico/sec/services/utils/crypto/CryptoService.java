@@ -19,9 +19,14 @@ public class CryptoService {
         try {
             // Obtain encrypted secret key in base64
             String randomString = sec.getRandomString();
-
+            
+            // Getting the encrypted random string from Custom Protocol Response
+            byte[] encryptedStringBytes = CryptoUtils.decodeBase64(randomString);
+            KeyPair kp = CryptoUtils.readKeyPairFromFile(PathConfiguration.SERVER_PUBLIC_KEY, PathConfiguration.SERVER_PRIVATE_KEY);
+            byte[] decryptedStringBytes = CryptoUtils.decrypt(encryptedStringBytes, kp.getPrivate());
+            
             // Generate Secret Key
-            SecretKey originalKey = CryptoUtils.generateSecretKey(randomString);
+            SecretKey originalKey = CryptoUtils.createSharedKeyFromString(decryptedStringBytes);
 
             // Use the original key to decrypt the data field
             String dataEncrypted = sec.getData();
