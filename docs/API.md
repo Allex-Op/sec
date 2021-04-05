@@ -2,7 +2,7 @@
 
 ## Server Endpoints
 
-## `GET /locations/`
+## `POST /getReport`
 
 ### Description:
 - Returns the location report of a user at an epoch
@@ -13,7 +13,7 @@
 
 ### E.g. Request:
 ```
-GET /locations/
+POST /getReport
 Accept: application/json
 {
     'userId': 1,
@@ -38,7 +38,7 @@ Accept: application/json
 }
 ```
 
-## `POST /locations/`
+## `POST /submitReport`
 
 ### Description:
 - User submits a location report
@@ -49,7 +49,7 @@ Accept: application/json
 
 ### E.g. Request:
 ```
-POST /locations/
+POST /submitReport
 Content-type: application/json
 
 {
