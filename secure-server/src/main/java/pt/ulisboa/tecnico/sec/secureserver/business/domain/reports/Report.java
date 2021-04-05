@@ -5,18 +5,36 @@ import java.util.List;
 
 import pt.ulisboa.tecnico.sec.secureserver.business.domain.users.User;
 
+import javax.persistence.*;
+
+import static javax.persistence.CascadeType.ALL;
+
+@Entity
+@Table(name = "Report")
 public class Report {
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long identifier;
+
+	@ManyToOne
+	@JoinColumn
 	private User user;
-	
+
+	@Column(nullable = false, name = "epoch")
 	private int epoch;
 
-	// location
-	private int x, y;
-	
-	private List<ReportProof> reportProofList = new ArrayList<>();
+	@Column(nullable = false, name = "x")
+	private int x;
 
+	@Column(nullable = false, name = "y")
+	private int y;
+
+	@Column(nullable = false, name = "digital_signature")
 	private String digitalSignature;
+
+	@OneToMany(cascade = ALL, mappedBy = "report")
+	private List<ReportProof> reportProofList = new ArrayList<>();
 
 	public Report(User user, int epoch, int x, int y, String digitalSignature) {
 		this.user = user;

@@ -21,7 +21,7 @@ public class DTOConverter {
 		// generate the Proof List DTO
 		List<ProofDTO> proofs = new ArrayList<>();
 		for (ReportProof proof : report.getReportProofList()) {
-			ProofDTO proofDTO = DTOFactory.makeProofDTO(proof.getEpoch(), proof.getUserId(), requestProofDTO, proof.getDigitalSignature());
+			ProofDTO proofDTO = DTOFactory.makeProofDTO(proof.getEpoch(), proof.getUser().getUserId(), requestProofDTO, proof.getDigitalSignature());
 			proofs.add(proofDTO);
 		}
 		

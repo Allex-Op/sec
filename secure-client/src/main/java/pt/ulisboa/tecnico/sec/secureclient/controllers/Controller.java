@@ -14,6 +14,7 @@ import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
 import pt.ulisboa.tecnico.sec.services.exceptions.ProverOutOfRangeException;
 import pt.ulisboa.tecnico.sec.services.utils.Grid;
 
+import javax.crypto.SecretKey;
 import java.util.List;
 
 @RestController
@@ -40,7 +41,7 @@ public class Controller {
 	}
 
 	/**
-	 *	Submit report to server, connection must be secure
+	 *	Client asks for its location report at a certain epoch
 	 */
 	@GetMapping("/locations/{epoch}")
 	public ReportDTO requestLocationInformation(@PathVariable int epoch) {

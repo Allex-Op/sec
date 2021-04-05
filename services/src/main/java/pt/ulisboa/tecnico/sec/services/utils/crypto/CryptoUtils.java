@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.sec.services.utils.crypto;
 import pt.ulisboa.tecnico.sec.services.configs.CryptoConfiguration;
 
 import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import java.io.IOException;
@@ -35,21 +36,24 @@ public class CryptoUtils {
 
     // Encryption - Symmetric
 
-    public static String encrypt(SecretKey secretKey, String dataToEncrypt) throws NoSuchAlgorithmException,
-            NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+    public static String encrypt(SecretKey secretKey, String dataToEncrypt, byte[] ivBytes) throws NoSuchAlgorithmException,
+            NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
 
         Cipher cipher = Cipher.getInstance(CryptoConfiguration.CIPHER_ALGO);
-        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+        IvParameterSpec iv = new IvParameterSpec(ivBytes);
+
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey, iv);
         byte[] cipherBytes = cipher.doFinal(dataToEncrypt.getBytes());
         return encodeBase64(cipherBytes);
 
     }
 
-    public static String decrypt(SecretKey secretKey, String encryptedData) throws NoSuchAlgorithmException,
-            NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException  {
+    public static String decrypt(SecretKey secretKey, String encryptedData, byte[] ivBytes) throws NoSuchAlgorithmException,
+            NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
 
+        IvParameterSpec iv = new IvParameterSpec(ivBytes);
         Cipher cipher = Cipher.getInstance(CryptoConfiguration.CIPHER_ALGO);
-        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+        cipher.init(Cipher.DECRYPT_MODE, secretKey, iv);
         byte[] cipherBytes = cipher.doFinal(decodeBase64(encryptedData));
         return new String(cipherBytes, StandardCharsets.UTF_8);
 

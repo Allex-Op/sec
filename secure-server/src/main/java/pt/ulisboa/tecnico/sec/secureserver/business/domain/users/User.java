@@ -2,14 +2,28 @@ package pt.ulisboa.tecnico.sec.secureserver.business.domain.users;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import pt.ulisboa.tecnico.sec.secureserver.business.domain.reports.Report;
 import pt.ulisboa.tecnico.sec.services.exceptions.InvalidReportException;
 
+import javax.persistence.*;
+
+import static javax.persistence.CascadeType.ALL;
+
+@Entity
+@Table(name = "Client")
 public class User {
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long identifier;
+
+	@Column(unique = true, nullable = false, name = "user_id")
 	private String userId;
-	
+
+	@Column(nullable = false, name = "public_key")
+	private String publicKey;
+
+	@OneToMany(cascade = ALL, mappedBy = "user")
 	private List<Report> reports = new ArrayList<>();
 	
 	public User(String userId) {

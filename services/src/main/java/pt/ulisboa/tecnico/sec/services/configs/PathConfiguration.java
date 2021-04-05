@@ -8,7 +8,9 @@ public class PathConfiguration {
 
 	public static final String SERVER_URL = HOST + ":8080";
 
-	public static final String USER_API = SERVER_URL + "/locations";
+	public static final String GET_REPORT_URL = SERVER_URL + "/getReport";
+	public static final String SUBMIT_REPORT_URL = SERVER_URL + "/submitReport";
+
 
 	// Key Paths
 

@@ -1,17 +1,32 @@
 package pt.ulisboa.tecnico.sec.secureserver.business.domain.reports;
 
+import pt.ulisboa.tecnico.sec.secureserver.business.domain.users.User;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Proof")
 public class ReportProof {
-	
-	private String userId;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long identifier;
+
+	@ManyToOne
+	@JoinColumn
+	private User user;
+
+	@Column(nullable = false, name = "epoch")
 	private int epoch;
-	
+
+	@ManyToOne
+	@JoinColumn
 	private Report report;
-	
+
+	@Column(nullable = false, name = "digital_signature")
 	private String digitalSignature;
 	
-	public ReportProof(String userId, int epoch, Report report, String digitalSignature) {
-		this.userId = userId;
+	public ReportProof(User user, int epoch, Report report, String digitalSignature) {
+		this.user = user;
 		this.epoch = epoch;
 		this.report = report;
 		this.digitalSignature = digitalSignature;
@@ -20,8 +35,8 @@ public class ReportProof {
 	/**
 	 * @return the userId
 	 */
-	public String getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
 	/**
