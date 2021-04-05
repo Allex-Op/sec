@@ -2,22 +2,26 @@
 
 ## Server Endpoints
 
-## `GET /locations/{userID}/{epoch}`
+## `GET /locations/`
 
 ### Description:
 - Returns the location report of a user at an epoch
 
-### Parameters:
-- userId -  string
 
 ### Authorization Scope:
 - User
 
 ### E.g. Request:
 ```
-GET /locations/1/1
+GET /locations/
 Accept: application/json
-Authorization: base64-da-assinatura-digital-do-url-/locations/1/1
+{
+    'userId': 1,
+    'epoch': 1,
+    'x': 0, //Useless for this endpoint
+    'y': 0  //Useless for this endpoint
+    
+}
 ```
 
 ### E.g. Response:
@@ -34,20 +38,18 @@ Authorization: base64-da-assinatura-digital-do-url-/locations/1/1
 }
 ```
 
-## `POST /locations/{userID}`
+## `POST /locations/`
 
 ### Description:
 - User submits a location report
 
-### Parameters:
-- userId -  string
 
 ### Authorization Scope:
 - Regular User
 
 ### E.g. Request:
 ```
-POST /locations/1
+POST /locations/
 Content-type: application/json
 
 {
@@ -65,7 +67,7 @@ Content-type: application/json
 200 OK
 ```
 
-## `GET /locations/management/{x}/{y}/{epoch}`
+## `GET /locations/management`
 
 ### Description:
 - Special User gets all location report of an epoch at location (x,y)
@@ -81,7 +83,15 @@ Content-type: application/json
 ```
 GET /locations/management/1/2/1
 Accept: application/json
-Authorization: base64-da-assinatura-digital-do-url-/locations/management/1/2/1
+
+{
+    'userId': 0,    // Useless for this case
+    'epoch': 1,
+    'x': 2, 
+    'y': 1  
+    
+}
+
 ```
 
 ### E.g. Response:
