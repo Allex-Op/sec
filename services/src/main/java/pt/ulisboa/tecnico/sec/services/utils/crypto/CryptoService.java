@@ -2,7 +2,6 @@ package pt.ulisboa.tecnico.sec.services.utils.crypto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import pt.ulisboa.tecnico.sec.services.configs.CryptoConfiguration;
-import pt.ulisboa.tecnico.sec.services.dto.RequestLocationDTO;
 import pt.ulisboa.tecnico.sec.services.dto.SecureDTO;
 
 import javax.crypto.*;
@@ -17,6 +16,7 @@ public class CryptoService {
      *  Extracts secret key from the SecureDTO object, only called by the server
      *  as the client already possesses the key.
      */
+	// to be used by the server cuz it uses Server private key
 	public static SecretKey getSecretKeyFromDTO(SecureDTO sec) {
 	    try {
             // Obtain encrypted secret key in base64
@@ -93,6 +93,12 @@ public class CryptoService {
 
         return null;
     }
+    
+    // to be used by the server cuz it uses Server private key
+    public static Object extractEncryptedData(SecureDTO sec, Class<?> aClass) {
+    	SecretKey originalKey = getSecretKeyFromDTO(sec);
+    	return extractEncryptedData(sec, aClass, originalKey);
+    }
 
 
     /**
@@ -144,5 +150,22 @@ public class CryptoService {
             System.out.println("Digital signature check failed");
             return false;
         }
+    }
+    
+    /**
+     * Generates a new SecureDTO from user with userId specified that encapsulates 
+     * a LocationReportDTO or a ReportDTO
+     */
+    public static <T> SecureDTO generateNewSecureDTO(T unsecureDTO, String userId, byte[] randomBytes) {
+        SecretKey key = generateSecretKey(randomBytes);
+        return createSecureDTO(unsecureDTO, key, encryptRandomBytes(randomBytes), CryptoUtils.getClientPrivateKey(userId));
+    }
+    
+    /**
+     * Generates a response SecureDTO of a client request that encapsulates a ReportDTO
+     */
+    public static <T> SecureDTO generateResponseSecureDTO(SecureDTO receivedSecureDTO, T unsecureResponseDTO) {
+    	SecretKey key = getSecretKeyFromDTO(receivedSecureDTO);
+    	return createSecureDTO(unsecureResponseDTO, key, "", CryptoUtils.getServerPrivateKey());
     }
 }

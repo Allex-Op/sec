@@ -1,13 +1,12 @@
 package pt.ulisboa.tecnico.sec.secureserver.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pt.ulisboa.tecnico.sec.secureserver.business.handlers.CreateReportHandler;
 import pt.ulisboa.tecnico.sec.secureserver.business.handlers.ViewReportHandler;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
+import pt.ulisboa.tecnico.sec.services.dto.SpecialUserResponseDTO;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 import pt.ulisboa.tecnico.sec.services.interfaces.ISpecialUserService;
 
@@ -35,8 +34,8 @@ public class UserService implements ISpecialUserService {
 	}
 
 	@Override
-	public List<String> obtainUsersAtLocation(String pos, int epoch) {
-		return this.viewReportHandler.obtainUsersAtLocation(pos, epoch);
+	public SpecialUserResponseDTO obtainUsersAtLocation(String userId, String pos, int epoch) throws ApplicationException {
+		return this.viewReportHandler.obtainUsersAtLocation(userId, pos, epoch);
 	}
 
 }

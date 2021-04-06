@@ -16,6 +16,10 @@ public class UserCatalog {
 		users.put("2", new User("2"));
 		users.put("3", new User("3"));
 		users.put("4", new User("4"));
+		User special = new User("5");
+		special.setAsSpecialUser();
+		users.put("5", special);
+		
 	}
 	
 	public User getUserById(String userId) {

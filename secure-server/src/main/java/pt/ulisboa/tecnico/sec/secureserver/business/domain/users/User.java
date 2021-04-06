@@ -19,6 +19,9 @@ public class User {
 
 	@Column(unique = true, nullable = false, name = "user_id")
 	private String userId;
+	
+	@Column(nullable = false, name = "is_special_user")
+	private int isSpecialUser = 0; // 0 == not special : 1 == special
 
 	@Column(nullable = false, name = "public_key")
 	private String publicKey;
@@ -47,9 +50,6 @@ public class User {
 	public Report createAndSaveReport(String userId, int epoch, int x, int y, String digitalSignature) throws InvalidReportException {
 		Report newReport = new Report(this, epoch, x, y, digitalSignature);
 		
-		if (newReport == null)
-			throw new InvalidReportException("Report is not valid. A report must not be empty.");
-		
 		this.reports.add(newReport);
 		return newReport;
 	}
@@ -59,6 +59,14 @@ public class User {
 			if (report.getEpoch() == epoch) return report;
 		
 		return null;
+	}
+	
+	public void setAsSpecialUser() {
+		this.isSpecialUser = 1;
+	}
+	
+	public boolean isSpecialUser() {
+		return this.isSpecialUser != 0;
 	}
 	
 	@Override

@@ -3,13 +3,14 @@ package pt.ulisboa.tecnico.sec.services.dto;
 import java.util.List;
 
 public class SpecialUserResponseDTO {
-    List<String> witnesses;
+	
+    private List<String> users;
 
-    public void setWitnesses(List<String> witnesses) {
-        this.witnesses = witnesses;
+    public void setUsers(List<String> witnesses) {
+        this.users = witnesses;
     }
 
-    public List<String> getWitnesses() {
-        return witnesses;
+    public List<String> getUsers() {
+        return users;
     }
 }

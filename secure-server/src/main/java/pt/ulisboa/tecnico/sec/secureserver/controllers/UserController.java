@@ -2,7 +2,6 @@ package pt.ulisboa.tecnico.sec.secureserver.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,11 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestLocationDTO;
 import pt.ulisboa.tecnico.sec.services.dto.SecureDTO;
+import pt.ulisboa.tecnico.sec.services.dto.SpecialUserResponseDTO;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
+import pt.ulisboa.tecnico.sec.services.exceptions.SignatureCheckFailed;
 import pt.ulisboa.tecnico.sec.services.interfaces.ISpecialUserService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 @RestController
 public class UserController {
@@ -28,59 +28,30 @@ public class UserController {
 	 *	User queries server for a location report
 	 */
 	@PostMapping("/getReport")
-	public SecureDTO obtainLocationReport(@RequestBody SecureDTO sec) {
+	public SecureDTO obtainLocationReport(@RequestBody SecureDTO sec) throws ApplicationException {
 		// Obtain report for the user x at epoch y and return secure response
-		RequestLocationDTO req = (RequestLocationDTO) CryptoService.extractEncryptedData(
-				sec,
-				RequestLocationDTO.class,
-				CryptoService.getSecretKeyFromDTO(sec)
-		);
+		RequestLocationDTO req = (RequestLocationDTO) CryptoService.extractEncryptedData(sec, RequestLocationDTO.class);
 
-		// Check digital signature of the received packet, it must know the client id
-		 SecureDTO secReport = null;
-		if(CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getClientPublicKey(req.getUserID()))) {
-			// Huh what? TODO: Check database instead
-			ReportDTO report = this.userService.obtainLocationReport(req.getUserID(), req.getEpoch());
+		verifyRequestSignature(sec, req.getUserID(), "/getReport");
 
-			// Return the response over secure channel
-			secReport = CryptoService.createSecureDTO(
-					report,
-					CryptoService.getSecretKeyFromDTO(sec),
-					"",
-					CryptoUtils.getServerPrivateKey()    // Mais a frente quando houver vários servers esta função tera que ter server ID
-			);
-		} else {
-			System.out.println("Digital signature check at /getReport failed.");
-		}
-
-		return secReport;
+		ReportDTO report = this.userService.obtainLocationReport(req.getUserID(), req.getEpoch());
+		return CryptoService.generateResponseSecureDTO(sec, report); // Mais a frente quando houver vários servers esta função tera que ter server ID
 	}
 
 
 	/**
 	 *	HA user asks for classified info for all users
 	 */
-	@GetMapping("/locations/management/")
-	public SecureDTO obtainUsersAtLocation(@RequestBody SecureDTO sec) {
+	@PostMapping("/locations/management/")
+	public SecureDTO obtainUsersAtLocation(@RequestBody SecureDTO sec) throws ApplicationException {
 		// Extract secure data
-		RequestLocationDTO req = (RequestLocationDTO) CryptoService.extractEncryptedData(
-				sec,
-				RequestLocationDTO.class,
-				CryptoService.getSecretKeyFromDTO(sec));
+		RequestLocationDTO req = (RequestLocationDTO) CryptoService.extractEncryptedData(sec, RequestLocationDTO.class);
 
-		// Check if the digitalSignature belongs to the special user
-		throw new NotImplementedException();
+		verifyRequestSignature(sec, req.getUserID(), "/locations/management/");
 
-		/*
-		// Obtain witnesses and build the response
-		List<String> info = this.userService.obtainUsersAtLocation(req.getX() + "," + req.getY(), req.getEpoch());
-		SpecialUserResponseDTO resp = new SpecialUserResponseDTO();
-		resp.setWitnesses(info);
-
-		// Return the response over secure channel
-		SecureDTO secInfo = CryptoService.createSecureDTO(resp);
-		return secInfo;
-		 */
+		SpecialUserResponseDTO result = this.userService.obtainUsersAtLocation(req.getUserID(), req.getX() + "," + req.getY(), req.getEpoch());
+		return CryptoService.generateResponseSecureDTO(sec, result);
+		
 	}
 
 	/**
@@ -88,19 +59,21 @@ public class UserController {
 	 */
 	@PostMapping("/submitReport")
 	public void submitLocationReport(@RequestBody SecureDTO sec) throws ApplicationException {
-		ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(
-				sec,
-				ReportDTO.class,
-				CryptoService.getSecretKeyFromDTO(sec)
-		);
+		ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(sec, ReportDTO.class);
 
-		// Check digital signature of the received packet, it must know the client id
-		if(CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getClientPublicKey(report.getRequestProofDTO().getUserID()))) {
-			String userId = report.getRequestProofDTO().getUserID();
-			this.userService.submitLocationReport(userId, report);
-		} else
-			System.out.println("Digital signature check at '/submitReport' failed.");
+		verifyRequestSignature(sec, report.getRequestProofDTO().getUserID(), "/submitReport");
+		
+		this.userService.submitLocationReport(report.getRequestProofDTO().getUserID(), report);
 
+	}
+	
+	/**
+	 * Verifies if the signature of a client request is valid and if it is not throws a exception
+	 */
+	private void verifyRequestSignature(SecureDTO sec, String userId, String endpoint) throws SignatureCheckFailed {
+		if (!CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getClientPublicKey(userId))) {
+			throw new SignatureCheckFailed("Digital signature check at " + endpoint + " failed.");
+		}
 	}
 	
 }

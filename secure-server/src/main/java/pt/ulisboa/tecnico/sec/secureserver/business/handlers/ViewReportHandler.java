@@ -12,6 +12,8 @@ import pt.ulisboa.tecnico.sec.secureserver.business.domain.users.User;
 import pt.ulisboa.tecnico.sec.secureserver.business.domain.users.UserCatalog;
 import pt.ulisboa.tecnico.sec.secureserver.utils.DTOConverter;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
+import pt.ulisboa.tecnico.sec.services.dto.SpecialUserResponseDTO;
+import pt.ulisboa.tecnico.sec.services.exceptions.NoRequiredPrivilegesException;
 
 @Service
 public class ViewReportHandler {
@@ -32,16 +34,20 @@ public class ViewReportHandler {
 		return DTOConverter.makeReportDTO(report);
 	}
 	
-	public List<String> obtainUsersAtLocation(String pos, int epoch) {
+	public SpecialUserResponseDTO obtainUsersAtLocation(String userId, String pos, int epoch) throws NoRequiredPrivilegesException {
+		User user = userCatalog.getUserById(userId);
+		if (!user.isSpecialUser())
+			throw new NoRequiredPrivilegesException("The user cannot do this task because it is not a special user.");
+		
 		List<Report> reportsFound = reportCatalog.getReportsOfLocationAt(pos, epoch);
-		List<String> users = new ArrayList<>();
+		List<User> users = new ArrayList<>();
 		
 		for (Report report : reportsFound) {
-			User user = userCatalog.getUserById(report.getUser().getUserId());
-			users.add(user.toString());
+			User userAtLocation = userCatalog.getUserById(report.getUser().getUserId());
+			users.add(userAtLocation);
 		}
 		
-		return users; //TODO create DTO
+		return DTOConverter.makeSpecialUserResponseDTO(users);
 	}
 
 }

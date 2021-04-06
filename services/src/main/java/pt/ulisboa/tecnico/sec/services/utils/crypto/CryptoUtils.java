@@ -156,18 +156,14 @@ public class CryptoUtils {
     	return RSAKeyGenerator.readKeyPairFromFile(publicKeyPath, privateKeyPath);
     }
 
-
-    /**
-     *  Auxiliary functions to return cryptographic keys
-     */
+    // Auxiliary functions to return cryptographic keys
+    
     public static PrivateKey getClientPrivateKey(String userId) {
         try {
-            PrivateKey pk = CryptoUtils.readKeyPairFromFile(
+            return CryptoUtils.readKeyPairFromFile(
                     PathConfiguration.CLIENT_KEY_FOLDER + "/c" + userId + "priv.key",
                     PathConfiguration.CLIENT_KEY_FOLDER + "/c" + userId + "pub.key"
             ).getPrivate();
-
-            return pk;
         } catch(Exception e) {
             System.out.println("Error reading client "+userId+ " private key");
         }
@@ -176,12 +172,10 @@ public class CryptoUtils {
 
     public static PublicKey getClientPublicKey(String userId) {
         try {
-            PublicKey pk = CryptoUtils.readKeyPairFromFile(
+            return CryptoUtils.readKeyPairFromFile(
                     PathConfiguration.CLIENT_KEY_FOLDER + "/c" + userId + "priv.key",
                     PathConfiguration.CLIENT_KEY_FOLDER + "/c" + userId + "pub.key"
             ).getPublic();
-
-            return pk;
         } catch(Exception e) {
             System.out.println("Error reading client "+userId+ " private key");
         }
@@ -191,12 +185,10 @@ public class CryptoUtils {
 
     public static PrivateKey getServerPrivateKey() {
         try {
-            PrivateKey pk = CryptoUtils.readKeyPairFromFile(
+            return CryptoUtils.readKeyPairFromFile(
                     PathConfiguration.SERVER_PUBLIC_KEY,
                     PathConfiguration.SERVER_PRIVATE_KEY
             ).getPrivate();
-
-            return pk;
         } catch(Exception e) {
             System.out.println("Error reading server private key");
         }
@@ -206,12 +198,10 @@ public class CryptoUtils {
 
     public static PublicKey getServerPublicKey() {
         try {
-            PublicKey pk = CryptoUtils.readKeyPairFromFile(
+        	return CryptoUtils.readKeyPairFromFile(
                     PathConfiguration.SERVER_PUBLIC_KEY,
                     PathConfiguration.SERVER_PRIVATE_KEY
             ).getPublic();
-
-            return pk;
         } catch(Exception e) {
             System.out.println("Error reading server public key");
         }
