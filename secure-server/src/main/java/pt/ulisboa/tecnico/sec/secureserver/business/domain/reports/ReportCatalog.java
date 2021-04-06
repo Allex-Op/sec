@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
+import pt.ulisboa.tecnico.sec.secureserver.business.domain.users.User;
 import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
 
 @Repository
@@ -38,7 +39,7 @@ public class ReportCatalog {
     public List<ReportProof> creteReportProofs(List<ProofDTO> proofDTOList, Report report) {
 		List<ReportProof> reportProofList = new ArrayList<>();
 		for (ProofDTO proofDTO : proofDTOList) {
-			ReportProof proof = new ReportProof(null, proofDTO.getEpoch(), report, proofDTO.getDigitalSignature());
+			ReportProof proof = new ReportProof(new User("1"), proofDTO.getEpoch(), report, proofDTO.getDigitalSignature());
 			reportProofList.add(proof);
 		}
 		return reportProofList;

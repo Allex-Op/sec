@@ -2,13 +2,11 @@ package pt.ulisboa.tecnico.sec.services.utils.crypto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import pt.ulisboa.tecnico.sec.services.configs.CryptoConfiguration;
-import pt.ulisboa.tecnico.sec.services.configs.PathConfiguration;
+import pt.ulisboa.tecnico.sec.services.dto.RequestLocationDTO;
 import pt.ulisboa.tecnico.sec.services.dto.SecureDTO;
 
 import javax.crypto.*;
-import java.io.IOException;
 import java.security.*;
-import java.security.spec.InvalidKeySpecException;
 
 public class CryptoService {
 	
@@ -26,8 +24,8 @@ public class CryptoService {
 
             // Getting the encrypted random string from Custom Protocol Response
             byte[] encryptedStringBytes = CryptoUtils.decodeBase64(randomString);
-            KeyPair kp = CryptoUtils.readKeyPairFromFile(PathConfiguration.SERVER_PUBLIC_KEY, PathConfiguration.SERVER_PRIVATE_KEY);
-            byte[] decryptedStringBytes = CryptoUtils.decrypt(encryptedStringBytes, kp.getPrivate());
+            PrivateKey kp = CryptoUtils.getServerPrivateKey();
+            byte[] decryptedStringBytes = CryptoUtils.decrypt(encryptedStringBytes, kp);
 
             // Generate Secret Key
             return CryptoUtils.createSharedKeyFromString(decryptedStringBytes);
@@ -59,8 +57,8 @@ public class CryptoService {
     public static String encryptRandomBytes(byte[] randomBytes) {
         try {
             // Encrypt the random bytes with the server public key, so he can decrypt it later
-            KeyPair kp = CryptoUtils.readKeyPairFromFile(PathConfiguration.SERVER_PUBLIC_KEY, PathConfiguration.SERVER_PRIVATE_KEY);
-            byte[] encryptedRandomBytes = CryptoUtils.encrypt(randomBytes, kp.getPublic());
+            PublicKey pk = CryptoUtils.getServerPublicKey();
+            byte[] encryptedRandomBytes = CryptoUtils.encrypt(randomBytes, pk);
             return CryptoUtils.encodeBase64(encryptedRandomBytes);
         } catch(Exception e) {
             System.out.println("Error encrypting random bytes with server public key");
@@ -100,7 +98,7 @@ public class CryptoService {
     /**
      *  Creates a SecureDTO
      */
-    public static SecureDTO createSecureDTO(Object dataDTO, SecretKey key, String randomBytesEncoded) {
+    public static SecureDTO createSecureDTO(Object dataDTO, SecretKey key, String randomBytesEncoded, PrivateKey signKey) {
         try {
             // Convert dataDTO (e.g. ReportDTO) to a string
             ObjectMapper mapper = new ObjectMapper();
@@ -114,8 +112,11 @@ public class CryptoService {
             // Encrypt DataDTO with AES with the previously generated key
             String encryptedData = CryptoUtils.encrypt(key, stringDTO, ivBytes);
 
+            // Build digitalSignature
+            String digitalSignature = CryptoUtils.sign(signKey, encryptedData+randomBytesEncoded+ivString);
+
             // Build the secureDTO
-            SecureDTO sec = new SecureDTO(encryptedData, randomBytesEncoded,"bbb", ivString);
+            SecureDTO sec = new SecureDTO(encryptedData, randomBytesEncoded, digitalSignature, ivString);
             System.out.println(sec);
             return sec;
         } catch(Exception e) {
@@ -125,4 +126,23 @@ public class CryptoService {
         return null;
     }
 
+    /**
+     * Check the digital signature of the secureDTO received
+     * from the server.
+     *
+     * TODO: Currently it assumes there is only one server, and retrieves
+     * that key, in case there are multiple servers with different keys
+     * then this has to be changed.
+     */
+    public static boolean checkSecureDTODigitalSignature(SecureDTO sec, PublicKey pk) {
+        try {
+            return CryptoUtils.confirmSignature(
+                    pk,
+                    sec.getData() + sec.getRandomString() + sec.getIv(),
+                    sec.getDigitalSignature());
+        } catch(Exception e) {
+            System.out.println("Digital signature check failed");
+            return false;
+        }
+    }
 }

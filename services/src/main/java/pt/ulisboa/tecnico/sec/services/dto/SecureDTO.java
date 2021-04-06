@@ -1,11 +1,18 @@
 package pt.ulisboa.tecnico.sec.services.dto;
 
+/**
+ * Message used to create a "secure channel" between clients
+ * and servers. All other DTO's swapped between server and client are encapsulated in the
+ * data field of this object encrypted with a shared key generated from the unencrypted
+ * randomString, using the IV.
+ */
 public class SecureDTO {
     private String data;
     private String randomString;
     private String digitalSignature;
     private String iv;
 
+    //Don't delete constructor, necessary for Jackson to work
     public SecureDTO() {}
 
     public SecureDTO(String data, String randomString, String digitalSignature, String iv) {

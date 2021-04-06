@@ -1,5 +1,9 @@
 package pt.ulisboa.tecnico.sec.services.dto;
 
+
+/**
+ * A request made by the prover sent to witnesses, to ask for location acknowledgement
+ */
 public class RequestProofDTO {
 
     private int x;

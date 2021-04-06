@@ -2,6 +2,10 @@ package pt.ulisboa.tecnico.sec.services.dto;
 
 import java.util.List;
 
+/**
+ * Server answer to client that asked for a location report,
+ * doesn't require digitalSignature as this message is encapsulated in a SecureDTO.
+ */
 public class ReportDTO {
 
     private RequestProofDTO requestProofDTO;

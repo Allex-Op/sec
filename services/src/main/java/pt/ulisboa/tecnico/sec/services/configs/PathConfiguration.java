@@ -23,15 +23,6 @@ public class PathConfiguration {
 	public static final String SERVER_PUBLIC_KEY = SERVER_KEY_FOLDER + "/" + SERVER_PUBLIC_KEY_NAME;
 	public static final String SERVER_PRIVATE_KEY = SERVER_KEY_FOLDER + "/" + SERVER_PRIVATE_KEY_NAME;
 
-	public static final String CLIENT1_PRIVATE_KEY = CLIENT_KEY_FOLDER + "/C1priv.key";
-	public static final String CLIENT1_PUBLIC_KEY = CLIENT_KEY_FOLDER + "/C1pub.key";
-	public static final String CLIENT2_PRIVATE_KEY = CLIENT_KEY_FOLDER + "/C2priv.key";
-	public static final String CLIENT2_PUBLIC_KEY = CLIENT_KEY_FOLDER + "/C2pub.key";
-	public static final String CLIENT3_PRIVATE_KEY = CLIENT_KEY_FOLDER + "/C3priv.key";
-	public static final String CLIENT3_PUBLIC_KEY = CLIENT_KEY_FOLDER + "/C3pub.key";
-	public static final String CLIENT4_PRIVATE_KEY = CLIENT_KEY_FOLDER + "/C4priv.key";
-	public static final String CLIENT4_PUBLIC_KEY = CLIENT_KEY_FOLDER + "/C4pub.key";
-
 	private PathConfiguration() {}
 	
 	public static String getClientURL(int client) {

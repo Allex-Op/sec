@@ -1,6 +1,9 @@
 package pt.ulisboa.tecnico.sec.services.dto;
 
 
+/**
+ * Object issued by witnesses to the prover, to acknowledge the location of the prover
+ */
 public class ProofDTO {
 
     private int epoch;

@@ -1,7 +1,8 @@
 package pt.ulisboa.tecnico.sec.services.dto;
 
 /**
- * DTO used by the server endpoints POST & GET /locations/ as nothing can be transmitted unprotecte
+ * Message sent by clients to the servers asking for a location report,
+ * doesn't require digitalSignature as this message is encapsulated in a SecureDTO.
  */
 public class RequestLocationDTO {
     private int x;  // Only important for special user endpoint
