@@ -29,7 +29,6 @@ public class UserController {
 	 */
 	@PostMapping("/getReport")
 	public SecureDTO obtainLocationReport(@RequestBody SecureDTO sec) throws ApplicationException {
-		// Obtain report for the user x at epoch y and return secure response
 		RequestLocationDTO req = (RequestLocationDTO) CryptoService.extractEncryptedData(sec, RequestLocationDTO.class);
 
 		verifyRequestSignature(sec, req.getUserID(), "/getReport");
@@ -44,7 +43,6 @@ public class UserController {
 	 */
 	@PostMapping("/locations/management/")
 	public SecureDTO obtainUsersAtLocation(@RequestBody SecureDTO sec) throws ApplicationException {
-		// Extract secure data
 		RequestLocationDTO req = (RequestLocationDTO) CryptoService.extractEncryptedData(sec, RequestLocationDTO.class);
 
 		verifyRequestSignature(sec, req.getUserID(), "/locations/management/");
