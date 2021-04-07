@@ -13,6 +13,7 @@ import pt.ulisboa.tecnico.sec.secureserver.business.domain.users.UserCatalog;
 import pt.ulisboa.tecnico.sec.secureserver.utils.DTOConverter;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 import pt.ulisboa.tecnico.sec.services.dto.SpecialUserResponseDTO;
+import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 import pt.ulisboa.tecnico.sec.services.exceptions.NoRequiredPrivilegesException;
 
 @Service
@@ -28,13 +29,13 @@ public class ViewReportHandler {
 		this.reportCatalog = reportCatalog;
 	}
 	
-	public ReportDTO obtainLocationReport(String userID, int epoch) {
+	public ReportDTO obtainLocationReport(String userID, int epoch) throws ApplicationException {
 		User user = userCatalog.getUserById(userID);
 		Report report = user.getReportOfEpoch(epoch);
 		return DTOConverter.makeReportDTO(report);
 	}
 	
-	public SpecialUserResponseDTO obtainUsersAtLocation(String userId, String pos, int epoch) throws NoRequiredPrivilegesException {
+	public SpecialUserResponseDTO obtainUsersAtLocation(String userId, String pos, int epoch) throws ApplicationException {
 		User user = userCatalog.getUserById(userId);
 		if (!user.isSpecialUser())
 			throw new NoRequiredPrivilegesException("The user cannot do this task because it is not a special user.");

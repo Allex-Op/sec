@@ -16,6 +16,7 @@ import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 import pt.ulisboa.tecnico.sec.services.exceptions.InvalidReportException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,7 +32,7 @@ public class CreateReportHandler {
 		this.reportCatalog = reportCatalog;
 	}
 	
-	public void submitLocationReport(String userID, ReportDTO reportDTO) throws InvalidReportException {
+	public void submitLocationReport(String userID, ReportDTO reportDTO) throws ApplicationException {
 		User currentUser = userCatalog.getUserById(userID);
 
 		RequestProofDTO requestProofDTO = reportDTO.getRequestProofDTO();
@@ -39,14 +40,27 @@ public class CreateReportHandler {
 
 		Report newReport = currentUser.createAndSaveReport(userID, requestProofDTO.getEpoch(), requestProofDTO.getX(), requestProofDTO.getY(), requestProofDTO.getDigitalSignature());
 
-		List<ReportProof> reportProofList = reportCatalog.creteReportProofs(proofDTOList, newReport);
+		List<ReportProof> reportProofList = createReportProofs(newReport, proofDTOList);
 		newReport.setReportProofList(reportProofList);
 
 		reportCatalog.saveReport(newReport);
 	}
 
-	private List verify (List<ProofDTO> proofDTOList){
+	/**
+	 * 	Create a proof list
+	 */
+	private List<ReportProof> createReportProofs(Report report, List<ProofDTO> proofs) throws ApplicationException {
+		List<ReportProof> reportProofList = new ArrayList<>();
+		for (ProofDTO proof : proofs) {
+			User user = userCatalog.getUserById(proof.getUserID());
+			ReportProof reportProof = new ReportProof(user, proof.getEpoch(), report, proof.getDigitalSignature());
+			reportProofList.add(reportProof);
+		}
+		return reportProofList;
+	}
 
+
+	private List verify (List<ProofDTO> proofDTOList){
 		return null;
 	}
 

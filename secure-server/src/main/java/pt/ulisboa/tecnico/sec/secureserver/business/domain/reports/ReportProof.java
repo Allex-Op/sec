@@ -24,7 +24,9 @@ public class ReportProof {
 
 	@Column(nullable = false, name = "digital_signature")
 	private String digitalSignature;
-	
+
+	public ReportProof() {}
+
 	public ReportProof(User user, int epoch, Report report, String digitalSignature) {
 		this.user = user;
 		this.epoch = epoch;

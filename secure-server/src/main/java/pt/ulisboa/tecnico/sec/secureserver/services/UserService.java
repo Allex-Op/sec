@@ -24,7 +24,7 @@ public class UserService implements ISpecialUserService {
 	}
 
 	@Override
-	public ReportDTO obtainLocationReport(String userID, int epoch) {
+	public ReportDTO obtainLocationReport(String userID, int epoch) throws ApplicationException {
 		return this.viewReportHandler.obtainLocationReport(userID, epoch);
 	}
 	

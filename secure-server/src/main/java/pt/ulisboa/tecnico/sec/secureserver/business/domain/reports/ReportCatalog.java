@@ -1,47 +1,43 @@
 package pt.ulisboa.tecnico.sec.secureserver.business.domain.reports;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Repository;
-import pt.ulisboa.tecnico.sec.secureserver.business.domain.users.User;
-import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
+import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 @Repository
 public class ReportCatalog {
-	
-	private Map<Integer, List<Report>> reports = new HashMap<>();
-	
+
+	@PersistenceContext
+	private EntityManager em;
+
+	@Transactional(Transactional.TxType.REQUIRES_NEW)
 	public void saveReport(Report report) {
-		int epoch = report.getEpoch();
-		
-		List<Report> epochReports = this.reports.get(epoch);
-		if (epochReports == null)
-			epochReports = new ArrayList<>();
-		
-		epochReports.add(report);
-		this.reports.put(report.getEpoch(), epochReports);
+		em.persist(report);
 	}
 
-	public List<Report> getReportsOfLocationAt(String pos, int epoch) {
-		List<Report> epochReports = reports.get(epoch);
-		List<Report> result = new ArrayList<>();
-		
-		for (Report report : epochReports)
-			if ((report.getX() + "," + report.getY()).equals(pos))
-				result.add(report);
-		
-		return result;
-	}
+	/**
+	 *	Special user asks for all reports at certain epoch and location
+	 */
+	public List<Report> getReportsOfLocationAt(String pos, int epoch) throws ApplicationException {
+		try {
+			String[] coordinates = pos.split(":");
+			int x = Integer.parseInt(coordinates[0]);
+			int y = Integer.parseInt(coordinates[1]);
 
-    public List<ReportProof> creteReportProofs(List<ProofDTO> proofDTOList, Report report) {
-		List<ReportProof> reportProofList = new ArrayList<>();
-		for (ProofDTO proofDTO : proofDTOList) {
-			ReportProof proof = new ReportProof(new User("1"), proofDTO.getEpoch(), report, proofDTO.getDigitalSignature());
-			reportProofList.add(proof);
+			TypedQuery<Report> query = em.createNamedQuery(Report.FIND_REPORT_BY_EPOCH_AND_LOCATION, Report.class);
+			query.setParameter(Report.FIND_REPORT_BY_EPOCH_AND_LOCATION_EPOCH, epoch);
+			query.setParameter(Report.FIND_REPORT_BY_EPOCH_AND_LOCATION_LOCATION_X, x);
+			query.setParameter(Report.FIND_REPORT_BY_EPOCH_AND_LOCATION_LOCATION_Y, y);
+
+			return query.getResultList();
+		} catch(Exception e) {
+			throw new ApplicationException("Error at getReportsOfLocationAt class ReportCatalog.");
 		}
-		return reportProofList;
-    }
+	}
 }

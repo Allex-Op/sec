@@ -11,7 +11,15 @@ import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Table(name = "Client")
+@NamedQueries({
+		@NamedQuery(name = User.FIND_BY_USER_ID, query = "SELECT c FROM User c WHERE c.userId =:" + User.FIND_BY_USER_ID_USERID)
+})
 public class User {
+
+	public static final String FIND_BY_USER_ID = "User.findByUserId";
+	public static final String FIND_BY_USER_ID_USERID = "userId";
+
+	public User() {}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

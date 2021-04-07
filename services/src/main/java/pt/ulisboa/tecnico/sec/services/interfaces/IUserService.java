@@ -5,7 +5,7 @@ import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 
 public interface IUserService {
 	
-	public ReportDTO obtainLocationReport(String userID, int epoch);
+	public ReportDTO obtainLocationReport(String userID, int epoch) throws ApplicationException;
 	
 	public void submitLocationReport(String userID, ReportDTO reportDTO) throws ApplicationException;
 

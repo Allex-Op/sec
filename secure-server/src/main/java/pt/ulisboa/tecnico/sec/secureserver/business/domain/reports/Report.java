@@ -11,7 +11,21 @@ import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Table(name = "Report")
+@NamedQueries({
+		@NamedQuery(name = Report.FIND_REPORT_BY_EPOCH_AND_LOCATION, query = "SELECT r FROM Report r WHERE r.epoch =:" +
+				Report.FIND_REPORT_BY_EPOCH_AND_LOCATION_EPOCH + " AND r.x =:" +
+				Report.FIND_REPORT_BY_EPOCH_AND_LOCATION_LOCATION_X + " AND r.y =:" +
+				Report.FIND_REPORT_BY_EPOCH_AND_LOCATION_LOCATION_Y
+		)
+})
 public class Report {
+
+	public static final String FIND_REPORT_BY_EPOCH_AND_LOCATION = "Report.findReportByEpochAndLocation";
+	public static final String FIND_REPORT_BY_EPOCH_AND_LOCATION_EPOCH = "epoch";
+	public static final String FIND_REPORT_BY_EPOCH_AND_LOCATION_LOCATION_X = "x";
+	public static final String FIND_REPORT_BY_EPOCH_AND_LOCATION_LOCATION_Y = "y";
+
+	public Report(){}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
