@@ -24,12 +24,8 @@ public class ReportCatalog {
 	/**
 	 *	Special user asks for all reports at certain epoch and location
 	 */
-	public List<Report> getReportsOfLocationAt(String pos, int epoch) throws ApplicationException {
+	public List<Report> getReportsOfLocationAt(int x, int y, int epoch) throws ApplicationException {
 		try {
-			String[] coordinates = pos.split(":");
-			int x = Integer.parseInt(coordinates[0]);
-			int y = Integer.parseInt(coordinates[1]);
-
 			TypedQuery<Report> query = em.createNamedQuery(Report.FIND_REPORT_BY_EPOCH_AND_LOCATION, Report.class);
 			query.setParameter(Report.FIND_REPORT_BY_EPOCH_AND_LOCATION_EPOCH, epoch);
 			query.setParameter(Report.FIND_REPORT_BY_EPOCH_AND_LOCATION_LOCATION_X, x);

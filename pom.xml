@@ -24,6 +24,7 @@
 		<module>secure-server</module>
 		<module>services</module>
 		<module>secure-client</module>
+		<module>secure-special-client</module>
 	</modules>
 
 </project>

@@ -8,7 +8,7 @@ public class RequestLocationDTO {
     private int x;  // Only important for special user endpoint
     private int y;  // Only important for special user endpoint
     private int epoch;
-    private String userID; // Not important for special user endpoint
+    private String userID;
 
     public int getEpoch() {
         return epoch;

@@ -47,7 +47,7 @@ public class UserController {
 
 		verifyRequestSignature(sec, req.getUserID(), "/locations/management/");
 
-		SpecialUserResponseDTO result = this.userService.obtainUsersAtLocation(req.getUserID(), req.getX() + "," + req.getY(), req.getEpoch());
+		SpecialUserResponseDTO result = this.userService.obtainUsersAtLocation(req.getUserID(), req.getX(), req.getY(), req.getEpoch());
 		return CryptoService.generateResponseSecureDTO(sec, result);
 		
 	}

@@ -35,12 +35,12 @@ public class ViewReportHandler {
 		return DTOConverter.makeReportDTO(report);
 	}
 	
-	public SpecialUserResponseDTO obtainUsersAtLocation(String userId, String pos, int epoch) throws ApplicationException {
+	public SpecialUserResponseDTO obtainUsersAtLocation(String userId, int x, int y, int epoch) throws ApplicationException {
 		User user = userCatalog.getUserById(userId);
 		if (!user.isSpecialUser())
 			throw new NoRequiredPrivilegesException("The user cannot do this task because it is not a special user.");
 		
-		List<Report> reportsFound = reportCatalog.getReportsOfLocationAt(pos, epoch);
+		List<Report> reportsFound = reportCatalog.getReportsOfLocationAt(x, y, epoch);
 		List<User> users = new ArrayList<>();
 		
 		for (Report report : reportsFound) {

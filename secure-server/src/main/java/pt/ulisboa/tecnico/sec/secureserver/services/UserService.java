@@ -34,8 +34,8 @@ public class UserService implements ISpecialUserService {
 	}
 
 	@Override
-	public SpecialUserResponseDTO obtainUsersAtLocation(String userId, String pos, int epoch) throws ApplicationException {
-		return this.viewReportHandler.obtainUsersAtLocation(userId, pos, epoch);
+	public SpecialUserResponseDTO obtainUsersAtLocation(String userId, int x, int y, int epoch) throws ApplicationException {
+		return this.viewReportHandler.obtainUsersAtLocation(userId, x, y, epoch);
 	}
 
 }

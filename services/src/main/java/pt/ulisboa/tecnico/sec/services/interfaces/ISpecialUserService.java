@@ -5,6 +5,6 @@ import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 
 public interface ISpecialUserService extends IUserService {
 	
-	public SpecialUserResponseDTO obtainUsersAtLocation(String userId, String pos, int epoch) throws ApplicationException;
+	public SpecialUserResponseDTO obtainUsersAtLocation(String userId, int x, int y, int epoch) throws ApplicationException;
 
 }

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import pt.ulisboa.tecnico.sec.secureclient.ClientApplication;
-import pt.ulisboa.tecnico.sec.secureclient.services.LocationProofService;
 import pt.ulisboa.tecnico.sec.secureclient.services.UserService;
 import pt.ulisboa.tecnico.sec.services.configs.ByzantineConfigurations;
 import pt.ulisboa.tecnico.sec.services.dto.DTOFactory;
@@ -14,7 +13,6 @@ import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
 import pt.ulisboa.tecnico.sec.services.exceptions.ProverOutOfRangeException;
 import pt.ulisboa.tecnico.sec.services.utils.Grid;
 
-import javax.crypto.SecretKey;
 import java.util.List;
 
 @RestController
