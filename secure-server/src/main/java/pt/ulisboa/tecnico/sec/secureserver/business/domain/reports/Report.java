@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.sec.secureserver.business.domain.reports;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.Type;
 import pt.ulisboa.tecnico.sec.secureserver.business.domain.users.User;
 
 import javax.persistence.*;
@@ -16,6 +17,10 @@ import static javax.persistence.CascadeType.ALL;
 				Report.FIND_REPORT_BY_EPOCH_AND_LOCATION_EPOCH + " AND r.x =:" +
 				Report.FIND_REPORT_BY_EPOCH_AND_LOCATION_LOCATION_X + " AND r.y =:" +
 				Report.FIND_REPORT_BY_EPOCH_AND_LOCATION_LOCATION_Y
+		),
+		@NamedQuery(name = Report.FIND_REPORT_BY_USER_ID_AT_EPOCH, query = "SELECT r FROM Report r WHERE r.epoch =:" +
+				Report.FIND_REPORT_BY_USER_ID_AT_EPOCH_EPOCH + " AND r.user.userId = (SELECT u.userId FROM User u WHERE u.userId =:" +
+				Report.FIND_REPORT_BY_USER_ID_AT_EPOCH_USER_ID + ")"
 		)
 })
 public class Report {
@@ -24,6 +29,10 @@ public class Report {
 	public static final String FIND_REPORT_BY_EPOCH_AND_LOCATION_EPOCH = "epoch";
 	public static final String FIND_REPORT_BY_EPOCH_AND_LOCATION_LOCATION_X = "x";
 	public static final String FIND_REPORT_BY_EPOCH_AND_LOCATION_LOCATION_Y = "y";
+
+	public static final String FIND_REPORT_BY_USER_ID_AT_EPOCH = "Report.findReportByUserIdAtEpoch";
+	public static final String FIND_REPORT_BY_USER_ID_AT_EPOCH_EPOCH = "epoch";
+	public static final String FIND_REPORT_BY_USER_ID_AT_EPOCH_USER_ID = "userId";
 
 	public Report(){}
 
@@ -45,6 +54,7 @@ public class Report {
 	private int y;
 
 	@Column(nullable = false, name = "digital_signature")
+	@Type(type = "text")
 	private String digitalSignature;
 
 	@OneToMany(cascade = ALL, mappedBy = "report")

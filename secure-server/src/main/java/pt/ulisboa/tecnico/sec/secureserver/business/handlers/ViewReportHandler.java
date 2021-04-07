@@ -31,7 +31,7 @@ public class ViewReportHandler {
 	
 	public ReportDTO obtainLocationReport(String userID, int epoch) throws ApplicationException {
 		User user = userCatalog.getUserById(userID);
-		Report report = user.getReportOfEpoch(epoch);
+		Report report = reportCatalog.getReportOfUserIdAtEpoch(user.getUserId(), epoch);
 		return DTOConverter.makeReportDTO(report);
 	}
 	

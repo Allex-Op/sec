@@ -2,6 +2,8 @@ package pt.ulisboa.tecnico.sec.services.utils.crypto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import pt.ulisboa.tecnico.sec.services.configs.CryptoConfiguration;
+import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
+import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.SecureDTO;
 
 import javax.crypto.*;
@@ -141,13 +143,25 @@ public class CryptoService {
      * then this has to be changed.
      */
     public static boolean checkSecureDTODigitalSignature(SecureDTO sec, PublicKey pk) {
+        return checkDigitalSignature(
+                sec.getData() + sec.getRandomString() + sec.getIv(),
+                sec.getDigitalSignature(),
+                pk
+        );
+    }
+
+    /**
+     *  Verifies the digital signature of request report and proofs
+     */
+    public static boolean checkDigitalSignature(String message, String digitalSignature, PublicKey pk) {
         try {
             return CryptoUtils.confirmSignature(
                     pk,
-                    sec.getData() + sec.getRandomString() + sec.getIv(),
-                    sec.getDigitalSignature());
+                    message,
+                    digitalSignature
+            );
         } catch(Exception e) {
-            System.out.println("Digital signature check failed");
+            System.out.println("Digital signature of report or proof failed.");
             return false;
         }
     }
@@ -167,5 +181,54 @@ public class CryptoService {
     public static <T> SecureDTO generateResponseSecureDTO(SecureDTO receivedSecureDTO, T unsecureResponseDTO) {
     	SecretKey key = getSecretKeyFromDTO(receivedSecureDTO);
     	return createSecureDTO(unsecureResponseDTO, key, "", CryptoUtils.getServerPrivateKey());
+    }
+
+    /**
+     * Builds the request proof message to be digitally signed.
+     */
+    public static String buildRequestProofMessage(RequestProofDTO reqProof) {
+        return reqProof.getX() + reqProof.getY() + reqProof.getEpoch() + reqProof.getUserID();
+    }
+
+    /**
+     * Builds the proof message to be digitally signed.
+     */
+    public static String buildProofMessage(ProofDTO proof) {
+        return proof.getEpoch() +
+                proof.getUserID() +
+                buildRequestProofMessage(proof.getRequestProofDTO()) +
+                proof.getRequestProofDTO().getDigitalSignature();
+    }
+
+    /**
+     * Sign Request DTO
+     */
+    public static void signRequestProofDTO(RequestProofDTO req) {
+        try {
+            req.setDigitalSignature(
+                    CryptoUtils.sign(
+                            CryptoUtils.getClientPrivateKey(req.getUserID()), buildRequestProofMessage(req)
+                    )
+            );
+        } catch(Exception e) {
+            System.out.println("Unable to sign the request proof, sending without signature even thought " +
+                    "the failure is imminent and inevitable.");
+        }
+    }
+
+    /**
+     * Sign proof DTO
+     */
+    public static void signProofDTO(ProofDTO proof) {
+        try {
+            proof.setDigitalSignature(
+                    CryptoUtils.sign(
+                            CryptoUtils.getClientPrivateKey(proof.getUserID()), buildProofMessage(proof)
+                    )
+            );
+        } catch(Exception e) {
+            System.out.println("Unable to sign the proof, sending without signature even thought " +
+                    "the failure is imminent and inevitable.");
+        }
     }
 }

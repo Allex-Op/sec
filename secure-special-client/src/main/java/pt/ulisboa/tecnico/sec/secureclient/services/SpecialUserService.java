@@ -29,7 +29,7 @@ public class SpecialUserService implements ISpecialUserService {
 	public ReportDTO obtainLocationReport(String userID, int epoch) throws ApplicationException {
 		// Prepare the body of the HTTP request
         RequestLocationDTO req = new RequestLocationDTO();
-        req.setUserID(userID);
+        req.setUserIDSender(userID);
         req.setEpoch(epoch);
 
         // Convert the above request body to a secure request object
@@ -65,7 +65,7 @@ public class SpecialUserService implements ISpecialUserService {
 			throws ApplicationException {
 
 		RequestLocationDTO req = new RequestLocationDTO();
-		req.setUserID(userId);
+		req.setUserIDSender(userId);
 		req.setEpoch(epoch);
 		req.setX(x);
 		req.setY(y);

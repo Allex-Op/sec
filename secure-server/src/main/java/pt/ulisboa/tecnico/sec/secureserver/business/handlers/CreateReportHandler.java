@@ -31,12 +31,19 @@ public class CreateReportHandler {
 		this.userCatalog = userCatalog;
 		this.reportCatalog = reportCatalog;
 	}
-	
-	public void submitLocationReport(String userID, ReportDTO reportDTO) throws ApplicationException {
-		User currentUser = userCatalog.getUserById(userID);
 
+	/**
+	 *	Tries to submit a report to the server. The report must pass
+	 *	all defined rules of what is "valid".
+	 */
+	public void submitLocationReport(String userID, ReportDTO reportDTO) throws ApplicationException {
 		RequestProofDTO requestProofDTO = reportDTO.getRequestProofDTO();
 		List<ProofDTO> proofDTOList = reportDTO.getProofsList();
+
+		// Check report validity
+		verifyReport(requestProofDTO, proofDTOList);
+
+		User currentUser = userCatalog.getUserById(userID);
 
 		Report newReport = currentUser.createAndSaveReport(userID, requestProofDTO.getEpoch(), requestProofDTO.getX(), requestProofDTO.getY(), requestProofDTO.getDigitalSignature());
 
@@ -47,7 +54,7 @@ public class CreateReportHandler {
 	}
 
 	/**
-	 * 	Create a proof list
+	 * 	Create a proof list (creates on the db)
 	 */
 	private List<ReportProof> createReportProofs(Report report, List<ProofDTO> proofs) throws ApplicationException {
 		List<ReportProof> reportProofList = new ArrayList<>();
@@ -59,18 +66,26 @@ public class CreateReportHandler {
 		return reportProofList;
 	}
 
-
-	private List verify (List<ProofDTO> proofDTOList){
-		return null;
-	}
-
+	/**
+	 *	Verifies the report received from a user.
+	 *	1º Verifies if the report epoch is correct (smaller) according to the server current epoch.
+	 *	2º Verifies if the number of proofs associated to the report is larger than the number of
+	 *		byzantine users assumed to exist near an individual. (Byzantine Rule)
+	 *	3º Verify if the report already exists or not, duplicate reports or byzantine user changing position
+	 *		during same epoch.
+	 */
 	private void verifyReport(RequestProofDTO requestProofDTO, List<ProofDTO> proofDTOList) throws ApplicationException {
+		int epoch = requestProofDTO.getEpoch();
+		String userId = requestProofDTO.getUserID();
 
-		if (requestProofDTO.getEpoch() > ServerApplication.epoch)
-			throw new InvalidReportException("Desynchronized epoch.");
+		if (epoch > ServerApplication.epoch)
+			throw new InvalidReportException("Desynchronized epoch, report epoch is at " + epoch + " while current" +
+					"server epoch is at " + ServerApplication.epoch);
 
 		if (proofDTOList.size() > ByzantineConfigurations.MINIMUM_BYZ_QUORUM)
 			throw new InvalidReportException("Not enough Proofs to approve the Report.");
 
+		if (reportCatalog.getReportOfUserIdAtEpoch(userId, epoch) != null)
+			throw new InvalidReportException("Duplicated report detected at epoch " + epoch + " for userId " + userId);
 	}
 }

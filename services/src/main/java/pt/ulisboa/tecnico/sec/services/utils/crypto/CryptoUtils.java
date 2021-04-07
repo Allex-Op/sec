@@ -161,8 +161,8 @@ public class CryptoUtils {
     public static PrivateKey getClientPrivateKey(String userId) {
         try {
             return CryptoUtils.readKeyPairFromFile(
-                    PathConfiguration.CLIENT_KEY_FOLDER + "/c" + userId + "priv.key",
-                    PathConfiguration.CLIENT_KEY_FOLDER + "/c" + userId + "pub.key"
+                    PathConfiguration.CLIENT_KEY_FOLDER + "/c" + userId + "pub.key",
+                    PathConfiguration.CLIENT_KEY_FOLDER + "/c" + userId + "priv.key"
             ).getPrivate();
         } catch(Exception e) {
             System.out.println("Error reading client "+userId+ " private key");
@@ -173,8 +173,8 @@ public class CryptoUtils {
     public static PublicKey getClientPublicKey(String userId) {
         try {
             return CryptoUtils.readKeyPairFromFile(
-                    PathConfiguration.CLIENT_KEY_FOLDER + "/c" + userId + "priv.key",
-                    PathConfiguration.CLIENT_KEY_FOLDER + "/c" + userId + "pub.key"
+                    PathConfiguration.CLIENT_KEY_FOLDER + "/c" + userId + "pub.key",
+                    PathConfiguration.CLIENT_KEY_FOLDER + "/c" + userId + "priv.key"
             ).getPublic();
         } catch(Exception e) {
             System.out.println("Error reading client "+userId+ " private key");

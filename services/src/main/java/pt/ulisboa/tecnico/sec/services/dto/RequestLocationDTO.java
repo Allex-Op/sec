@@ -8,7 +8,9 @@ public class RequestLocationDTO {
     private int x;  // Only important for special user endpoint
     private int y;  // Only important for special user endpoint
     private int epoch;
-    private String userID;
+    private String userIDSender;    // The userId of the person sending
+    private String userIDRequested; // The userId of the report requested
+
 
     public int getEpoch() {
         return epoch;
@@ -22,8 +24,8 @@ public class RequestLocationDTO {
         return y;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getUserIDSender() {
+        return userIDSender;
     }
 
     public void setX(int x) {
@@ -34,11 +36,19 @@ public class RequestLocationDTO {
         this.epoch = epoch;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setUserIDSender(String userIDSender) {
+        this.userIDSender = userIDSender;
     }
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public String getUserIDRequested() {
+        return userIDRequested;
+    }
+
+    public void setUserIDRequested(String userIDRequested) {
+        this.userIDRequested = userIDRequested;
     }
 }

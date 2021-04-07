@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.sec.secureclient.services;
 
+import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +17,8 @@ import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 import pt.ulisboa.tecnico.sec.services.utils.Grid;
+import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
+import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
 
 @Component
 public class EpochTriggerMonitor {
@@ -55,9 +58,16 @@ public class EpochTriggerMonitor {
 		ReportDTO reportDTO = DTOFactory.makeReportDTO(requestProofDTO, proofs);
 		System.out.println("SENDING REPORT TO SERVER:\n" + reportDTO.toString());
 		*/
-		RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(10, 2, 1, ClientApplication.userId, "aaa");
-		ProofDTO proofDTO1 = DTOFactory.makeProofDTO(1, "2", requestProofDTO, "bbb");
-		ProofDTO proofDTO2 = DTOFactory.makeProofDTO(1, "3", requestProofDTO, "ccc");
+
+		RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(10, 2, 1, ClientApplication.userId, "");
+		CryptoService.signRequestProofDTO(requestProofDTO);
+
+		ProofDTO proofDTO1 = DTOFactory.makeProofDTO(1, "2", requestProofDTO, "");
+		CryptoService.signProofDTO(proofDTO1);
+
+		ProofDTO proofDTO2 = DTOFactory.makeProofDTO(1, "3", requestProofDTO, "");
+		CryptoService.signProofDTO(proofDTO2);
+
 		ReportDTO reportDTO = DTOFactory.makeReportDTO(requestProofDTO, Arrays.asList(proofDTO1,proofDTO2));
 
 		try {

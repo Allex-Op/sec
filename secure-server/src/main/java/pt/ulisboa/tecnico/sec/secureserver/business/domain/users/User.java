@@ -55,18 +55,11 @@ public class User {
 		return reports;
 	}
 	
-	public Report createAndSaveReport(String userId, int epoch, int x, int y, String digitalSignature) throws InvalidReportException {
+	public Report createAndSaveReport(String userId, int epoch, int x, int y, String digitalSignature) {
 		Report newReport = new Report(this, epoch, x, y, digitalSignature);
 		
 		this.reports.add(newReport);
 		return newReport;
-	}
-	
-	public Report getReportOfEpoch(int epoch) {
-		for (Report report : this.reports)
-			if (report.getEpoch() == epoch) return report;
-		
-		return null;
 	}
 	
 	public void setAsSpecialUser() {

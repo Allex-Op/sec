@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.sec.secureserver.business.domain.reports;
 
+import org.hibernate.annotations.Type;
 import pt.ulisboa.tecnico.sec.secureserver.business.domain.users.User;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class ReportProof {
 	private Report report;
 
 	@Column(nullable = false, name = "digital_signature")
+	@Type(type = "text")
 	private String digitalSignature;
 
 	public ReportProof() {}

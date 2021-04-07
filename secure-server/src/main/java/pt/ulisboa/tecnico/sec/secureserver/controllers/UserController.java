@@ -31,9 +31,9 @@ public class UserController {
 	public SecureDTO obtainLocationReport(@RequestBody SecureDTO sec) throws ApplicationException {
 		RequestLocationDTO req = (RequestLocationDTO) CryptoService.extractEncryptedData(sec, RequestLocationDTO.class);
 
-		verifyRequestSignature(sec, req.getUserID(), "/getReport");
+		verifyRequestSignature(sec, req.getUserIDSender(), "/getReport");
 
-		ReportDTO report = this.userService.obtainLocationReport(req.getUserID(), req.getEpoch());
+		ReportDTO report = this.userService.obtainLocationReport(req.getUserIDSender(), req.getEpoch());
 		return CryptoService.generateResponseSecureDTO(sec, report); // Mais a frente quando houver vários servers esta função tera que ter server ID
 	}
 
@@ -45,9 +45,9 @@ public class UserController {
 	public SecureDTO obtainUsersAtLocation(@RequestBody SecureDTO sec) throws ApplicationException {
 		RequestLocationDTO req = (RequestLocationDTO) CryptoService.extractEncryptedData(sec, RequestLocationDTO.class);
 
-		verifyRequestSignature(sec, req.getUserID(), "/locations/management/");
+		verifyRequestSignature(sec, req.getUserIDSender(), "/locations/management/");
 
-		SpecialUserResponseDTO result = this.userService.obtainUsersAtLocation(req.getUserID(), req.getX(), req.getY(), req.getEpoch());
+		SpecialUserResponseDTO result = this.userService.obtainUsersAtLocation(req.getUserIDSender(), req.getX(), req.getY(), req.getEpoch());
 		return CryptoService.generateResponseSecureDTO(sec, result);
 		
 	}

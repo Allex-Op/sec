@@ -11,6 +11,13 @@ public class ReportDTO {
     private RequestProofDTO requestProofDTO;
     private List<ProofDTO> proofsList;
 
+    public ReportDTO() {}
+
+    public ReportDTO(RequestProofDTO reqProof, List<ProofDTO> validProofs) {
+        this.requestProofDTO = reqProof;
+        this.proofsList = validProofs;
+    }
+
     public RequestProofDTO getRequestProofDTO() {
         return requestProofDTO;
     }

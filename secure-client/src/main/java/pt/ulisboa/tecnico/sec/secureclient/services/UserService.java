@@ -26,7 +26,7 @@ public class UserService implements IUserService {
     public ReportDTO obtainLocationReport(String userID, int epoch) {
         // Prepare the body of the HTTP request
         RequestLocationDTO req = new RequestLocationDTO();
-        req.setUserID(userID);
+        req.setUserIDSender(userID);
         req.setEpoch(epoch);
 
         // Convert the above request body to a secure request object
