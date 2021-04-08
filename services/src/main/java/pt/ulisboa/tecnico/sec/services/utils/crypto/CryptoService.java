@@ -226,7 +226,7 @@ public class CryptoService {
      * Build secureDTO message signature
      */
     public static String buildSecureDTOMessage(SecureDTO sec) {
-        return sec.getData()+ sec.getRandomString() + sec.getIv() + sec.getNonce();
+        return sec.getData() + sec.getRandomString() + sec.getIv() + sec.getNonce();
     }
 
 

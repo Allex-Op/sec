@@ -14,6 +14,7 @@ import pt.ulisboa.tecnico.sec.secureserver.utils.DTOConverter;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 import pt.ulisboa.tecnico.sec.services.dto.SpecialUserResponseDTO;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
+import pt.ulisboa.tecnico.sec.services.exceptions.InvalidRequestException;
 import pt.ulisboa.tecnico.sec.services.exceptions.NoRequiredPrivilegesException;
 
 @Service
@@ -29,12 +30,23 @@ public class ViewReportHandler {
 		this.reportCatalog = reportCatalog;
 	}
 	
-	public ReportDTO obtainLocationReport(String userID, int epoch) throws ApplicationException {
-		User user = userCatalog.getUserById(userID);
-		Report report = reportCatalog.getReportOfUserIdAtEpoch(user.getUserId(), epoch);
+	public ReportDTO obtainLocationReport(String userIdSender, String userIdRequested, int epoch) throws ApplicationException {
+		User userSender = userCatalog.getUserById(userIdSender);
+		User userRequest = userCatalog.getUserById(userIdRequested);
+
+		if(userSender == null || userRequest == null)
+			throw new InvalidRequestException("Request malformed");
+
+		if(!userSender.isSpecialUser() && !userIdSender.equals(userIdRequested))
+			throw new NoRequiredPrivilegesException("The sender id can not request the information of the requested id.");
+
+		Report report = reportCatalog.getReportOfUserIdAtEpoch(userRequest.getUserId(), epoch);
 		return DTOConverter.makeReportDTO(report);
 	}
-	
+
+	/**
+	 *	Used by the special user to request all reports
+	 */
 	public SpecialUserResponseDTO obtainUsersAtLocation(String userId, int x, int y, int epoch) throws ApplicationException {
 		User user = userCatalog.getUserById(userId);
 		if (!user.isSpecialUser())

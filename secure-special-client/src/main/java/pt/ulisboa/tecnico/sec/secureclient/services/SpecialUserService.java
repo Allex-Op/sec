@@ -26,15 +26,16 @@ public class SpecialUserService implements ISpecialUserService {
 	private static RestTemplate restTemplate = new RestTemplate();
 
 	@Override
-	public ReportDTO obtainLocationReport(String userID, int epoch) throws ApplicationException {
+	public ReportDTO obtainLocationReport(String userIdSender, String userIdRequested, int epoch) throws ApplicationException {
 		// Prepare the body of the HTTP request
         RequestLocationDTO req = new RequestLocationDTO();
-        req.setUserIDSender(userID);
+        req.setUserIDSender(userIdSender);
+        req.setUserIDRequested(userIdRequested);
         req.setEpoch(epoch);
 
         // Convert the above request body to a secure request object
         byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userID, randomBytes);
+        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes);
         
         String urlAPI = PathConfiguration.GET_REPORT_URL;
 

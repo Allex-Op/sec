@@ -12,12 +12,18 @@ import static javax.persistence.CascadeType.ALL;
 @Entity
 @Table(name = "Client")
 @NamedQueries({
-		@NamedQuery(name = User.FIND_BY_USER_ID, query = "SELECT c FROM User c WHERE c.userId =:" + User.FIND_BY_USER_ID_USERID)
+		@NamedQuery(name = User.FIND_BY_USER_ID, query = "SELECT c FROM User c WHERE c.userId =:" + User.FIND_BY_USER_ID_USERID),
+		@NamedQuery(name = User.FIND_NONCE, query = "SELECT Count(*) FROM User u INNER JOIN u.nonces n WHERE n in(:"+User.FIND_NONCE_NONCE+")" +
+				"AND u.userId =:"+ User.FIND_NONCE_USER_ID)
 })
 public class User {
 
 	public static final String FIND_BY_USER_ID = "User.findByUserId";
 	public static final String FIND_BY_USER_ID_USERID = "userId";
+
+	public static final String FIND_NONCE = "User.findNonce";
+	public static final String FIND_NONCE_NONCE = "nonce";
+	public static final String FIND_NONCE_USER_ID = "userId";
 
 	public User() {}
 
@@ -36,7 +42,12 @@ public class User {
 
 	@OneToMany(cascade = ALL, mappedBy = "user")
 	private List<Report> reports = new ArrayList<>();
-	
+
+	@ElementCollection
+	@CollectionTable(name = "nonces", joinColumns = @JoinColumn)
+	@Column(name = "nonce_value")
+	private List<String> nonces = new ArrayList<>();
+
 	public User(String userId) {
 		this.userId = userId;
 	}
@@ -46,6 +57,10 @@ public class User {
 	 */
 	public String getUserId() {
 		return userId;
+	}
+
+	public void addNonceReceived(String nonce) {
+		nonces.add(nonce);
 	}
 
 	/**

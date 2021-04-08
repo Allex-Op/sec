@@ -23,15 +23,16 @@ public class UserService implements IUserService {
      *  Requests a location report of a certain user at a certain epoch
      */
     @Override
-    public ReportDTO obtainLocationReport(String userID, int epoch) {
+    public ReportDTO obtainLocationReport(String userIdSender, String userIdRequested, int epoch) {
         // Prepare the body of the HTTP request
         RequestLocationDTO req = new RequestLocationDTO();
-        req.setUserIDSender(userID);
+        req.setUserIDSender(userIdSender);
+        req.setUserIDRequested(userIdRequested); // For the normal client this ID should be the same, it must be checked server-side
         req.setEpoch(epoch);
 
         // Convert the above request body to a secure request object
         byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userID, randomBytes);
+        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes);
         
         String urlAPI = PathConfiguration.GET_REPORT_URL;
 

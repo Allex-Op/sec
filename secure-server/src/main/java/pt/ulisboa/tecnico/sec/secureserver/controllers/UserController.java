@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import pt.ulisboa.tecnico.sec.secureserver.services.UserService;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestLocationDTO;
 import pt.ulisboa.tecnico.sec.services.dto.SecureDTO;
@@ -24,8 +25,6 @@ public class UserController {
 	@Autowired
 	public UserController(ISpecialUserService userService) { this.userService = userService; }
 
-	//TODO: Ler nonces e salvar para BD
-
 	/**
 	 *	User queries server for a location report
 	 */
@@ -36,9 +35,9 @@ public class UserController {
 		if(req == null)
 			throw new ApplicationException("SecureDTO object was corrupt or malformed, was not possible to extract the information.");
 
-		verifyRequestSignature(sec, req.getUserIDSender(), "/getReport");
+		verifyRequestSignatureAndNonce(sec, req.getUserIDSender(), "/getReport");
 
-		ReportDTO report = this.userService.obtainLocationReport(req.getUserIDSender(), req.getEpoch());
+		ReportDTO report = this.userService.obtainLocationReport(req.getUserIDSender(), req.getUserIDRequested(),req.getEpoch());
 		return CryptoService.generateResponseSecureDTO(sec, report); // Mais a frente quando houver vários servers esta função tera que ter server ID
 	}
 
@@ -50,7 +49,7 @@ public class UserController {
 	public SecureDTO obtainUsersAtLocation(@RequestBody SecureDTO sec) throws ApplicationException {
 		RequestLocationDTO req = (RequestLocationDTO) CryptoService.extractEncryptedData(sec, RequestLocationDTO.class);
 
-		verifyRequestSignature(sec, req.getUserIDSender(), "/locations/management/");
+		verifyRequestSignatureAndNonce(sec, req.getUserIDSender(), "/locations/management/");
 
 		SpecialUserResponseDTO result = this.userService.obtainUsersAtLocation(req.getUserIDSender(), req.getX(), req.getY(), req.getEpoch());
 		return CryptoService.generateResponseSecureDTO(sec, result);
@@ -67,7 +66,7 @@ public class UserController {
 		if(report == null)
 			throw new ApplicationException("SecureDTO object was corrupt or malformed, was not possible to extract the information.");
 
-		verifyRequestSignature(sec, report.getRequestProofDTO().getUserID(), "/submitReport");
+		verifyRequestSignatureAndNonce(sec, report.getRequestProofDTO().getUserID(), "/submitReport");
 		
 		this.userService.submitLocationReport(report.getRequestProofDTO().getUserID(), report);
 
@@ -76,10 +75,14 @@ public class UserController {
 	/**
 	 * Verifies if the signature of a client request is valid and if it is not throws a exception
 	 */
-	private void verifyRequestSignature(SecureDTO sec, String userId, String endpoint) throws SignatureCheckFailedException {
+	private void verifyRequestSignatureAndNonce(SecureDTO sec, String userId, String endpoint) throws ApplicationException {
+		// Verifies the signature of the Secure DTO
 		if (!CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getClientPublicKey(userId))) {
 			throw new SignatureCheckFailedException("Digital signature check at " + endpoint + " failed.");
 		}
+
+		// Verifies if the nonce is repeated, if not adds it to the database to the according user.
+		((UserService) this.userService).verifyNonce(userId, sec.getNonce());
 	}
 	
 }

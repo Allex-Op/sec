@@ -1,9 +1,13 @@
 package pt.ulisboa.tecnico.sec.secureserver.business.handlers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ulisboa.tecnico.sec.secureserver.business.domain.users.UserCatalog;
 import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
+import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
+import pt.ulisboa.tecnico.sec.services.exceptions.RepeatedNonceException;
 import pt.ulisboa.tecnico.sec.services.exceptions.SignatureCheckFailedException;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
@@ -14,9 +18,13 @@ import java.util.List;
 @Service
 public class VerifyCryptoHandler {
 
+    @Autowired
+    private UserCatalog userCatalog;
+
     /**
      *  This function must verify all cryptographic material from the report and its associated proofs.
      *  Verified Material:
+     *  0º Verify Nonce
      *  1º Digital signature of the ReportDTO
      *  2º Digital signature of all proofs
      *  3º Check for duplicated proofs ( 1 witness can only issue one proof for the associated report(
@@ -83,5 +91,11 @@ public class VerifyCryptoHandler {
         return validProofs;
     }
 
+    public void verifyNonce(String userId, String nonce) throws ApplicationException {
+        // If nonce doesn't exist add it
+        if(userCatalog.checkIfNonceExists(userId, nonce))
+            throw new RepeatedNonceException("Nonce repeated.");
 
+        userCatalog.saveNonce(userId, nonce);
+    }
 }

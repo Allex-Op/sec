@@ -74,7 +74,7 @@ public class EpochTriggerMonitor {
 			System.out.println("Submitting report to server...");
 			userService.submitLocationReport(ClientApplication.userId, reportDTO);
 			System.out.println("Report Submitted!\nTrying to obtain the Report...");
-			ReportDTO reportResponse = userService.obtainLocationReport(ClientApplication.userId, ClientApplication.epoch);
+			ReportDTO reportResponse = userService.obtainLocationReport(ClientApplication.userId, ClientApplication.userId, ClientApplication.epoch);
 			System.out.println("RECEIVERD:\n" + reportResponse.toString());
 		} catch (ApplicationException e) {
 			e.printStackTrace();

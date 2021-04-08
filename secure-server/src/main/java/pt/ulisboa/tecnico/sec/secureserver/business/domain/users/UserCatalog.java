@@ -1,14 +1,17 @@
 package pt.ulisboa.tecnico.sec.secureserver.business.domain.users;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
+import pt.ulisboa.tecnico.sec.secureserver.business.domain.reports.Report;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 @Repository
 public class UserCatalog {
@@ -29,4 +32,24 @@ public class UserCatalog {
 		}
 	}
 
+	public void saveNonce(String userId, String nonce) throws ApplicationException {
+		User user = getUserById(userId);
+		user.addNonceReceived(nonce);
+	}
+
+	/**
+	 *	Returns true if the nonce exists
+	 */
+	public boolean checkIfNonceExists(String userId, String nonce) throws ApplicationException {
+		try {
+			TypedQuery<Long> query = em.createNamedQuery(User.FIND_NONCE, Long.class);
+			query.setParameter(User.FIND_NONCE_NONCE, nonce);
+			query.setParameter(User.FIND_NONCE_USER_ID, userId);
+
+			return query.getSingleResult() > 0;
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException("Error on checkIfNonceExists class UserCatalog");
+		}
+	}
 }

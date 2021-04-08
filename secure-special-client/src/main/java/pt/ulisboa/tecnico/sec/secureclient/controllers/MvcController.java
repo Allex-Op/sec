@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import pt.ulisboa.tecnico.sec.secureclient.SpecialClientApplication;
 import pt.ulisboa.tecnico.sec.secureclient.models.AppRequestsModel;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 import pt.ulisboa.tecnico.sec.services.interfaces.ISpecialUserService;
@@ -35,13 +36,13 @@ public class MvcController {
 	public String getReportOfUserSubmit(@ModelAttribute("appModel") AppRequestsModel appModel) {
 		System.out.println("Submitted a request for user report...");
 		
-//		try {
-//			String result = this.userService.obtainLocationReport(appModel.getUserId(), appModel.getEpoch()).toString();
-//			appModel.setResult(result);
-//		} catch (ApplicationException e) {
-//			e.printStackTrace();
-//		}
-		appModel.setResult("another result done!");
+		try {
+			String result = this.userService.obtainLocationReport(SpecialClientApplication.userId, appModel.getUserId(), appModel.getEpoch()).toString();
+			appModel.setResult(result);
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
+		//appModel.setResult("another result done!");
 		
 		return "user_report_success";
 	}
@@ -60,13 +61,13 @@ public class MvcController {
 	public String getUsersAtLocation(@ModelAttribute("appModel") AppRequestsModel appModel) {
 		System.out.println("Gonna request the users at a location...");
 		
-//		try {
-//			String result = this.userService.obtainUsersAtLocation(appModel.getUserId(), appModel.getX(), appModel.getY(), appModel.getEpoch()).toString();
-//			appModel.setResult(result);	
-//		} catch (ApplicationException e) {
-//			e.printStackTrace();
-//		}
-		appModel.setResult("another result done!");
+		try {
+			String result = this.userService.obtainUsersAtLocation(appModel.getUserId(), appModel.getX(), appModel.getY(), appModel.getEpoch()).toString();
+			appModel.setResult(result);
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
+		//appModel.setResult("another result done!");
 		
 		return "users_at_location_success";
 	}

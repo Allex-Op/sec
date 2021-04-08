@@ -3,10 +3,7 @@ package pt.ulisboa.tecnico.sec.secureserver.business.handlers;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import pt.ulisboa.tecnico.sec.services.dto.ErrorMessageResponse;
-import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
-import pt.ulisboa.tecnico.sec.services.exceptions.InvalidReportException;
-import pt.ulisboa.tecnico.sec.services.exceptions.RepeatedNonceException;
-import pt.ulisboa.tecnico.sec.services.exceptions.SignatureCheckFailedException;
+import pt.ulisboa.tecnico.sec.services.exceptions.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,5 +40,19 @@ public class ExceptionHandlerControl {
         System.out.println("Repeated Nonce exception occurred.");
         System.out.println("Error: " + e.getLocalizedMessage());
         return new ErrorMessageResponse("Repeated nonce exception", e.getLocalizedMessage());
+    }
+
+    @ExceptionHandler(value = InvalidRequestException.class)
+    private ErrorMessageResponse handleInvalidRequestException(InvalidRequestException e, HttpServletRequest req) {
+        System.out.println("Invalid Request exception occurred.");
+        System.out.println("Error: " + e.getLocalizedMessage());
+        return new ErrorMessageResponse("Invalid Request Exception", e.getLocalizedMessage());
+    }
+
+    @ExceptionHandler(value = NoRequiredPrivilegesException.class)
+    private ErrorMessageResponse handleNoRequiredPrivilegeException(NoRequiredPrivilegesException e, HttpServletRequest req) {
+        System.out.println("No required Privilege exception occurred.");
+        System.out.println("Error: " + e.getLocalizedMessage());
+        return new ErrorMessageResponse("No required privilege Exception", e.getLocalizedMessage());
     }
 }

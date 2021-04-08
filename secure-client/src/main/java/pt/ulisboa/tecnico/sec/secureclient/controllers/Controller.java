@@ -44,6 +44,6 @@ public class Controller {
 	@GetMapping("/locations/{epoch}")
 	public ReportDTO requestLocationInformation(@PathVariable int epoch) {
 		System.out.println("Sending report request for user "+ ClientApplication.userId + " at epoch" + epoch);
-		return userService.obtainLocationReport(ClientApplication.userId, epoch);
+		return userService.obtainLocationReport(ClientApplication.userId, ClientApplication.userId, epoch);
 	}
 }

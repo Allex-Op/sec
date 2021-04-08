@@ -29,8 +29,8 @@ public class UserService implements ISpecialUserService {
 	}
 
 	@Override
-	public ReportDTO obtainLocationReport(String userID, int epoch) throws ApplicationException {
-		return this.viewReportHandler.obtainLocationReport(userID, epoch);
+	public ReportDTO obtainLocationReport(String userIdSender, String userIdRequested, int epoch) throws ApplicationException {
+		return this.viewReportHandler.obtainLocationReport(userIdSender, userIdRequested, epoch);
 	}
 	
 	@Override
@@ -42,6 +42,10 @@ public class UserService implements ISpecialUserService {
 	@Override
 	public SpecialUserResponseDTO obtainUsersAtLocation(String userId, int x, int y, int epoch) throws ApplicationException {
 		return this.viewReportHandler.obtainUsersAtLocation(userId, x, y, epoch);
+	}
+
+	public void verifyNonce(String userId, String nonce) throws ApplicationException {
+		this.verifyCryptoHandler.verifyNonce(userId, nonce);
 	}
 
 }
