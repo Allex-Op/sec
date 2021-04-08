@@ -46,6 +46,12 @@ public class UserService implements IUserService {
 
         // Check digital signature
         ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(sec, ReportDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));
+
+        // TODO: VERIFICAR STATUS CODE, SE DIFERENTE DE 200 ENTÃO FOI UM ERRORMESSAGE E DEVE
+        // TODO: CONVERTER PARA TAL, OU O OBJETO REPORT VAI SER NULL E LANÇAR EXCEÇÃO NO CLIENTE
+        if(report == null)
+            System.out.println("Instead of a report it was returned an ErrorMessageDTO, temporary info, do planned changes.");
+
         if(CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey())) {
             return report;
         } else

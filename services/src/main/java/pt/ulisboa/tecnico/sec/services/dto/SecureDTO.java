@@ -10,15 +10,16 @@ public class SecureDTO {
     private String data;
     private String randomString;
     private String digitalSignature;
+    private String nonce;
     private String iv;
 
     //Don't delete constructor, necessary for Jackson to work
     public SecureDTO() {}
 
-    public SecureDTO(String data, String randomString, String digitalSignature, String iv) {
+    public SecureDTO(String data, String randomString, String iv, String nonce) {
         this.data = data;
         this.randomString = randomString;
-        this.digitalSignature = digitalSignature;
+        this.nonce = nonce;
         this.iv = iv;
     }
 
@@ -52,6 +53,14 @@ public class SecureDTO {
 
     public void setIv(String iv) {
         this.iv = iv;
+    }
+
+    public String getNonce() {
+        return nonce;
+    }
+
+    public void setNonce(String nonce) {
+        this.nonce = nonce;
     }
 
     @Override

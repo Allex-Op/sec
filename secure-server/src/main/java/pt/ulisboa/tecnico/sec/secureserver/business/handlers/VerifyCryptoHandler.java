@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
-import pt.ulisboa.tecnico.sec.services.exceptions.SignatureCheckFailed;
+import pt.ulisboa.tecnico.sec.services.exceptions.SignatureCheckFailedException;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
 
@@ -22,12 +22,12 @@ public class VerifyCryptoHandler {
      *  3º Check for duplicated proofs ( 1 witness can only issue one proof for the associated report(
      *  4º Check if the proofs belong to the submitted report.
      */
-    public ReportDTO verifyAllCryptoConditions(ReportDTO reportDTO) throws SignatureCheckFailed {
+    public ReportDTO verifyAllCryptoConditions(ReportDTO reportDTO) throws SignatureCheckFailedException {
         String userId = reportDTO.getRequestProofDTO().getUserID();
         RequestProofDTO reqProof = reportDTO.getRequestProofDTO();
 
         if (!verifyDigitalSignature(userId, reqProof, true))
-            throw new SignatureCheckFailed("Signature check failed of request proof.");
+            throw new SignatureCheckFailedException("Signature check failed of request proof.");
 
         List<ProofDTO> validProofs = checkDuplicatedProofsAndOwnership(reqProof, reportDTO.getProofsList());
         return new ReportDTO(reqProof, validProofs);

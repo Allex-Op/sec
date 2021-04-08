@@ -106,7 +106,7 @@ public class CryptoService {
     /**
      *  Creates a SecureDTO
      */
-    public static SecureDTO createSecureDTO(Object dataDTO, SecretKey key, String randomBytesEncoded, PrivateKey signKey) {
+    public static SecureDTO createSecureDTO(Object dataDTO, SecretKey key, String randomString, PrivateKey signKey) {
         try {
             // Convert dataDTO (e.g. ReportDTO) to a string
             ObjectMapper mapper = new ObjectMapper();
@@ -118,13 +118,14 @@ public class CryptoService {
             String ivString = CryptoUtils.encodeBase64(ivBytes);
 
             // Encrypt DataDTO with AES with the previously generated key
-            String encryptedData = CryptoUtils.encrypt(key, stringDTO, ivBytes);
-
-            // Build digitalSignature
-            String digitalSignature = CryptoUtils.sign(signKey, encryptedData+randomBytesEncoded+ivString);
+            String data = CryptoUtils.encrypt(key, stringDTO, ivBytes);
 
             // Build the secureDTO
-            SecureDTO sec = new SecureDTO(encryptedData, randomBytesEncoded, digitalSignature, ivString);
+            SecureDTO sec = new SecureDTO(data, randomString, ivString, CryptoUtils.generateNonce());
+
+            // Sign the secureDTO
+            signSecureDTO(sec, signKey);
+
             System.out.println(sec);
             return sec;
         } catch(Exception e) {
@@ -134,21 +135,7 @@ public class CryptoService {
         return null;
     }
 
-    /**
-     * Check the digital signature of the secureDTO received
-     * from the server.
-     *
-     * TODO: Currently it assumes there is only one server, and retrieves
-     * that key, in case there are multiple servers with different keys
-     * then this has to be changed.
-     */
-    public static boolean checkSecureDTODigitalSignature(SecureDTO sec, PublicKey pk) {
-        return checkDigitalSignature(
-                sec.getData() + sec.getRandomString() + sec.getIv(),
-                sec.getDigitalSignature(),
-                pk
-        );
-    }
+
 
     /**
      *  Verifies the digital signature of request report and proofs
@@ -230,5 +217,48 @@ public class CryptoService {
             System.out.println("Unable to sign the proof, sending without signature even thought " +
                     "the failure is imminent and inevitable.");
         }
+    }
+
+
+    /************************************* Secure DTO Digital Signature Aux Funcs *************************************/
+
+    /**
+     * Build secureDTO message signature
+     */
+    public static String buildSecureDTOMessage(SecureDTO sec) {
+        return sec.getData()+ sec.getRandomString() + sec.getIv() + sec.getNonce();
+    }
+
+
+    /**
+     * Sign secure dto
+     */
+    public static void signSecureDTO(SecureDTO sec, PrivateKey signKey) {
+        try {
+            sec.setDigitalSignature(
+                    CryptoUtils.sign(
+                            signKey, buildSecureDTOMessage(sec)
+                    )
+            );
+        } catch(Exception e) {
+            System.out.println("Unable to sign the secure DTO, sending without signature even thought " +
+                    "the failure is imminent and inevitable.");
+        }
+    }
+
+    /**
+     * Check the digital signature of the secureDTO received
+     * from the server.
+     *
+     * TODO: Currently it assumes there is only one server, and retrieves
+     * that key, in case there are multiple servers with different keys
+     * then this has to be changed.
+     */
+    public static boolean checkSecureDTODigitalSignature(SecureDTO sec, PublicKey pk) {
+        return checkDigitalSignature(
+                buildSecureDTOMessage(sec),
+                sec.getDigitalSignature(),
+                pk
+        );
     }
 }
