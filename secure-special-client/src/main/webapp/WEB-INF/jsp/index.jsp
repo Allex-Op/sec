@@ -20,8 +20,8 @@
 		href="https://getbootstrap.com/docs/5.0/examples/sidebars/sidebars.css"
 		rel="stylesheet">
 </head>
-<body>
-	<div class="d-flex flex-column p-3 text-white bg-dark" style="width: 400px;">
+<body style="height: 100vh;">
+	<div class="d-flex flex-column p-3 text-white bg-dark" style="width: 25%;">
 		<a href="/home"
 			class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"><span
 			class="fas fa-shield-alt"> Highly Dependable Location Tracker</span></a>
