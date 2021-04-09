@@ -30,7 +30,7 @@ public class VerifyCryptoHandler {
      *  3º Check for duplicated proofs ( 1 witness can only issue one proof for the associated report(
      *  4º Check if the proofs belong to the submitted report.
      */
-    public ReportDTO verifyAllCryptoConditions(ReportDTO reportDTO) throws SignatureCheckFailedException {
+    public ReportDTO verifyAllCryptoConditions(ReportDTO reportDTO) throws ApplicationException {
         String userId = reportDTO.getRequestProofDTO().getUserID();
         RequestProofDTO reqProof = reportDTO.getRequestProofDTO();
 
@@ -42,7 +42,7 @@ public class VerifyCryptoHandler {
     }
 
     // Verifies the digital signature of the passed object
-    private <T> boolean verifyDigitalSignature(String userId, T toVerify, boolean isRequestProof) {
+    private <T> boolean verifyDigitalSignature(String userId, T toVerify, boolean isRequestProof) throws ApplicationException {
         if(isRequestProof) {
             RequestProofDTO reqProof = (RequestProofDTO) toVerify;
 
@@ -63,7 +63,7 @@ public class VerifyCryptoHandler {
     }
 
     // Verifies ownership and duplicated proofs
-    private List<ProofDTO> checkDuplicatedProofsAndOwnership(RequestProofDTO reqProof, List<ProofDTO> proofsList) {
+    private List<ProofDTO> checkDuplicatedProofsAndOwnership(RequestProofDTO reqProof, List<ProofDTO> proofsList) throws ApplicationException {
         List<String> userIdsVerified = new ArrayList<>();
         List<ProofDTO> validProofs = new ArrayList<>();
 

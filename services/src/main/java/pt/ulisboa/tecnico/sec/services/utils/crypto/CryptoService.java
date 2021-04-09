@@ -1,10 +1,13 @@
 package pt.ulisboa.tecnico.sec.services.utils.crypto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.tools.javac.code.Types;
 import pt.ulisboa.tecnico.sec.services.configs.CryptoConfiguration;
 import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.SecureDTO;
+import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
+import pt.ulisboa.tecnico.sec.services.exceptions.SignatureCheckFailedException;
 
 import javax.crypto.*;
 import java.security.*;
@@ -87,8 +90,8 @@ public class CryptoService {
 
             // Convert string json to DTO
             ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(data, aClass);
-
+            Object converted = mapper.readValue(data, aClass);
+            return converted;
         } catch(Exception e) {
             System.out.println("Error caught in the extractEncryptedData function...");
         }
@@ -173,14 +176,16 @@ public class CryptoService {
     /**
      * Builds the request proof message to be digitally signed.
      */
-    public static String buildRequestProofMessage(RequestProofDTO reqProof) {
+    public static String buildRequestProofMessage(RequestProofDTO reqProof) throws SignatureCheckFailedException {
+        if(reqProof == null)
+            throw new SignatureCheckFailedException("Can't validate proof signature, as the proof as no request associated with it.");
         return reqProof.getX() + reqProof.getY() + reqProof.getEpoch() + reqProof.getUserID();
     }
 
     /**
      * Builds the proof message to be digitally signed.
      */
-    public static String buildProofMessage(ProofDTO proof) {
+    public static String buildProofMessage(ProofDTO proof) throws ApplicationException  {
         return proof.getEpoch() +
                 proof.getUserID() +
                 buildRequestProofMessage(proof.getRequestProofDTO()) +

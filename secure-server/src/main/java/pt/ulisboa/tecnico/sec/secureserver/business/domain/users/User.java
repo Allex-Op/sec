@@ -37,9 +37,6 @@ public class User {
 	@Column(nullable = false, name = "is_special_user")
 	private int isSpecialUser = 0; // 0 == not special : 1 == special
 
-	@Column(nullable = false, name = "public_key")
-	private String publicKey;
-
 	@OneToMany(cascade = ALL, mappedBy = "user")
 	private List<Report> reports = new ArrayList<>();
 

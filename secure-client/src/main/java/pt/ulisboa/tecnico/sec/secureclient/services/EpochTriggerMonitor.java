@@ -16,6 +16,8 @@ import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
+import pt.ulisboa.tecnico.sec.services.exceptions.OutOfEpochException;
+import pt.ulisboa.tecnico.sec.services.exceptions.UnreachableClientException;
 import pt.ulisboa.tecnico.sec.services.utils.Grid;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
@@ -33,32 +35,84 @@ public class EpochTriggerMonitor {
 		this.locationProofService = locationProofService;
 	}
 	
-	@Scheduled(fixedRate = 3000, initialDelay = 3000)
-	public void publish() {
-		/*
+	@Scheduled(fixedRate = 10000, initialDelay = 10000)
+	public void publish() throws ApplicationException {
+		// Incase this is on the bottom and if an exception occurs this value won't be increased and the client
+		// will be delayed, possibly permanently.
+		ClientApplication.incrementEpoch();
+
+		// If the current epoch surpasses the number of designed epochs then quit
+		if(ClientApplication.epoch > Grid.numberOfEpochs()) {
+			System.out.println("\n[Client "+ClientApplication.userId+"] Nothing to do here, epochs have run out...");
+			return;
+		}
+
+		// Proceed to ask for proofs, build a report and then submit it to the server
+		int myId =  Integer.parseInt(ClientApplication.userId);
+		int[] myLocation = findSelfLocation();
+		List<Integer> witnesses = gatherWitnesses(myLocation, myId);
+
+		// Create request proof
+		RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(myLocation[0], myLocation[1], 
+				ClientApplication.epoch, ClientApplication.userId, "");
+
+		// Digitally sign the request proof dto
+		CryptoService.signRequestProofDTO(requestProofDTO);
+
+		// Send proof requests to nearby witnesses
+		List<ProofDTO> proofs = gatherProofs(requestProofDTO, witnesses);
+
+		// Send report to the server
+		ReportDTO reportDTO = DTOFactory.makeReportDTO(requestProofDTO, proofs);
+		System.out.println("\n[Client "+ClientApplication.userId+"] Sending report to server:\n" + reportDTO.toString());
+		userService.submitLocationReport(ClientApplication.userId, reportDTO);
+
+		System.out.println("\n[Client "+ClientApplication.userId+"] Report Sent!\nTrying to obtain the Report...");
+		ReportDTO reportResponse = userService.obtainLocationReport(ClientApplication.userId, ClientApplication.userId, ClientApplication.epoch);
+
+		// In case the report wasn't successfully submitted to the server the server will return null
+		if(reportResponse == null)
+			System.out.println("[Client "+ClientApplication.userId+"] The report you asked for doesn't exist on the server, or you don't have permission to access it or other error. (Check server logs)");
+		else
+			System.out.println("[Client "+ClientApplication.userId+"] Received report:\n" + reportResponse.toString());
+	}
+
+	private List<ProofDTO> gatherProofs(RequestProofDTO requestProofDTO, List<Integer> witnesses) throws ApplicationException {
+		List<ProofDTO> proofs = new ArrayList<>();
+		int curr = -1;
+		try {
+			for (int witness : witnesses) {
+				curr = witness;
+				String url = PathConfiguration.getClientURL(witness);
+				System.out.println("Asking for proof at " + url);
+				proofs.add(locationProofService.requestLocationProof(url, requestProofDTO));
+			}
+		} catch(Exception e) {
+			throw new UnreachableClientException("[Client "+ClientApplication.userId+"] Wasn't able to contact client "+ curr);
+		}
+
+		return proofs;
+	}
+
+	private List<Integer> gatherWitnesses(int[] myLocation, int myId) throws OutOfEpochException {
+		System.out.println("[Client" + ClientApplication.userId + "] My location: (" + myLocation[0] + "," + myLocation[1] + ")");
+		List<Integer> witnesses = Grid.getUsersInRangeAtEpoch( myId, ClientApplication.epoch, 1);
+
+		System.out.println("[Client" + ClientApplication.userId + "] My neighbors are:");
+
+		witnesses.forEach(x -> System.out.println("Neighbor " + x));
+		System.out.println("\n");
+		return witnesses;
+	}
+
+	private int[] findSelfLocation() throws OutOfEpochException {
 		int myId = Integer.parseInt(ClientApplication.userId);
 
-		System.out.println("Going to grid...");
-		int[] myLocation = Grid.getLocationOfUserAtEpoch(myId, ClientApplication.epoch);
-		System.out.println("My location: (" + myLocation[0] + "," + myLocation[1] + ")");
-		List<Integer> witnesses = Grid.getUsersInRangeAtEpoch(myId, ClientApplication.epoch, 1);
-		System.out.println("My neighbors are:");
-		witnesses.forEach(x -> System.out.println("Neighbor " + x));
-		
-		RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(myLocation[0], myLocation[1], 
-				ClientApplication.epoch, ClientApplication.userId, "aaa");
-		
-		List<ProofDTO> proofs = new ArrayList<>();
-		for (int witness : witnesses) {
-			String url = PathConfiguration.getClientURL(witness);
-			System.out.println("Asking for proof at " + url);
-			proofs.add(locationProofService.requestLocationProof(url, requestProofDTO));
-		}
-		
-		ReportDTO reportDTO = DTOFactory.makeReportDTO(requestProofDTO, proofs);
-		System.out.println("SENDING REPORT TO SERVER:\n" + reportDTO.toString());
-		*/
+		System.out.println("\n[Client " + ClientApplication.userId + "] Going to grid at client epoch: " + ClientApplication.epoch);
+		return Grid.getLocationOfUserAtEpoch(myId, ClientApplication.epoch);
+	}
 
+	/*
 		RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(10, 2, 1, ClientApplication.userId, "");
 		CryptoService.signRequestProofDTO(requestProofDTO);
 
@@ -69,18 +123,5 @@ public class EpochTriggerMonitor {
 		CryptoService.signProofDTO(proofDTO2);
 
 		ReportDTO reportDTO = DTOFactory.makeReportDTO(requestProofDTO, Arrays.asList(proofDTO1,proofDTO2));
-
-		try {
-			System.out.println("Submitting report to server...");
-			userService.submitLocationReport(ClientApplication.userId, reportDTO);
-			System.out.println("Report Submitted!\nTrying to obtain the Report...");
-			ReportDTO reportResponse = userService.obtainLocationReport(ClientApplication.userId, ClientApplication.userId, ClientApplication.epoch);
-			System.out.println("RECEIVERD:\n" + reportResponse.toString());
-		} catch (ApplicationException e) {
-			e.printStackTrace();
-		}
-		
-		//ClientApplication.incrementEpoch();
-	}
-
+		*/
 }

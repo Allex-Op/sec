@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class ServerApplication {
 
-	public static int epoch =1;
+	public static int epoch = 0;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ServerApplication.class, args);

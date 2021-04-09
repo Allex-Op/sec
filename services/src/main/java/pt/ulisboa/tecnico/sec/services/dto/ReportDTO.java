@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.sec.services.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,5 +43,16 @@ public class ReportDTO {
             sb.append(proofDTO.toString() + "\n");
 
         return  "Report:\n" + requestProofDTO.toString() + "\n" + sb.toString();
+    }
+
+    /**
+     *      Used to build invalid reports, example when user requested an report that doesn't exist
+     *      it would on client-side throw a NullPointerException.
+     */
+    public ReportDTO invalidReportBuilder() {
+        System.out.println("I just built an invalid report DTO.");
+        this.requestProofDTO = new RequestProofDTO();
+        this.proofsList = new ArrayList<>();
+        return this;
     }
 }

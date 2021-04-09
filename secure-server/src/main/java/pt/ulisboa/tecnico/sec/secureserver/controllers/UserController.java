@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import pt.ulisboa.tecnico.sec.secureserver.ServerApplication;
 import pt.ulisboa.tecnico.sec.secureserver.services.UserService;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestLocationDTO;
@@ -30,7 +31,7 @@ public class UserController {
 	 */
 	@PostMapping("/getReport")
 	public SecureDTO obtainLocationReport(@RequestBody SecureDTO sec) throws ApplicationException {
-		System.out.println("[Debug] Obtaining report....");
+		System.out.println("\n[SERVER] Received obtain report request at server epoch:" + ServerApplication.epoch);
 		RequestLocationDTO req = (RequestLocationDTO) CryptoService.extractEncryptedData(sec, RequestLocationDTO.class);
 		if(req == null)
 			throw new ApplicationException("SecureDTO object was corrupt or malformed, was not possible to extract the information.");
@@ -61,15 +62,14 @@ public class UserController {
 	 */
 	@PostMapping("/submitReport")
 	public void submitLocationReport(@RequestBody SecureDTO sec) throws ApplicationException {
-		System.out.println("[Debug] Submitting report....");
+		System.out.println("\n[SERVER] Received submit report request at server epoch:" + ServerApplication.epoch);
 		ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(sec, ReportDTO.class);
 		if(report == null)
-			throw new ApplicationException("SecureDTO object was corrupt or malformed, was not possible to extract the information.");
+			throw new ApplicationException("[SERVER] SecureDTO object was corrupt or malformed, was not possible to extract the information.");
 
 		verifyRequestSignatureAndNonce(sec, report.getRequestProofDTO().getUserID(), "/submitReport");
 		
 		this.userService.submitLocationReport(report.getRequestProofDTO().getUserID(), report);
-
 	}
 	
 	/**

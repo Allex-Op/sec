@@ -3,11 +3,13 @@ package pt.ulisboa.tecnico.sec.secureclient.services;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import pt.ulisboa.tecnico.sec.secureclient.ClientApplication;
 import pt.ulisboa.tecnico.sec.services.configs.PathConfiguration;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestLocationDTO;
 import pt.ulisboa.tecnico.sec.services.dto.SecureDTO;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
+import pt.ulisboa.tecnico.sec.services.exceptions.UnreachableClientException;
 import pt.ulisboa.tecnico.sec.services.interfaces.IUserService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
@@ -48,15 +50,10 @@ public class UserService implements IUserService {
         // Check digital signature
         ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(sec, ReportDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));
 
-        // TODO: VERIFICAR STATUS CODE, SE DIFERENTE DE 200 ENTÃO FOI UM ERRORMESSAGE E DEVE
-        // TODO: CONVERTER PARA TAL, OU O OBJETO REPORT VAI SER NULL E LANÇAR EXCEÇÃO NO CLIENTE
-        if(report == null)
-            System.out.println("Instead of a report it was returned an ErrorMessageDTO, temporary info, do planned changes.");
-
-        if(CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey())) {
-            return report;
-        } else
+        // Verify if conversion was successfull and its a valid report
+        if (report.getRequestProofDTO().getUserID() == null || !CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey()))
             return null;
+        return report;
     }
 
     /**
@@ -76,7 +73,11 @@ public class UserService implements IUserService {
         // Set HTTP req body
         HttpEntity<SecureDTO> entity = new HttpEntity<>(secureDTO, headers);
 
-        // Send request
-        restTemplate.exchange(urlAPI, HttpMethod.POST, entity, SecureDTO.class);
+        try {
+            // Send request
+            restTemplate.exchange(urlAPI, HttpMethod.POST, entity, SecureDTO.class);
+        } catch(Exception e) {
+            throw new UnreachableClientException("[Client "+ ClientApplication.userId+"] Wasn't able to contact server.");
+        }
     }
 }

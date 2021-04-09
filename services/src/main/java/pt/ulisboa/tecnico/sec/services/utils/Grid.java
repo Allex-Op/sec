@@ -1,5 +1,7 @@
 package pt.ulisboa.tecnico.sec.services.utils;
 
+import pt.ulisboa.tecnico.sec.services.exceptions.OutOfEpochException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,12 @@ public class Grid {
     private static final int NUM_COLS = 3;
     
     private static final int[][][] locationsAtEpochs = {
+		{		// location for epoch 1
+				// impossible to prove the location -> server will not accept it
+				{0, user1, 0},
+				{0, 0, 0},
+				{0, 0, 0}
+		},
     	{   // location for epoch 1
     		// only possible to prove the location of user1 and byzUser -> server will accept it (f' < 2f + 1)
     		{0,     byzUser, user2},
@@ -39,16 +47,11 @@ public class Grid {
     		{0, user1, byzUser},
     		{0, 0,     0},
     		{0, 0,     0}
-    	},{ // location for epoch 6
-    	    // impossible to prove the location -> server will not accept it
-    		{user1, 0, 0},
-    		{0,     0, 0},
-    		{0,     0, 0}
     	}
     };
     
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws OutOfEpochException {
         printGridAtEpoch(3);
         List<Integer> users = getUsersInRangeAtEpoch(1, 3, 1);
         users.forEach( x -> System.out.println(x) );
@@ -67,14 +70,14 @@ public class Grid {
 	            System.out.println();
 	        }
 			
-		} catch (ArrayIndexOutOfBoundsException e) {
+		} catch (ArrayIndexOutOfBoundsException | OutOfEpochException e) {
 			e.printStackTrace(); // Pokeball style
 		}
 
     }
     
     
-    public static int[] getLocationOfUserAtEpoch(int user, int epoch) {
+    public static int[] getLocationOfUserAtEpoch(int user, int epoch) throws OutOfEpochException {
     	int[][] locationsAtEpoch = getLocationAtEpoch(epoch);
     	
     	for (int i = 0; i < locationsAtEpoch.length; i++) {
@@ -88,7 +91,7 @@ public class Grid {
     }
     
     
-    public static List<Integer> getUsersInRangeAtEpoch(int user, int epoch, int range) {
+    public static List<Integer> getUsersInRangeAtEpoch(int user, int epoch, int range) throws OutOfEpochException {
     	int[][] locationsAtEpoch = getLocationAtEpoch(epoch);
     	
     	int[] myLocation = getLocationOfUserAtEpoch(user, epoch);
@@ -110,11 +113,16 @@ public class Grid {
     // PRIVATES
     
     
-    private static int[][] getLocationAtEpoch(int epoch) { 
+    private static int[][] getLocationAtEpoch(int epoch) throws OutOfEpochException {
+    	if(epoch > locationsAtEpochs.length)
+    		throw new OutOfEpochException("There are no more epochs to access.");
     	return locationsAtEpochs[epoch - 1];
     }
     
-    
+    public static int numberOfEpochs() {
+    	return locationsAtEpochs.length;
+	}
+
     /**
      * 
      * @param locationsAtEpoch - all the positions

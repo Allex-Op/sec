@@ -27,7 +27,6 @@ public class UserCatalog {
 			query.setParameter(User.FIND_BY_USER_ID_USERID, userId);
 			return query.getSingleResult();
 		} catch(Exception e) {
-			e.printStackTrace();
 			throw new ApplicationException("Error on getUserById class UserCatalog");
 		}
 	}
@@ -48,7 +47,6 @@ public class UserCatalog {
 
 			return query.getSingleResult() > 0;
 		} catch(Exception e) {
-			e.printStackTrace();
 			throw new ApplicationException("Error on checkIfNonceExists class UserCatalog");
 		}
 	}

@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class ClientApplication {
 	
 	public static String userId;
-	public static int epoch = 1;
+	public static int epoch = 0;
 	
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(ClientApplication.class, args);

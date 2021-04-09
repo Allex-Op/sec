@@ -10,8 +10,11 @@ import pt.ulisboa.tecnico.sec.services.dto.DTOFactory;
 import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
+import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
+import pt.ulisboa.tecnico.sec.services.exceptions.OutOfEpochException;
 import pt.ulisboa.tecnico.sec.services.exceptions.ProverOutOfRangeException;
 import pt.ulisboa.tecnico.sec.services.utils.Grid;
+import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
 
 import java.util.List;
 
@@ -25,17 +28,19 @@ public class Controller {
 	 *	Another client asked for a location proof
 	 */
 	@PostMapping("/proof")
-	public ProofDTO requestLocationProof(@RequestBody RequestProofDTO request) throws ProverOutOfRangeException {
-		System.out.println("Received proof request");
+	public ProofDTO requestLocationProof(@RequestBody RequestProofDTO request) throws ApplicationException {
+		System.out.println("\n[Client"+ClientApplication.userId+"] Received proof request");
 
 		// Check if the prover is in my range
 		int proverId = Integer.parseInt(request.getUserID());
 		List<Integer> usersNearby = Grid.getUsersInRangeAtEpoch(Integer.parseInt(ClientApplication.userId), ClientApplication.epoch, ByzantineConfigurations.RANGE);
 
-		if(usersNearby.contains(proverId))
-			return DTOFactory.makeProofDTO(ClientApplication.epoch, ClientApplication.userId, request, "bbb");
-		else
-			throw new ProverOutOfRangeException("Prover is not in range, can't generate proof...");
+		if(usersNearby.contains(proverId)) {
+			ProofDTO proof = DTOFactory.makeProofDTO(ClientApplication.epoch, ClientApplication.userId, request, "");
+			CryptoService.signProofDTO(proof);
+			return proof;
+		} else
+			throw new ProverOutOfRangeException("[Client"+ClientApplication.userId+"] Prover is not in range, can't generate proof...");
 	}
 
 	/**
@@ -43,7 +48,7 @@ public class Controller {
 	 */
 	@GetMapping("/locations/{epoch}")
 	public ReportDTO requestLocationInformation(@PathVariable int epoch) {
-		System.out.println("Sending report request for user "+ ClientApplication.userId + " at epoch" + epoch);
+		System.out.println("\n[Client"+ClientApplication.userId+"] Sending report request for user "+ ClientApplication.userId + " at epoch" + epoch);
 		return userService.obtainLocationReport(ClientApplication.userId, ClientApplication.userId, epoch);
 	}
 }

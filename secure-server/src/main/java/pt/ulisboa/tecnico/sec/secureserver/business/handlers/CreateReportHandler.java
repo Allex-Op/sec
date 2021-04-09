@@ -82,7 +82,7 @@ public class CreateReportHandler {
 			throw new InvalidReportException("Desynchronized epoch, report epoch is at " + epoch + " while current" +
 					"server epoch is at " + ServerApplication.epoch);
 
-		if (proofDTOList.size() > ByzantineConfigurations.MINIMUM_BYZ_QUORUM)
+		if (proofDTOList.size() < ByzantineConfigurations.MINIMUM_BYZ_QUORUM)
 			throw new InvalidReportException("Not enough Proofs to approve the Report.");
 
 		if (reportCatalog.getReportOfUserIdAtEpoch(userId, epoch) != null)

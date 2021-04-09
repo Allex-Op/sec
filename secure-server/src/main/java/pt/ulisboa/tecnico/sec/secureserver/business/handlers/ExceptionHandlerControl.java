@@ -25,6 +25,7 @@ public class ExceptionHandlerControl {
     private ErrorMessageResponse handleInvalidReportException(InvalidReportException e, HttpServletRequest req) {
         System.out.println("Invalid report exception occurred.");
         System.out.println("Error: " + e.getLocalizedMessage());
+
         return new ErrorMessageResponse("Invalid report exception", e.getLocalizedMessage());
     }
 

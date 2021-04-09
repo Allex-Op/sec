@@ -43,7 +43,9 @@ public class ProofDTO {
 
     @Override
     public String toString() {
-        return "Proof of epoch " + epoch + " made by user " + userID + " with the Digital Signature " + digitalSignature + " of {" + requestProofDTO.toString() + "}";
+        if(requestProofDTO == null)
+            return "\nProof of epoch " + epoch + " made by user " + userID + " with the Digital Signature " + digitalSignature + " of {NULL}";
+        return "\nProof of epoch " + epoch + " made by user " + userID + " with the Digital Signature " + digitalSignature + " of {" + requestProofDTO.toString() + "}";
     }
 
 }
