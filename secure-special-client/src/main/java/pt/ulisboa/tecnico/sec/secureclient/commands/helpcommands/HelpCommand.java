@@ -17,7 +17,7 @@ public class HelpCommand extends Command {
 				System.lineSeparator() + "## ---------------------------------------------------------- ##" + 
 				System.lineSeparator() + "   Supported Commands are:" +
 				System.lineSeparator() + "   1. obtainreport <user_id> <epoch>" + 
-				System.lineSeparator() + "   2. usersatlocation <user_id> <x_location> <y_location> <epoch>" + 
+				System.lineSeparator() + "   2. usersatlocation <x_location> <y_location> <epoch>" +
 				System.lineSeparator() + "   3. help" + 
 				System.lineSeparator() + "   4. clear" + 
 				System.lineSeparator() + "   5. quit" +

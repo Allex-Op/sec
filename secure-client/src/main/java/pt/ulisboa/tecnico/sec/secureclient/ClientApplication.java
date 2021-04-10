@@ -13,15 +13,15 @@ public class ClientApplication {
 	public static int epoch = 0;
 	
 	public static void main(String[] args) {
-		ApplicationContext context = SpringApplication.run(ClientApplication.class, args);
-		
 		if (args.length < 2) {
 			System.out.println("Need 2 arguments: <port> <userId_integer>");
-			SpringApplication.exit(context, () -> 0);
+			System.exit(0);
 			return;
 		}
 		
 		userId = args[1];
+
+		SpringApplication.run(ClientApplication.class, args);
 	}
 	
 	public static void incrementEpoch() {

@@ -1,10 +1,14 @@
 package pt.ulisboa.tecnico.sec.services.exceptions;
 
+import javax.crypto.SecretKey;
+
 /**
  * The top level application exception.
  */
 public class ApplicationException extends Exception {
-	
+
+	private SecretKey sessionKey;
+
 	/**
 	 * The serial version id (generated automatically by Eclipse)
 	 */
@@ -31,4 +35,11 @@ public class ApplicationException extends Exception {
 		super (message, e);
 	}
 
+	public void setSecretKey(SecretKey sk) {
+		this.sessionKey = sk;
+	}
+
+	public SecretKey getSessionKey() {
+		return sessionKey;
+	}
 }

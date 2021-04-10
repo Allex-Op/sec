@@ -1,8 +1,10 @@
 package pt.ulisboa.tecnico.sec.services.utils.crypto;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.tools.javac.code.Types;
 import pt.ulisboa.tecnico.sec.services.configs.CryptoConfiguration;
+import pt.ulisboa.tecnico.sec.services.dto.ErrorMessageResponse;
 import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.SecureDTO;
@@ -76,6 +78,7 @@ public class CryptoService {
      *  DTO Object.
      */
     public static Object extractEncryptedData(SecureDTO sec, Class<?> aClass, SecretKey originalKey) {
+        String data = "";
         try {
             // Use the original key to decrypt the data field
             String dataEncrypted = sec.getData();
@@ -85,13 +88,22 @@ public class CryptoService {
             byte[] IV = CryptoUtils.decodeBase64(IVString);
 
             // Get the original JSON Object as String
-            String data = CryptoUtils.decrypt(originalKey, dataEncrypted, IV);
+            data = CryptoUtils.decrypt(originalKey, dataEncrypted, IV);
             System.out.println("Encrypted object was:" + data);
 
             // Convert string json to DTO
-            ObjectMapper mapper = new ObjectMapper();
-            Object converted = mapper.readValue(data, aClass);
-            return converted;
+            return convertStringToJson(data, aClass);
+        } catch(JsonProcessingException e) {
+            // The object that we tried to convert to wasn't the class specified, therefore it can be a
+            // error object.
+            try {
+                if (data.contains("errorName")) {
+                    ErrorMessageResponse err = (ErrorMessageResponse) convertStringToJson(data, ErrorMessageResponse.class);
+                    System.out.println("[Error - "+err.getErrorName()+"] "+err.getDescription());
+                }
+            } catch(Exception egg) {
+                System.out.println("Message wasn't a ErrorMessage either.");
+            }
         } catch(Exception e) {
             System.out.println("Error caught in the extractEncryptedData function...");
         }
@@ -265,5 +277,12 @@ public class CryptoService {
                 sec.getDigitalSignature(),
                 pk
         );
+    }
+
+    public static Object convertStringToJson(String data, Class<?> aClass) throws JsonProcessingException {
+        // Convert string json to DTO
+        ObjectMapper mapper = new ObjectMapper();
+        Object converted = mapper.readValue(data, aClass);
+        return converted;
     }
 }

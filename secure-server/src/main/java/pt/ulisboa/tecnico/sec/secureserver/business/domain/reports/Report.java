@@ -119,7 +119,7 @@ public class Report {
 
 	@Override
 	public String toString() {
-		return "Report of " + user + " at " + epoch + " epoch. Location: " + x + "," + y;
+		return "Report of " + user.getUserId() + " at " + epoch + " epoch. Location: " + x + "," + y;
 	}
 
 }

@@ -13,7 +13,7 @@ public class UsersAtLocationCommand extends Command {
 
 	private ISpecialUserService userService = new SpecialUserService();
 	
-	public static final int EXPECTED_ARGUMENTS = 4;
+	public static final int EXPECTED_ARGUMENTS = 3;
 
 	@Override
 	public void execute(List<String> arguments) throws ApplicationException {

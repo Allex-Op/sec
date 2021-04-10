@@ -41,6 +41,9 @@ public class ViewReportHandler {
 			throw new NoRequiredPrivilegesException("The sender id can not request the information of the requested id.");
 
 		Report report = reportCatalog.getReportOfUserIdAtEpoch(userRequest.getUserId(), epoch);
+		if(report == null)
+			throw new InvalidRequestException("No report found.");
+
 		return DTOConverter.makeReportDTO(report);
 	}
 

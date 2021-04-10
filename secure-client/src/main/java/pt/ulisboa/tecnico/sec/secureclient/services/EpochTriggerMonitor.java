@@ -35,7 +35,7 @@ public class EpochTriggerMonitor {
 		this.locationProofService = locationProofService;
 	}
 	
-	@Scheduled(fixedRate = 10000, initialDelay = 10000)
+	@Scheduled(fixedRate = 10000, initialDelay = 5000)
 	public void publish() throws ApplicationException {
 		// Incase this is on the bottom and if an exception occurs this value won't be increased and the client
 		// will be delayed, possibly permanently.
@@ -77,20 +77,19 @@ public class EpochTriggerMonitor {
 			System.out.println("[Client "+ClientApplication.userId+"] Received report:\n" + reportResponse.toString());
 	}
 
-	private List<ProofDTO> gatherProofs(RequestProofDTO requestProofDTO, List<Integer> witnesses) throws ApplicationException {
+	private List<ProofDTO> gatherProofs(RequestProofDTO requestProofDTO, List<Integer> witnesses) {
 		List<ProofDTO> proofs = new ArrayList<>();
 		int curr = -1;
-		try {
-			for (int witness : witnesses) {
+		for (int witness : witnesses) {
+			try {
 				curr = witness;
 				String url = PathConfiguration.getClientURL(witness);
 				System.out.println("Asking for proof at " + url);
 				proofs.add(locationProofService.requestLocationProof(url, requestProofDTO));
+			} catch(Exception e) {
+				System.out.println(("[ Client "+ClientApplication.userId+"] Wasn't able to contact client "+ curr));
 			}
-		} catch(Exception e) {
-			throw new UnreachableClientException("[Client "+ClientApplication.userId+"] Wasn't able to contact client "+ curr);
 		}
-
 		return proofs;
 	}
 

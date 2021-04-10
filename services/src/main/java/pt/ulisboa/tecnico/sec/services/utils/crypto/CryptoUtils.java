@@ -1,5 +1,7 @@
 package pt.ulisboa.tecnico.sec.services.utils.crypto;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import pt.ulisboa.tecnico.sec.services.configs.CryptoConfiguration;
 import pt.ulisboa.tecnico.sec.services.configs.PathConfiguration;
 

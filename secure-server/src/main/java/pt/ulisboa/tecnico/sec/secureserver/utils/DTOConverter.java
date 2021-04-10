@@ -18,9 +18,6 @@ public class DTOConverter {
 	private DTOConverter() {}
 	
 	public static ReportDTO makeReportDTO(Report report) {
-		if(report == null)
-			return new ReportDTO().invalidReportBuilder();
-
 		// generate Request Proof DTO
 		RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(report.getX(), report.getY(), report.getEpoch(), report.getUser().getUserId(), report.getDigitalSignature());
 		

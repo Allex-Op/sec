@@ -18,6 +18,8 @@ import pt.ulisboa.tecnico.sec.services.interfaces.ISpecialUserService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
 
+import javax.crypto.SecretKey;
+
 @RestController
 public class UserController {
 	
@@ -31,30 +33,51 @@ public class UserController {
 	 */
 	@PostMapping("/getReport")
 	public SecureDTO obtainLocationReport(@RequestBody SecureDTO sec) throws ApplicationException {
-		System.out.println("\n[SERVER] Received obtain report request at server epoch:" + ServerApplication.epoch);
-		RequestLocationDTO req = (RequestLocationDTO) CryptoService.extractEncryptedData(sec, RequestLocationDTO.class);
-		if(req == null)
-			throw new ApplicationException("SecureDTO object was corrupt or malformed, was not possible to extract the information.");
+		try {
+			System.out.println("\n[SERVER] Received obtain report request at server epoch:" + ServerApplication.epoch);
+			RequestLocationDTO req = (RequestLocationDTO) CryptoService.extractEncryptedData(sec, RequestLocationDTO.class);
 
-		verifyRequestSignatureAndNonce(sec, req.getUserIDSender(), "/getReport");
+			if (req == null)
+				throw new ApplicationException("SecureDTO object was corrupt or malformed, was not possible to extract the information.");
+			verifyRequestSignatureAndNonce(sec, req.getUserIDSender(), "/getReport");
 
-		ReportDTO report = this.userService.obtainLocationReport(req.getUserIDSender(), req.getUserIDRequested(),req.getEpoch());
-		return CryptoService.generateResponseSecureDTO(sec, report); // Mais a frente quando houver vários servers esta função tera que ter server ID
+			ReportDTO report = this.userService.obtainLocationReport(req.getUserIDSender(), req.getUserIDRequested(), req.getEpoch());
+			return CryptoService.generateResponseSecureDTO(sec, report); // Mais a frente quando houver vários servers esta função tera que ter server ID
+
+		} catch(ApplicationException e) {
+			System.out.println("\n[SERVER] Exception caught, rethrowing for ExceptionHandler.");
+			SecretKey sk = CryptoService.getSecretKeyFromDTO(sec);
+
+			if(sk == null)
+				return null;
+
+			e.setSecretKey(sk);
+			throw e;
+		}
 	}
-
 
 	/**
 	 *	HA user asks for classified info for all users
 	 */
 	@PostMapping("/locations/management/")
 	public SecureDTO obtainUsersAtLocation(@RequestBody SecureDTO sec) throws ApplicationException {
-		RequestLocationDTO req = (RequestLocationDTO) CryptoService.extractEncryptedData(sec, RequestLocationDTO.class);
+		try {
+			RequestLocationDTO req = (RequestLocationDTO) CryptoService.extractEncryptedData(sec, RequestLocationDTO.class);
 
-		verifyRequestSignatureAndNonce(sec, req.getUserIDSender(), "/locations/management/");
+			verifyRequestSignatureAndNonce(sec, req.getUserIDSender(), "/locations/management/");
 
-		SpecialUserResponseDTO result = this.userService.obtainUsersAtLocation(req.getUserIDSender(), req.getX(), req.getY(), req.getEpoch());
-		return CryptoService.generateResponseSecureDTO(sec, result);
-		
+			SpecialUserResponseDTO result = this.userService.obtainUsersAtLocation(req.getUserIDSender(), req.getX(), req.getY(), req.getEpoch());
+			return CryptoService.generateResponseSecureDTO(sec, result);
+		} catch(ApplicationException e) {
+			System.out.println("\n[SERVER] Exception caught, rethrowing for ExceptionHandler.");
+			SecretKey sk = CryptoService.getSecretKeyFromDTO(sec);
+
+			if(sk == null)
+				return null;
+
+			e.setSecretKey(sk);
+			throw e;
+		}
 	}
 
 	/**
@@ -62,14 +85,25 @@ public class UserController {
 	 */
 	@PostMapping("/submitReport")
 	public void submitLocationReport(@RequestBody SecureDTO sec) throws ApplicationException {
-		System.out.println("\n[SERVER] Received submit report request at server epoch:" + ServerApplication.epoch);
-		ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(sec, ReportDTO.class);
-		if(report == null)
-			throw new ApplicationException("[SERVER] SecureDTO object was corrupt or malformed, was not possible to extract the information.");
+		try {
+			System.out.println("\n[SERVER] Received submit report request at server epoch:" + ServerApplication.epoch);
+			ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(sec, ReportDTO.class);
+			if (report == null)
+				throw new ApplicationException("[SERVER] SecureDTO object was corrupt or malformed, was not possible to extract the information.");
 
-		verifyRequestSignatureAndNonce(sec, report.getRequestProofDTO().getUserID(), "/submitReport");
-		
-		this.userService.submitLocationReport(report.getRequestProofDTO().getUserID(), report);
+			verifyRequestSignatureAndNonce(sec, report.getRequestProofDTO().getUserID(), "/submitReport");
+
+			this.userService.submitLocationReport(report.getRequestProofDTO().getUserID(), report);
+		} catch(ApplicationException e) {
+			System.out.println("\n[SERVER] Exception caught, rethrowing for ExceptionHandler.");
+			SecretKey sk = CryptoService.getSecretKeyFromDTO(sec);
+
+			if(sk == null)
+				return;
+
+			e.setSecretKey(sk);
+			throw e;
+		}
 	}
 	
 	/**

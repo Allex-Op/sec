@@ -47,6 +47,7 @@ public class UserService implements IUserService {
         ResponseEntity<SecureDTO> result = restTemplate.exchange(urlAPI, HttpMethod.POST, entity, SecureDTO.class);
         SecureDTO sec = result.getBody();
 
+
         // Check digital signature
         ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(sec, ReportDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));
 
@@ -74,8 +75,10 @@ public class UserService implements IUserService {
         HttpEntity<SecureDTO> entity = new HttpEntity<>(secureDTO, headers);
 
         try {
-            // Send request
-            restTemplate.exchange(urlAPI, HttpMethod.POST, entity, SecureDTO.class);
+            // Send request & receive response
+            ResponseEntity<SecureDTO> result = restTemplate.exchange(urlAPI, HttpMethod.POST, entity, SecureDTO.class);
+            SecureDTO sec = result.getBody();
+            CryptoService.extractEncryptedData(sec, String.class, CryptoUtils.createSharedKeyFromString(randomBytes));
         } catch(Exception e) {
             throw new UnreachableClientException("[Client "+ ClientApplication.userId+"] Wasn't able to contact server.");
         }

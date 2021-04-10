@@ -16,6 +16,8 @@ import pt.ulisboa.tecnico.sec.secureclient.commands.helpcommands.ClearCommand;
 import pt.ulisboa.tecnico.sec.secureclient.commands.helpcommands.HelpCommand;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 
+import static java.lang.Thread.sleep;
+
 @SpringBootApplication
 public class SpecialClientApplication extends SpringBootServletInitializer implements CommandLineRunner {
 	
@@ -26,25 +28,26 @@ public class SpecialClientApplication extends SpringBootServletInitializer imple
 	
 	public static String userId;
 	
-	public static void main(String[] args) {		
-		ApplicationContext context = SpringApplication.run(SpecialClientApplication.class, args);
-		
+	public static void main(String[] args) {
 		if (args.length < 2) {
 			System.out.println("[Special Client\"" + userId+ "\"] Need 2 arguments: <port> <userId_integer>");
-			SpringApplication.exit(context, () -> 0);
+			System.exit(0);
 			return;
 		}
 		
 		userId = args[1];
+
+		SpringApplication.run(SpecialClientApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
+		sleep(1000);
 		try (Scanner in = new Scanner(System.in)) {
 			registerCommands(); // registration of commands
 			while (true) {
 				System.out.print("[Special Client\"" + userId+ "\"] what is the command (type help to show the command list): ");
-				String line = in.nextLine().toLowerCase();
+				String line = in.nextLine().toLowerCase().trim();
 
 				if (line == null || line.isEmpty()) continue;
 				
