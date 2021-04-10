@@ -21,16 +21,16 @@ public class UserService implements IUserService {
 
     private static RestTemplate restTemplate = new RestTemplate();
 
+    // If true the report request will try to request an invalid user Id that he has no authorization
+    private static boolean byzantine_user = true;
+
     /**
      *  Requests a location report of a certain user at a certain epoch
      */
     @Override
     public ReportDTO obtainLocationReport(String userIdSender, String userIdRequested, int epoch) {
         // Prepare the body of the HTTP request
-        RequestLocationDTO req = new RequestLocationDTO();
-        req.setUserIDSender(userIdSender);
-        req.setUserIDRequested(userIdRequested); // For the normal client this ID should be the same, it must be checked server-side
-        req.setEpoch(epoch);
+        RequestLocationDTO req = buildRequestLocation(userIdSender, userIdRequested, epoch);
 
         // Convert the above request body to a secure request object
         byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
@@ -47,14 +47,26 @@ public class UserService implements IUserService {
         ResponseEntity<SecureDTO> result = restTemplate.exchange(urlAPI, HttpMethod.POST, entity, SecureDTO.class);
         SecureDTO sec = result.getBody();
 
-
         // Check digital signature
         ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(sec, ReportDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));
 
         // Verify if conversion was successfull and its a valid report
-        if (report.getRequestProofDTO().getUserID() == null || !CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey()))
+        if (report == null || report.getRequestProofDTO().getUserID() == null || !CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey()))
             return null;
         return report;
+    }
+
+    private RequestLocationDTO buildRequestLocation(String userIdSender, String userIdRequested, int epoch) {
+        String reqId = userIdRequested;
+        if(byzantine_user)
+            reqId = "100";
+
+        RequestLocationDTO req = new RequestLocationDTO();
+        req.setUserIDSender(userIdSender);
+        req.setUserIDRequested(reqId); // For the normal client this ID should be the same, it must be checked server-side
+        req.setEpoch(epoch);
+
+        return req;
     }
 
     /**

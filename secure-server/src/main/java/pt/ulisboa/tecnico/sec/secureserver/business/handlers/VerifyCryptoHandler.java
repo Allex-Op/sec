@@ -96,6 +96,7 @@ public class VerifyCryptoHandler {
         if(userCatalog.checkIfNonceExists(userId, nonce))
             throw new RepeatedNonceException("Nonce repeated.");
 
+        //TODO: NÃO ESTA A SALVAR NA BD O NONCE
         userCatalog.saveNonce(userId, nonce);
     }
 }

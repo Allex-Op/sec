@@ -51,7 +51,6 @@ public class ReportCatalog {
 
 			return query.getSingleResult();
 		} catch(NoResultException e) {
-			System.out.println("No report found.");
 			return null;
 		} catch(Exception e) {
 			e.printStackTrace();

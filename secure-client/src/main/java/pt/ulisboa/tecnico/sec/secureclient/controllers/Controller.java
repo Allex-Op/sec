@@ -31,6 +31,8 @@ public class Controller {
 	public ProofDTO requestLocationProof(@RequestBody RequestProofDTO request) throws ApplicationException {
 		System.out.println("\n[Client"+ClientApplication.userId+"] Received proof request");
 
+		//TODO: Verificar assinatura digital e nonces
+
 		// Check if the prover is in my range
 		int proverId = Integer.parseInt(request.getUserID());
 		List<Integer> usersNearby = Grid.getUsersInRangeAtEpoch(Integer.parseInt(ClientApplication.userId), ClientApplication.epoch, ByzantineConfigurations.RANGE);

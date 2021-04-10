@@ -42,8 +42,8 @@ public class UserController {
 			verifyRequestSignatureAndNonce(sec, req.getUserIDSender(), "/getReport");
 
 			ReportDTO report = this.userService.obtainLocationReport(req.getUserIDSender(), req.getUserIDRequested(), req.getEpoch());
+			System.out.println("[SERVER] Requested report was:"+report.toString());
 			return CryptoService.generateResponseSecureDTO(sec, report); // Mais a frente quando houver vários servers esta função tera que ter server ID
-
 		} catch(ApplicationException e) {
 			System.out.println("\n[SERVER] Exception caught, rethrowing for ExceptionHandler.");
 			SecretKey sk = CryptoService.getSecretKeyFromDTO(sec);
@@ -84,22 +84,28 @@ public class UserController {
 	 *	User submits location report to server
 	 */
 	@PostMapping("/submitReport")
-	public void submitLocationReport(@RequestBody SecureDTO sec) throws ApplicationException {
+	public SecureDTO submitLocationReport(@RequestBody SecureDTO sec) throws ApplicationException {
 		try {
 			System.out.println("\n[SERVER] Received submit report request at server epoch:" + ServerApplication.epoch);
 			ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(sec, ReportDTO.class);
 			if (report == null)
 				throw new ApplicationException("[SERVER] SecureDTO object was corrupt or malformed, was not possible to extract the information.");
 
-			verifyRequestSignatureAndNonce(sec, report.getRequestProofDTO().getUserID(), "/submitReport");
+			String clientId = report.getRequestProofDTO().getUserID();
+			verifyRequestSignatureAndNonce(sec, clientId, "/submitReport");
 
+			// Submit report
 			this.userService.submitLocationReport(report.getRequestProofDTO().getUserID(), report);
+
+			// Report submitted, return to client
+			System.out.println("[SERVER] Report submitted successfully for client " + clientId);
+			return CryptoService.generateResponseSecureDTO(sec, "Report submitted successfully."); // Mais a frente quando houver vários servers esta função tera que ter server ID
 		} catch(ApplicationException e) {
 			System.out.println("\n[SERVER] Exception caught, rethrowing for ExceptionHandler.");
 			SecretKey sk = CryptoService.getSecretKeyFromDTO(sec);
 
 			if(sk == null)
-				return;
+				return new SecureDTO();
 
 			e.setSecretKey(sk);
 			throw e;
