@@ -10,6 +10,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.ApplicationContext;
 
 import pt.ulisboa.tecnico.sec.secureclient.commands.CommandDispatcher;
+import pt.ulisboa.tecnico.sec.secureclient.commands.appcommands.GatherProofsCommand;
 import pt.ulisboa.tecnico.sec.secureclient.commands.appcommands.ObtainReportCommand;
 import pt.ulisboa.tecnico.sec.secureclient.commands.appcommands.SubmitReportCommand;
 import pt.ulisboa.tecnico.sec.secureclient.commands.appcommands.UsersAtLocationCommand;
@@ -74,6 +75,7 @@ public class SpecialClientApplication extends SpringBootServletInitializer imple
 		commandDispatcher.register("obtainreport", new ObtainReportCommand());
 		commandDispatcher.register("usersatlocation", new UsersAtLocationCommand());
 		commandDispatcher.register("submitreport", new SubmitReportCommand());
+		commandDispatcher.register("gatherproofs", new GatherProofsCommand());
 		// help commands
 		commandDispatcher.register("help", new HelpCommand());
 		commandDispatcher.register("clear", new ClearCommand());

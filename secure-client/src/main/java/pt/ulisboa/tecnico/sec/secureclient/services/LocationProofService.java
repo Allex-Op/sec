@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import pt.ulisboa.tecnico.sec.secureclient.ClientApplication;
+import pt.ulisboa.tecnico.sec.services.dto.ClientResponseDTO;
 import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
 import pt.ulisboa.tecnico.sec.services.interfaces.ILocationProofService;
@@ -26,8 +28,15 @@ public class LocationProofService implements ILocationProofService {
         
         HttpEntity<RequestProofDTO> entity = new HttpEntity<>(request, headers);
         
-        ResponseEntity<ProofDTO> result = restTemplate.exchange(url, HttpMethod.POST, entity, ProofDTO.class);
-        return result.getBody();
+        ResponseEntity<ClientResponseDTO> result = restTemplate.exchange(url, HttpMethod.POST, entity, ClientResponseDTO.class);
+        ClientResponseDTO clientResponse = result.getBody();
+
+        if(clientResponse != null && clientResponse.getErr() != null) {
+			System.out.println("[Client " + ClientApplication.userId + "] Error occurred asking for proof: " + clientResponse.getErr().getDescription());
+			return null;
+		}
+
+        return clientResponse.getProof();
 	}
 
 }

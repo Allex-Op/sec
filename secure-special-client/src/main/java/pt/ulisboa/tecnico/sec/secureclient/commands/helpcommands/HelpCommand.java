@@ -19,7 +19,7 @@ public class HelpCommand extends Command {
 				System.lineSeparator() + "   * obtainreport <user_id> <epoch>" +
 				System.lineSeparator() + "   * usersatlocation <x_location> <y_location> <epoch>" +
 				System.lineSeparator() + "   * submitreport <option>" +
-				System.lineSeparator() + "   * gatherproofs TO IMPLEMENT <option>" +
+				System.lineSeparator() + "   * gatherproofs <option>" +
 				System.lineSeparator() + "   * help" +
 				System.lineSeparator() + "   * clear" +
 				System.lineSeparator() + "   * quit" +
@@ -28,13 +28,17 @@ public class HelpCommand extends Command {
 				System.lineSeparator() + "	 1. Valid Report" +
 				System.lineSeparator() + "	 2. Report with duplicated proofs" +
 				System.lineSeparator() + "	 3. Report duplicated in the same epoch" +
-				System.lineSeparator() + "	 4. Packet sent to the server with repeated nonce" +
+				System.lineSeparator() + "	 4. Packet sent to the server with repeated nonce (Replay Attack)" +
 				System.lineSeparator() + "	 5. Report with message stealing" +
 				System.lineSeparator() + "	 6. Report with invalid digital signature" +
 				System.lineSeparator() + "	 7. Report with less proofs that necessary" +
 				System.lineSeparator() + "	 8. Report Proofs in different epochs" +
+				System.lineSeparator() + "## ---------------------------------------------------------- ##" +
+				System.lineSeparator() + "   Submit Gather Proofs Cases:" +
+				System.lineSeparator() + "	 1. Ask proof out of range" +
+				System.lineSeparator() + "	 2. Ask proof with Replay Attack" +
+				System.lineSeparator() + "	 3. Ask proof with Invalid Digital Signature" +
 				System.lineSeparator() + "## ---------------------------------------------------------- ##"
-
 		);
 	}
 

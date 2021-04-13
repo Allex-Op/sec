@@ -11,6 +11,7 @@ public class RequestProofDTO {
     private int epoch;
     private String userID; // Prover
     private String digitalSignature;
+    private String nonce;
 
     public int getX() {
         return x;
@@ -50,6 +51,14 @@ public class RequestProofDTO {
 
     public void setDigitalSignature(String digitalSignature) {
         this.digitalSignature = digitalSignature;
+    }
+
+    public String getNonce() {
+        return nonce;
+    }
+
+    public void setNonce(String nonce) {
+        this.nonce = nonce;
     }
 
     @Override

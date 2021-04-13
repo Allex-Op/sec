@@ -50,11 +50,19 @@ public class EpochTriggerMonitor {
 		// Proceed to ask for proofs, build a report and then submit it to the server
 		int myId =  Integer.parseInt(ClientApplication.userId);
 		int[] myLocation = findSelfLocation();
+
+		// Don't do anything if not present in current epoch grid
+		if(myLocation[0] == -1) {
+			System.out.println("[Client " + ClientApplication.userId + "] Not present in the grid at epoch: " + ClientApplication.epoch + ". Currently in vacation, try again later.");
+			return;
+		}
+
 		List<Integer> witnesses = gatherWitnesses(myLocation, myId);
 
 		// Create request proof
 		RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(myLocation[0], myLocation[1], 
 				ClientApplication.epoch, ClientApplication.userId, "");
+		requestProofDTO.setNonce(CryptoUtils.generateNonce());
 
 		// Digitally sign the request proof dto
 		CryptoService.signRequestProofDTO(requestProofDTO);
@@ -84,7 +92,10 @@ public class EpochTriggerMonitor {
 				curr = witness;
 				String url = PathConfiguration.getClientURL(witness);
 				System.out.println("Asking for proof at " + url);
-				proofs.add(locationProofService.requestLocationProof(url, requestProofDTO));
+				ProofDTO proof = locationProofService.requestLocationProof(url, requestProofDTO);
+
+				if(proof != null)
+					proofs.add(proof);
 			} catch(Exception e) {
 				System.out.println(("[ Client "+ClientApplication.userId+"] Wasn't able to contact client "+ curr));
 			}

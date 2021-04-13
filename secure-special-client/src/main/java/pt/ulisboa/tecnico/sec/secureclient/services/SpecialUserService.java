@@ -12,10 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import pt.ulisboa.tecnico.sec.secureclient.SpecialClientApplication;
 import pt.ulisboa.tecnico.sec.services.configs.PathConfiguration;
-import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
-import pt.ulisboa.tecnico.sec.services.dto.RequestLocationDTO;
-import pt.ulisboa.tecnico.sec.services.dto.SecureDTO;
-import pt.ulisboa.tecnico.sec.services.dto.SpecialUserResponseDTO;
+import pt.ulisboa.tecnico.sec.services.dto.*;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 import pt.ulisboa.tecnico.sec.services.exceptions.UnreachableClientException;
 import pt.ulisboa.tecnico.sec.services.interfaces.ISpecialUserService;
@@ -125,5 +122,22 @@ public class SpecialUserService implements ISpecialUserService {
         } else
             return null;
 	}
+
+    public ProofDTO requestLocationProof(String url, RequestProofDTO request) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+
+        HttpEntity<RequestProofDTO> entity = new HttpEntity<>(request, headers);
+
+        ResponseEntity<ClientResponseDTO> result = restTemplate.exchange(url, HttpMethod.POST, entity, ClientResponseDTO.class);
+        ClientResponseDTO clientResponse = result.getBody();
+
+        if(clientResponse != null && clientResponse.getErr() != null) {
+            System.out.println("[Client " + SpecialClientApplication.userId + "] Error occurred asking for proof: " + clientResponse.getErr().getDescription());
+            return null;
+        }
+
+        return clientResponse.getProof();
+    }
 
 }

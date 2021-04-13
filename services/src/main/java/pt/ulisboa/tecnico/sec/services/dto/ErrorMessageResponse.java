@@ -26,4 +26,12 @@ public class ErrorMessageResponse {
     public void setErrorName(String errorName) {
         this.errorName = errorName;
     }
+
+    @Override
+    public String toString() {
+        return "ErrorMessageResponse{" +
+                "errorName='" + errorName + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.tools.javac.code.Types;
 import pt.ulisboa.tecnico.sec.services.configs.CryptoConfiguration;
-import pt.ulisboa.tecnico.sec.services.dto.ErrorMessageResponse;
-import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
-import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
-import pt.ulisboa.tecnico.sec.services.dto.SecureDTO;
+import pt.ulisboa.tecnico.sec.services.dto.*;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 import pt.ulisboa.tecnico.sec.services.exceptions.SignatureCheckFailedException;
 
@@ -191,7 +188,8 @@ public class CryptoService {
     public static String buildRequestProofMessage(RequestProofDTO reqProof) throws SignatureCheckFailedException {
         if(reqProof == null)
             throw new SignatureCheckFailedException("Can't validate proof signature, as the proof as no request associated with it.");
-        return reqProof.getX() + reqProof.getY() + reqProof.getEpoch() + reqProof.getUserID();
+        String message = reqProof.getX() + reqProof.getY() + reqProof.getEpoch() + reqProof.getUserID() + (reqProof.getNonce() != null ? reqProof.getNonce() : "");
+        return message;
     }
 
     /**
@@ -284,5 +282,21 @@ public class CryptoService {
         ObjectMapper mapper = new ObjectMapper();
         Object converted = mapper.readValue(data, aClass);
         return converted;
+    }
+
+    public static void signClientResponse(ClientResponseDTO clientResponse, PrivateKey signKey) {
+        try {
+            clientResponse.setDigitalSignature(
+                    CryptoUtils.sign(
+                            signKey, buildClientResponseMessage(clientResponse)
+                    )
+            );
+        } catch(Exception e) {
+            System.out.println("Unable to sign client response, sending without signature.");
+        }
+    }
+
+    private static String buildClientResponseMessage(ClientResponseDTO clientResponse) {
+        return clientResponse.getNonce() + (clientResponse.getErr() != null ? clientResponse.getErr().toString() : clientResponse.getProof().toString());
     }
 }

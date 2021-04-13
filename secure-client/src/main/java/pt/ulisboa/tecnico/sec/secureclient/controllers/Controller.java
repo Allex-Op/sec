@@ -6,20 +6,22 @@ import org.springframework.web.bind.annotation.*;
 import pt.ulisboa.tecnico.sec.secureclient.ClientApplication;
 import pt.ulisboa.tecnico.sec.secureclient.services.UserService;
 import pt.ulisboa.tecnico.sec.services.configs.ByzantineConfigurations;
-import pt.ulisboa.tecnico.sec.services.dto.DTOFactory;
-import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
-import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
-import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
+import pt.ulisboa.tecnico.sec.services.dto.*;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
-import pt.ulisboa.tecnico.sec.services.exceptions.OutOfEpochException;
 import pt.ulisboa.tecnico.sec.services.exceptions.ProverOutOfRangeException;
+import pt.ulisboa.tecnico.sec.services.exceptions.RepeatedNonceException;
+import pt.ulisboa.tecnico.sec.services.exceptions.SignatureCheckFailedException;
 import pt.ulisboa.tecnico.sec.services.utils.Grid;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
+import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class Controller {
+
+	private List<String> nonces = new ArrayList<>();
 
 	@Autowired
 	private UserService userService;
@@ -28,10 +30,18 @@ public class Controller {
 	 *	Another client asked for a location proof
 	 */
 	@PostMapping("/proof")
-	public ProofDTO requestLocationProof(@RequestBody RequestProofDTO request) throws ApplicationException {
+	public ClientResponseDTO requestLocationProof(@RequestBody RequestProofDTO request) throws ApplicationException {
 		System.out.println("\n[Client"+ClientApplication.userId+"] Received proof request");
 
-		//TODO: Verificar assinatura digital e nonces
+		// Verify Nonce & Add it
+		if(nonces.contains(request.getNonce()))
+			throw new RepeatedNonceException("Request Proof Nonce repeated. (Replay Attack)");
+		nonces.add(request.getNonce());
+
+		// Verify check digital signature
+		if (!CryptoService.checkDigitalSignature(CryptoService.buildRequestProofMessage(request), request.getDigitalSignature(), CryptoUtils.getClientPublicKey(request.getUserID()))) {
+			throw new SignatureCheckFailedException("Can't validate request proof signature.");
+		}
 
 		// Check if the prover is in my range
 		int proverId = Integer.parseInt(request.getUserID());
@@ -40,7 +50,13 @@ public class Controller {
 		if(usersNearby.contains(proverId)) {
 			ProofDTO proof = DTOFactory.makeProofDTO(ClientApplication.epoch, ClientApplication.userId, request, "");
 			CryptoService.signProofDTO(proof);
-			return proof;
+
+			ClientResponseDTO clientResponse = new ClientResponseDTO();
+			clientResponse.setProof(proof);
+			clientResponse.setNonce(CryptoUtils.generateNonce());
+			CryptoService.signClientResponse(clientResponse, CryptoUtils.getClientPrivateKey(ClientApplication.userId));
+
+			return clientResponse;
 		} else
 			throw new ProverOutOfRangeException("[Client"+ClientApplication.userId+"] Prover is not in range, can't generate proof...");
 	}

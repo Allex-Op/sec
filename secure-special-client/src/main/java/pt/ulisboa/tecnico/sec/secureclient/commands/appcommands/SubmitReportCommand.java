@@ -144,7 +144,7 @@ public class SubmitReportCommand extends Command {
     }
 
     private void reportWithMessageStealing() throws ApplicationException {
-        System.out.println("[Test case 5] It will submit a report that was originated by a valid user, but an attacker changed the userId and digital signature (message stolen). It will fail because each proof has the with it the request proof that the witness received. When comparing that request proof with the top level request proof, the digital signatures will be different.");
+        System.out.println("[Test case 5] It will submit a report that was originated by a valid user, but an attacker changed the userId and digital signature (message stolen). It will fail because each proof has the request proof that the witness originally received. When comparing that request proof with the top level request proof, the digital signatures will be different.");
         RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(10, 2, epochInReport, "1", "");
         CryptoService.signRequestProofDTO(requestProofDTO);
 
@@ -169,7 +169,7 @@ public class SubmitReportCommand extends Command {
     }
 
     private void reportWithDigitalSignatureInvalid() throws ApplicationException {
-        System.out.println("[Test case 6] It will submit a report that has an invalid digital signature. It shall fail.");
+        System.out.println("[Test case 6] It will submit a report that has an invalid digital signature. It will fail the digital signature check.");
         RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(
                 10,
                 2,
@@ -193,7 +193,7 @@ public class SubmitReportCommand extends Command {
     }
 
     private void reportWithLessProofsThanNecessary() throws ApplicationException {
-        System.out.println("[Test case 7] It will submit a report that has less proofs than necessary (Byzantine Rule). It shall fail.");
+        System.out.println("[Test case 7] It will submit a report that has less proofs than necessary (Byzantine Rule). It will fail because there are less proofs that the minimum necessary to have a valid report.");
         RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(10, 2, epochInReport, SpecialClientApplication.userId, "");
         CryptoService.signRequestProofDTO(requestProofDTO);
 
@@ -207,7 +207,7 @@ public class SubmitReportCommand extends Command {
     }
 
     private void reportProofsInDifferentEpoch() throws ApplicationException {
-        System.out.println("[Test case 8] It will submit a report that has less proofs than necessary, because they are in different epochs than the proof request (the server will filter invalid proofs). It shall fail.");
+        System.out.println("[Test case 8] It will submit a report that has less proofs than necessary, because they are in different epochs than the request proof (the server will filter invalid proofs). It will fail.");
         RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(10, 2, epochInReport, SpecialClientApplication.userId, "");
         CryptoService.signRequestProofDTO(requestProofDTO);
 
