@@ -21,9 +21,6 @@ public class UserService implements IUserService {
 
     private static RestTemplate restTemplate = new RestTemplate();
 
-    // If true the report request will try to request an invalid user Id that he has no authorization
-    private static boolean byzantine_user = true;
-
     /**
      *  Requests a location report of a certain user at a certain epoch
      */
@@ -58,8 +55,6 @@ public class UserService implements IUserService {
 
     private RequestLocationDTO buildRequestLocation(String userIdSender, String userIdRequested, int epoch) {
         String reqId = userIdRequested;
-        if(byzantine_user)
-            reqId = "100";
 
         RequestLocationDTO req = new RequestLocationDTO();
         req.setUserIDSender(userIdSender);

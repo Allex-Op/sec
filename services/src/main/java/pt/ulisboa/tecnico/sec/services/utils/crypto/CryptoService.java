@@ -89,7 +89,7 @@ public class CryptoService {
 
             // Get the original JSON Object as String
             data = CryptoUtils.decrypt(originalKey, dataEncrypted, IV);
-            System.out.println("Encrypted object was:" + data);
+            System.out.println("[CryptoService Debug] Encrypted object was:" + data);
 
             // Convert string json to DTO
             return convertStringToJson(data, aClass);

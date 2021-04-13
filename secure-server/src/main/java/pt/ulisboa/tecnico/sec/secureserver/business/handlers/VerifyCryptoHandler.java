@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.sec.secureserver.business.handlers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ulisboa.tecnico.sec.secureserver.business.domain.users.User;
 import pt.ulisboa.tecnico.sec.secureserver.business.domain.users.UserCatalog;
 import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
@@ -72,6 +73,10 @@ public class VerifyCryptoHandler {
         userIdsVerified.add(reqProof.getUserID());
 
         for (ProofDTO proofDTO : proofsList) {
+            // Check if the proof is for the same epoch as the requestProof
+            if(reqProof.getEpoch() != proofDTO.getEpoch())
+                continue;
+
             String proofUserId = proofDTO.getUserID();
             // Validate digital signature of each proof
             if(verifyDigitalSignature(proofUserId, proofDTO, false)) {
@@ -96,7 +101,7 @@ public class VerifyCryptoHandler {
         if(userCatalog.checkIfNonceExists(userId, nonce))
             throw new RepeatedNonceException("Nonce repeated.");
 
-        //TODO: NÃO ESTA A SALVAR NA BD O NONCE
-        userCatalog.saveNonce(userId, nonce);
+        User user = userCatalog.getUserById(userId);
+        user.addNonceReceived(nonce);
     }
 }

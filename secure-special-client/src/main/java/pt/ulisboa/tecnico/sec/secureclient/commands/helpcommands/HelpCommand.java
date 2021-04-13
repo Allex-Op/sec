@@ -16,12 +16,25 @@ public class HelpCommand extends Command {
 		System.out.println(
 				System.lineSeparator() + "## ---------------------------------------------------------- ##" + 
 				System.lineSeparator() + "   Supported Commands are:" +
-				System.lineSeparator() + "   1. obtainreport <user_id> <epoch>" + 
-				System.lineSeparator() + "   2. usersatlocation <x_location> <y_location> <epoch>" +
-				System.lineSeparator() + "   3. help" + 
-				System.lineSeparator() + "   4. clear" + 
-				System.lineSeparator() + "   5. quit" +
+				System.lineSeparator() + "   * obtainreport <user_id> <epoch>" +
+				System.lineSeparator() + "   * usersatlocation <x_location> <y_location> <epoch>" +
+				System.lineSeparator() + "   * submitreport <option>" +
+				System.lineSeparator() + "   * gatherproofs TO IMPLEMENT <option>" +
+				System.lineSeparator() + "   * help" +
+				System.lineSeparator() + "   * clear" +
+				System.lineSeparator() + "   * quit" +
+				System.lineSeparator() + "## ---------------------------------------------------------- ##" +
+				System.lineSeparator() + "   Submit Report Test Cases:" +
+				System.lineSeparator() + "	 1. Valid Report" +
+				System.lineSeparator() + "	 2. Report with duplicated proofs" +
+				System.lineSeparator() + "	 3. Report duplicated in the same epoch" +
+				System.lineSeparator() + "	 4. Packet sent to the server with repeated nonce" +
+				System.lineSeparator() + "	 5. Report with message stealing" +
+				System.lineSeparator() + "	 6. Report with invalid digital signature" +
+				System.lineSeparator() + "	 7. Report with less proofs that necessary" +
+				System.lineSeparator() + "	 8. Report Proofs in different epochs" +
 				System.lineSeparator() + "## ---------------------------------------------------------- ##"
+
 		);
 	}
 

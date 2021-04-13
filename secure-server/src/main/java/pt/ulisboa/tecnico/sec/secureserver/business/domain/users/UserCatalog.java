@@ -31,11 +31,6 @@ public class UserCatalog {
 		}
 	}
 
-	public void saveNonce(String userId, String nonce) throws ApplicationException {
-		User user = getUserById(userId);
-		user.addNonceReceived(nonce);
-	}
-
 	/**
 	 *	Returns true if the nonce exists
 	 */

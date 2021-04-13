@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 
 import pt.ulisboa.tecnico.sec.secureclient.commands.CommandDispatcher;
 import pt.ulisboa.tecnico.sec.secureclient.commands.appcommands.ObtainReportCommand;
+import pt.ulisboa.tecnico.sec.secureclient.commands.appcommands.SubmitReportCommand;
 import pt.ulisboa.tecnico.sec.secureclient.commands.appcommands.UsersAtLocationCommand;
 import pt.ulisboa.tecnico.sec.secureclient.commands.helpcommands.ClearCommand;
 import pt.ulisboa.tecnico.sec.secureclient.commands.helpcommands.HelpCommand;
@@ -72,6 +73,7 @@ public class SpecialClientApplication extends SpringBootServletInitializer imple
 		// app commands
 		commandDispatcher.register("obtainreport", new ObtainReportCommand());
 		commandDispatcher.register("usersatlocation", new UsersAtLocationCommand());
+		commandDispatcher.register("submitreport", new SubmitReportCommand());
 		// help commands
 		commandDispatcher.register("help", new HelpCommand());
 		commandDispatcher.register("clear", new ClearCommand());

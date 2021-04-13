@@ -47,7 +47,6 @@ public class EpochTriggerMonitor {
 			return;
 		}
 
-		/*
 		// Proceed to ask for proofs, build a report and then submit it to the server
 		int myId =  Integer.parseInt(ClientApplication.userId);
 		int[] myLocation = findSelfLocation();
@@ -65,23 +64,6 @@ public class EpochTriggerMonitor {
 
 		// Send report to the server
 		ReportDTO reportDTO = DTOFactory.makeReportDTO(requestProofDTO, proofs);
-		*/
-
-		//delete below
-		RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(10, 2, 1, ClientApplication.userId, "");
-		CryptoService.signRequestProofDTO(requestProofDTO);
-
-		ProofDTO proofDTO1 = DTOFactory.makeProofDTO(1, "2", requestProofDTO, "");
-		CryptoService.signProofDTO(proofDTO1);
-
-		ProofDTO proofDTO2 = DTOFactory.makeProofDTO(1, "3", requestProofDTO, "");
-		CryptoService.signProofDTO(proofDTO2);
-
-		ProofDTO proofDTO3 = DTOFactory.makeProofDTO(1, "4", requestProofDTO, "");
-		CryptoService.signProofDTO(proofDTO3);
-
-		ReportDTO reportDTO = DTOFactory.makeReportDTO(requestProofDTO, Arrays.asList(proofDTO1,proofDTO2,proofDTO3));
-
 
 		System.out.println("\n[Client "+ClientApplication.userId+"] Sending report to server:\n" + reportDTO.toString());
 		userService.submitLocationReport(ClientApplication.userId, reportDTO);
@@ -127,17 +109,4 @@ public class EpochTriggerMonitor {
 		System.out.println("\n[Client " + ClientApplication.userId + "] Going to grid at client epoch: " + ClientApplication.epoch);
 		return Grid.getLocationOfUserAtEpoch(myId, ClientApplication.epoch);
 	}
-
-	/*
-		RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(10, 2, 1, ClientApplication.userId, "");
-		CryptoService.signRequestProofDTO(requestProofDTO);
-
-		ProofDTO proofDTO1 = DTOFactory.makeProofDTO(1, "2", requestProofDTO, "");
-		CryptoService.signProofDTO(proofDTO1);
-
-		ProofDTO proofDTO2 = DTOFactory.makeProofDTO(1, "3", requestProofDTO, "");
-		CryptoService.signProofDTO(proofDTO2);
-
-		ReportDTO reportDTO = DTOFactory.makeReportDTO(requestProofDTO, Arrays.asList(proofDTO1,proofDTO2));
-		*/
 }
