@@ -17,6 +17,8 @@ import pt.ulisboa.tecnico.sec.services.dto.ClientResponseDTO;
 import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
 import pt.ulisboa.tecnico.sec.services.interfaces.ILocationProofService;
+import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
+import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
 
 @Service
 public class LocationProofService implements ILocationProofService {

@@ -296,7 +296,7 @@ public class CryptoService {
         }
     }
 
-    private static String buildClientResponseMessage(ClientResponseDTO clientResponse) {
+    public static String buildClientResponseMessage(ClientResponseDTO clientResponse) {
         return clientResponse.getNonce() + (clientResponse.getErr() != null ? clientResponse.getErr().toString() : clientResponse.getProof().toString());
     }
 }
