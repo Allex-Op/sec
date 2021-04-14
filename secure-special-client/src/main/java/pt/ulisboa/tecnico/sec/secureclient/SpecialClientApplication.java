@@ -10,9 +10,9 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.ApplicationContext;
 
 import pt.ulisboa.tecnico.sec.secureclient.commands.CommandDispatcher;
-import pt.ulisboa.tecnico.sec.secureclient.commands.appcommands.GatherProofsCommand;
+import pt.ulisboa.tecnico.sec.secureclient.commands.appcommands.GatherProofsTestCommand;
 import pt.ulisboa.tecnico.sec.secureclient.commands.appcommands.ObtainReportCommand;
-import pt.ulisboa.tecnico.sec.secureclient.commands.appcommands.SubmitReportCommand;
+import pt.ulisboa.tecnico.sec.secureclient.commands.appcommands.SubmitReportTestCommand;
 import pt.ulisboa.tecnico.sec.secureclient.commands.appcommands.UsersAtLocationCommand;
 import pt.ulisboa.tecnico.sec.secureclient.commands.helpcommands.ClearCommand;
 import pt.ulisboa.tecnico.sec.secureclient.commands.helpcommands.HelpCommand;
@@ -74,8 +74,9 @@ public class SpecialClientApplication extends SpringBootServletInitializer imple
 		// app commands
 		commandDispatcher.register("obtainreport", new ObtainReportCommand());
 		commandDispatcher.register("usersatlocation", new UsersAtLocationCommand());
-		commandDispatcher.register("submitreport", new SubmitReportCommand());
-		commandDispatcher.register("gatherproofs", new GatherProofsCommand());
+		commandDispatcher.register("submitreporttest", new SubmitReportTestCommand());
+		commandDispatcher.register("gatherproofstest", new GatherProofsTestCommand());
+		commandDispatcher.register("obtainreporttest", new GatherProofsTestCommand());
 		// help commands
 		commandDispatcher.register("help", new HelpCommand());
 		commandDispatcher.register("clear", new ClearCommand());

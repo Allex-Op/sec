@@ -14,7 +14,7 @@ import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
 import java.util.Arrays;
 import java.util.List;
 
-public class SubmitReportCommand extends Command {
+public class SubmitReportTestCommand extends Command {
     private ISpecialUserService userService = new SpecialUserService();
 
     public static final int EXPECTED_ARGUMENTS = 1;

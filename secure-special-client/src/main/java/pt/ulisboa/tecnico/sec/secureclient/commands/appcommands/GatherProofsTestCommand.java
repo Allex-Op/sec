@@ -13,7 +13,7 @@ import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
 
 import java.util.List;
 
-public class GatherProofsCommand extends Command {
+public class GatherProofsTestCommand extends Command {
     private SpecialUserService userService = new SpecialUserService();
 
     public static final int EXPECTED_ARGUMENTS = 1;

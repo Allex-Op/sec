@@ -18,8 +18,9 @@ public class HelpCommand extends Command {
 				System.lineSeparator() + "   Supported Commands are:" +
 				System.lineSeparator() + "   * obtainreport <user_id> <epoch>" +
 				System.lineSeparator() + "   * usersatlocation <x_location> <y_location> <epoch>" +
-				System.lineSeparator() + "   * submitreport <option>" +
-				System.lineSeparator() + "   * gatherproofs <option>" +
+				System.lineSeparator() + "   * submitreporttest <option>" +
+				System.lineSeparator() + "   * gatherproofstest <option>" +
+				System.lineSeparator() + "   * obtainreporttest <option>" +
 				System.lineSeparator() + "   * help" +
 				System.lineSeparator() + "   * clear" +
 				System.lineSeparator() + "   * quit" +
@@ -34,11 +35,17 @@ public class HelpCommand extends Command {
 				System.lineSeparator() + "	 7. Report with less proofs that necessary" +
 				System.lineSeparator() + "	 8. Report Proofs in different epochs" +
 				System.lineSeparator() + "## ---------------------------------------------------------- ##" +
-				System.lineSeparator() + "   Submit Gather Proofs Cases:" +
+				System.lineSeparator() + "   Submit Gather Proofs Test Cases:" +
 				System.lineSeparator() + "	 1. Ask proof out of range" +
 				System.lineSeparator() + "	 2. Ask proof with Replay Attack" +
 				System.lineSeparator() + "	 3. Ask proof with Invalid Digital Signature" +
-				System.lineSeparator() + "## ---------------------------------------------------------- ##"
+				System.lineSeparator() + "## ---------------------------------------------------------- ##" + 
+				System.lineSeparator() + "   Obtain Reports Test Cases:" + 
+				System.lineSeparator() + "   1. Obtain Report from invalid user" + 
+				System.lineSeparator() + "   2. Obtain Report from another user - priviledge exception" + 
+				System.lineSeparator() + "   3. Obtain Report with invalid signature" + 
+				System.lineSeparator() + "   4. Obtain Report with invalid epoch" +
+				System.lineSeparator() + "   5. Obtain Report with repeated nonce (Replay Attack)"
 		);
 	}
 

@@ -26,6 +26,8 @@ public class SpecialUserService implements ISpecialUserService {
 
 	@Override
 	public ReportDTO obtainLocationReport(String userIdSender, String userIdRequested, int epoch) throws ApplicationException {
+		System.out.println("[Special Client "+ SpecialClientApplication.userId+"] I am user '" + userIdSender + "', asking for a Report of user '" + userIdRequested + " at epoch: " + epoch);
+		
 		// Prepare the body of the HTTP request
         RequestLocationDTO req = new RequestLocationDTO();
         req.setUserIDSender(userIdSender);
@@ -35,8 +37,11 @@ public class SpecialUserService implements ISpecialUserService {
         // Convert the above request body to a secure request object
         byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
         SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes);
-        
-        String urlAPI = PathConfiguration.GET_REPORT_URL;
+        return obtainInfo(secureDTO, randomBytes);
+	}
+	
+	public ReportDTO obtainInfo(SecureDTO secureDTO, byte[] randomBytes) {
+		String urlAPI = PathConfiguration.GET_REPORT_URL;
 
         // Set HTTP headers
         HttpHeaders headers = new HttpHeaders();
@@ -63,7 +68,7 @@ public class SpecialUserService implements ISpecialUserService {
      */
 	@Override
 	public void submitLocationReport(String userID, ReportDTO reportDTO) throws ApplicationException {
-        System.out.println("\n[Special User] Report being sent:\n" + reportDTO.toString());
+        System.out.println("\n[Special Client" + SpecialClientApplication.userId + "] Report being sent:\n" + reportDTO.toString());
 
         byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
         SecureDTO secureDTO = CryptoService.generateNewSecureDTO(reportDTO, userID, randomBytes);
@@ -86,7 +91,7 @@ public class SpecialUserService implements ISpecialUserService {
             SecureDTO sec = result.getBody();
             CryptoService.extractEncryptedData(sec, String.class, CryptoUtils.createSharedKeyFromString(randomBytes));
         } catch(Exception e) {
-            throw new UnreachableClientException("[Client "+ SpecialClientApplication.userId+"] Wasn't able to contact server.");
+            throw new UnreachableClientException("[Special Client "+ SpecialClientApplication.userId+"] Wasn't able to contact server.");
         }
     }
 
@@ -133,7 +138,7 @@ public class SpecialUserService implements ISpecialUserService {
         ClientResponseDTO clientResponse = result.getBody();
 
         if(clientResponse != null && clientResponse.getErr() != null) {
-            System.out.println("[Client " + SpecialClientApplication.userId + "] Error occurred asking for proof: " + clientResponse.getErr().getDescription());
+            System.out.println("[Special Client " + SpecialClientApplication.userId + "] Error occurred asking for proof: " + clientResponse.getErr().getDescription());
             return null;
         }
 
