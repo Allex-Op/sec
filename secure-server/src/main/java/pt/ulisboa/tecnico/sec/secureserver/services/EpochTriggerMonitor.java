@@ -15,7 +15,7 @@ public class EpochTriggerMonitor {
 		ServerApplication.incrementEpoch();
 
 		Date date = new Date();
-		System.out.println("[Server"+ new Timestamp(date.getTime())+ "] Epoch change, current epoch now is " + ServerApplication.epoch);
+		System.out.println("[Server"+ new Timestamp(date.getTime())+ "] Epoch change, current epoch now is " + ServerApplication.epoch + " (deprecated, server epoch doesn't influence anything, it will be removed).");
 	}
 
 

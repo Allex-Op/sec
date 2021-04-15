@@ -1,0 +1,261 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.4.3)
+
+2021-04-15 22:40:34.848  INFO 20307 --- [           main] p.u.t.s.secureclient.ClientApplication   : Starting ClientApplication v1.0 using Java 11.0.10 on work with PID 20307 (/home/alex/Documents/Mestrado/2sem/sec/Secure-Communication/secure-client/target/secure-client-1.0.jar started by root in /home/alex/Documents/Mestrado/2sem/sec/Secure-Communication)
+2021-04-15 22:40:34.874  INFO 20307 --- [           main] p.u.t.s.secureclient.ClientApplication   : No active profile set, falling back to default profiles: default
+2021-04-15 22:40:41.397  INFO 20307 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9002 (http)
+2021-04-15 22:40:41.444  INFO 20307 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-15 22:40:41.445  INFO 20307 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
+2021-04-15 22:40:41.681  INFO 20307 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-04-15 22:40:41.681  INFO 20307 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 6294 ms
+2021-04-15 22:40:42.849  INFO 20307 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-15 22:40:43.587  INFO 20307 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2021-04-15 22:40:43.838  INFO 20307 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9002 (http) with context path ''
+2021-04-15 22:40:43.874  INFO 20307 --- [           main] p.u.t.s.secureclient.ClientApplication   : Started ClientApplication in 12.807 seconds (JVM running for 15.661)
+
+[Client 2] Going to grid at client epoch: 1
+[Client2] My location: (0,2)
+[Client2] My neighbors are:
+Neighbor 3
+Neighbor 1
+
+
+Asking for proof at http://127.0.0.1:9003/proof
+2021-04-15 22:40:49.926  INFO 20307 --- [nio-9002-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-15 22:40:49.926  INFO 20307 --- [nio-9002-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-04-15 22:40:49.928  INFO 20307 --- [nio-9002-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+
+[Client2] Received proof request
+Asking for proof at http://127.0.0.1:9001/proof
+
+[Client 2] Sending report to server:
+Report:
+Request of epoch 1 at location (0,2) made by user 2 with the Digital Signature DB450J782luqeZYRxKHFtpA9NnxjLJPXmWwgNQus6n0egkRXwIynfa5U8FcUVKPwx6hB2pcKMCc3Xz7uWssoN2TQG4h8ujbe9Ek0cBQxoNjknB1TlW93aGj4bfobk8wqlI5SXdp4Y2oc2AydwiChK5ZcKre1f9TUqqeON0os3JTZV9TwLy0xy3eCisJSw89JtSPJHyo17asy7lcPfSV7J0omWL9Z0X2YsKLejdva4Uh5GZH6olAiGRO6/q6DT9fPB5Ku6qbbAUcrLxXuoQ9lUZOyHCRMmNWkE8xylGdr8vK2bm8rsgvNhizdVX3Z3csimah6+UikbSxjVjAjiw8qqA==
+ * Proof of epoch 1 made by user 3 with the Digital Signature xV7CA5F1+MXHigcuwJB9EHKGAAg6u+dIjmIKrH+FOWcidgHxeEUhLHFilMXJYgimH9Y4LLPPntYoWPvG2JeewtX+Sx+csEAZ3VUCumniJfp2GlokwmqYOnr53O8ryf8Rg3sLZmfc8g+uni5mEm0YE0munHj9XRRzJ0oicP+AXceN54mtzpJUCafBwGXKWN7HJEwekrLFKGsrFz+x01DTOHIpN4QOKVF8gP5CENAK3kOYSBev96/jsOypqVwo65ZhGyVXXabdgKTTHdHJIlw7PMZoUfc7/icWUb/NqdS5SH0K/l7XizpPCOLUUjURVr0QtIXQ8/2cc9XtYwvULLQbrg== of {Request of epoch 1 at location (0,2) made by user 2 with the Digital Signature DB450J782luqeZYRxKHFtpA9NnxjLJPXmWwgNQus6n0egkRXwIynfa5U8FcUVKPwx6hB2pcKMCc3Xz7uWssoN2TQG4h8ujbe9Ek0cBQxoNjknB1TlW93aGj4bfobk8wqlI5SXdp4Y2oc2AydwiChK5ZcKre1f9TUqqeON0os3JTZV9TwLy0xy3eCisJSw89JtSPJHyo17asy7lcPfSV7J0omWL9Z0X2YsKLejdva4Uh5GZH6olAiGRO6/q6DT9fPB5Ku6qbbAUcrLxXuoQ9lUZOyHCRMmNWkE8xylGdr8vK2bm8rsgvNhizdVX3Z3csimah6+UikbSxjVjAjiw8qqA==}
+ * Proof of epoch 1 made by user 1 with the Digital Signature X1bZEku5kg8HhdVP1GcQaf5dHI4hCrJBmOUyP+bRmf3yMSvC++C76YuWYXtyo4LIJuh7Udqe08dfSC+MA2dL1tw1ms4y+Yw5xQexYlnKrSh90F7TG6fK41dxvked/jaRvz86VAx5BPi4k2zsQxob4EL69A6a982ngyE9bOJxPL87eyeSLJs7vuaAXYYUu15NtAM7FPtXYzjZAXBuNNijCC8VYI9r+xaZ5CIMeG2l5BAkhWZGZ8j+4hndGIFPApwzuxrvIKSQWdwDtY76/vAIcotXlQyeXBfuwczALGd0iwKzDsV3+AuLBdJHw0mmNccZLbdGIWPiii0txtzpRqu31w== of {Request of epoch 1 at location (0,2) made by user 2 with the Digital Signature DB450J782luqeZYRxKHFtpA9NnxjLJPXmWwgNQus6n0egkRXwIynfa5U8FcUVKPwx6hB2pcKMCc3Xz7uWssoN2TQG4h8ujbe9Ek0cBQxoNjknB1TlW93aGj4bfobk8wqlI5SXdp4Y2oc2AydwiChK5ZcKre1f9TUqqeON0os3JTZV9TwLy0xy3eCisJSw89JtSPJHyo17asy7lcPfSV7J0omWL9Z0X2YsKLejdva4Uh5GZH6olAiGRO6/q6DT9fPB5Ku6qbbAUcrLxXuoQ9lUZOyHCRMmNWkE8xylGdr8vK2bm8rsgvNhizdVX3Z3csimah6+UikbSxjVjAjiw8qqA==}
+
+
+[Client2] Received proof request
+SecureDTO{data='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', randomString='mQTMctYUMu50IFGwtAyB57qLhpvrF/QvTGNSrbjzRrTTO3FWnMO14/JH9WBhliRV9mbjfgDlckuku1PkCVtfhNpfCF8D9O02VRTmeWMNms+FGE8KYh7bZosmvO25lQKqBD8rCHpozOlAkhiOnUr8NDks/9kTHCvPIzpyOe8PG2EAPSs+PwdCjdeY+wqzyHr2FToarwW+cJAbYJ6CSu7rfOSKFwOwbyaoxvb5eumkHdCzEi8iJXWsJMLpeb7nfIaJ/7NZz2/5m7/YeI6AqYLEOIoNrGgqCaKEeiIuirgyJ5Dv9fq43euaLZCOuSXOoyiDnvKLMDa18WuVHtvtKKIX/g==', digitalSignature='Mm3kHNoFY+CflornSTdVqZ7enyiRbphqL4w2K04ia0Wj1wRg5iT/cVT0mI49aJ9C5oVMjvMwFywG9u13xf/7xDZ/hQLMKvcKB89R+n/aEMXc7jGAfFpHz+t93s0P9U1Ho7pTny8OXKEo5AC/epWszqI4iJlAcSYRKv38kca9JyG4UsJQNW0Cvxli4y7VSmDc72k8e/ExlmPR2HWuZE9RB2ie3Bme1ptW0LZvDsrt6Se2LzSDYHrUbpK8IiDwdDX3V4eFeCoghCoGDR/hfXiJ7ye5ansie9zhOpiI2V+7n77zElT3GxoJEpUv7WAqT727nLFb23UZznHz5ILjasFHPA==', IV='05E46MxaF61eFSsbg1PfDw=='}
+[CryptoService Debug] Encrypted object was:{"errorName":"Invalid report exception","description":"Not enough Proofs to approve the Report."}
+[Error - Invalid report exception] Not enough Proofs to approve the Report.
+
+[Client 2] Report Sent!
+Trying to obtain the Report...
+SecureDTO{data='HmgzJz4dX9dUdmIXH+TBYIy/j5+KNq4Fmj6/mKoBG1kP+UmA2qsyu34nIkH7cKlS3zJM9vwXcEvPSSB61A0/d4PgvzbPbg09GSjlD2wtYaw=', randomString='tqW5UuA/u0xu/nwBEehd35cD9XWDK8C6PyLh91by17Fn5UykNi/UdhqgO3IbkRpZ5fwogYjdrrMamVtWUPU0dSMetarnoLkMN3NLD6Xd0VNOE1CQ4OywwB/6MCScGIVyFm8uUvj2ybgLYVmGflIe4le0n/yOUSwfmLu+O6TZWhN/zy5rgbjLrAIUKkREnwS1q/RY1g3+NMFULo4qZjTqNl0tvgC18+wKmcTAmRGcAJ/kT7NWzbzt2moI4Kn25owLtbNWjMtpE+a32PjVtePL0xKigtXgq23NNu/jMSHrgypc2DEiZ+rZxVGpM+nU/ZiEbiWjnm1oR5dUfbcMgNbaQQ==', digitalSignature='YTVBatZXetXfhkhDaQT7jJ1dlUq27b5Z928MNEfH3Dcq/4rJhytEXGS206RPf0fHnxN1KEavH7MIDJBivfLIV5ldmHWI/mh3IjY4WB3FEK7/dDKnKtaaJVkpXJa/19fCKqCxBHBijHaozK4PCimQUYQH60zFOHbpmWTYrqb5ElIT20Gvm21wITpVwYRTNlEVOhb00npMRlbkD/d6pocYMf9yH6u5SDhKZdMaAPZiwkMNeAQC2yvesHD3OQt8ZMFoLPQEvgr1936MHV3/D8yyebnrqSa7foeBGpl4Y/CNqPBMMaCThOCzkuRnXSf9Z9is9VIrXB8WtoqHNAo/6BePLw==', IV='cwThusweRCyoRFkQrqOQEQ=='}
+[CryptoService Debug] Encrypted object was:{"errorName":"Invalid Request Exception","description":"No report found."}
+[Error - Invalid Request Exception] No report found.
+
+[Client 2] Going to grid at client epoch: 2
+[Client2] My location: (1,2)
+[Client2] My neighbors are:
+Neighbor 1
+Neighbor 3
+
+
+Asking for proof at http://127.0.0.1:9001/proof
+Asking for proof at http://127.0.0.1:9003/proof
+
+[Client 2] Sending report to server:
+Report:
+Request of epoch 2 at location (1,2) made by user 2 with the Digital Signature DqmZYopXZfKazRebUGxTyAjzYHLtUYbnPMw0VksUrkWq/dhwnwlHCc7MtEFcap6h17DBvh2HLrK+AJwC18loYO3fissiylroRaeTuuD8JjBcQoWA6KxKO4S7ghSG55pJAafab90u3w//b/ijanpcDUYEqMJtBaMqU4GhcSspRDoZDt4kRvg3xZgtFsHgf0Y/cQRoHk5qfJRC4WmHfBsUP8lHH+FYGqdNvW9pP53uJKPdZz2f7bP3orc+jl8tHUMd+j1dMMMcm/OSvvn77oL95HM5HNy35OsBVOqrIFSszAgZI5yEigWWCHtZOV0bgpwN7lobFLqFvWBdCrx6iB4dmA==
+ * Proof of epoch 1 made by user 1 with the Digital Signature mVBxmJu1TULnAil+Ong0YbxMYCxTDDz8axJdfHUW6ln7AQj0+KRASTj05c3qIvYB3X5TKAQwBFXFwf+wCvSMDeMNIJf+X4OqnO3/2sLRrbL2h8+thkhX89d5kcpkR9MxcRgC4VfFxnd8+VAi6h8EZYNShTWqxHbhnV38/5kg8iiic88RKdJuBZScpwkSN02Ax48W3+GSW2ZipBczEL0qxhmQBt7ne7kPo7PDuFFJHwiA3yVk/SVMKvmAt0h6aBhKrohKlhWMbqfY+tpOYBUrAjOjP0XDE2eGH7Dm54Jhnk+pjHzBQzzWVoC8y1cTm9/PwnCIYulIfbQzCR5P6okCsQ== of {Request of epoch 2 at location (1,2) made by user 2 with the Digital Signature DqmZYopXZfKazRebUGxTyAjzYHLtUYbnPMw0VksUrkWq/dhwnwlHCc7MtEFcap6h17DBvh2HLrK+AJwC18loYO3fissiylroRaeTuuD8JjBcQoWA6KxKO4S7ghSG55pJAafab90u3w//b/ijanpcDUYEqMJtBaMqU4GhcSspRDoZDt4kRvg3xZgtFsHgf0Y/cQRoHk5qfJRC4WmHfBsUP8lHH+FYGqdNvW9pP53uJKPdZz2f7bP3orc+jl8tHUMd+j1dMMMcm/OSvvn77oL95HM5HNy35OsBVOqrIFSszAgZI5yEigWWCHtZOV0bgpwN7lobFLqFvWBdCrx6iB4dmA==}
+ * Proof of epoch 1 made by user 3 with the Digital Signature ugvMOQ6XfwReDJSn7bjfNW6pPThEUY1aNoVd3dx0E22hhm6wCTvXxspuqKnHBcGi0nKF4zvSvI2qnqFgrDtCiA5rJ5+qvyF9mvM88I7gHsRKBuRZpl2+urVX3okOixRN9NFz8/ye3osFQQueTWSjHXFBZ7OkdapF/wpdSGmGWNC6x+g3hzFX+2AOQcooEEHa54xFDj2CDe0wchV6iWSKuIpfCXY4wafmWaHm4quFw5wA7CMRd2ghIAGv5rboX7ruZg4uj/VBxzB0PHhtpq5dsj30qZPR6bp0CEXd1jt6tpnDpEpG6Ndloc+NRnRIcIciybpAdETSN5e2z93QV003Mw== of {Request of epoch 2 at location (1,2) made by user 2 with the Digital Signature DqmZYopXZfKazRebUGxTyAjzYHLtUYbnPMw0VksUrkWq/dhwnwlHCc7MtEFcap6h17DBvh2HLrK+AJwC18loYO3fissiylroRaeTuuD8JjBcQoWA6KxKO4S7ghSG55pJAafab90u3w//b/ijanpcDUYEqMJtBaMqU4GhcSspRDoZDt4kRvg3xZgtFsHgf0Y/cQRoHk5qfJRC4WmHfBsUP8lHH+FYGqdNvW9pP53uJKPdZz2f7bP3orc+jl8tHUMd+j1dMMMcm/OSvvn77oL95HM5HNy35OsBVOqrIFSszAgZI5yEigWWCHtZOV0bgpwN7lobFLqFvWBdCrx6iB4dmA==}
+
+SecureDTO{data='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', randomString='gyHvVXUVt+0ihoCerBsJ+pna0hnTEMsPZdeHBrG9GS9/i8IpOmOVpQHgfRg/pESpcdsaa6/TyYW2uWToj2zniwhI2V/22lHUzh+bSBv7unSMwxXQvSH09pypK8wJNZlEZ12uTcEdM3a86jecthlEbxsp/7pCeiGyubYKmNq98xWu1IEVN2xHvxZHWEZjwnN5A/rDVLCmffapOPaxTEPt7+iyV10v/1NXmUYU4AxyCM3jarvcmcVsBEtOQY9Qwqm76NgZ6N9JVCcFwXudG2zdFFMdTdxWydXBS2ZZgrDTEQ8ShBu2OcET7vGyHpfSvRd9y1JmVP8/23EJS8NFSGD2DQ==', digitalSignature='TH0qKZcEGlCxv/4giwPZumbPz5lBe/ueCSYqk1l1c0stqZSiIGJ7mpGUaIwO2dxntOBUQJBNVkkMATMeedB3D5KW7z2DbMar0Vg5hnDU2UsVecE3uzi+msa3Q4mLcdtqYeoTvng7RdAo8mAisOS4fvwf+9ieUocfSFcu6DO49dD6YEK/5m/Zfgtvfb9SGSJ9VL+3HRRI7T6AKb+abW2zzWcCag4UWAL0oN3g9p5keYJFthLaos88SulRHlKkILrqGTCYVjgL1fosVlYfJ5DquDw+NOXoz3EgBHA9E0Q8x/B/3UzHOcZQIZpPFawpNS2YhNGQxeHYoKUzQvJNIIu8UA==', IV='cx13ulmexAy+2CDpxAWlPA=='}
+
+[Client2] Received proof request
+
+[Client2] Received proof request
+[CryptoService Debug] Encrypted object was:{"errorName":"Invalid report exception","description":"Not enough Proofs to approve the Report."}
+[Error - Invalid report exception] Not enough Proofs to approve the Report.
+
+[Client 2] Report Sent!
+Trying to obtain the Report...
+SecureDTO{data='iztl85atgEb9xhiec0VkqdtU+Qd/uui8WSnH3AN6QPAScYLof2KTZX2jIw2mRCa7ITgmvtMtAr5gM8FRtexpIZERbcaAG9c9zwFUvknAF2o=', randomString='VWzvrnxnD/3b71MWiNfkjE6PdbSY7rusHJPkiMY0ypLkURO3wSh0m6GhmP0kB5riptUz2GYm+U5azN4FXXk0kTQgLl57O1FbhYpitgyZ4hTzdE2Kib7CtAAOxTl8CZ6xKIZgr6uV1FK6taRCV8nq1FAfmJ7XRj1ZHoDALo63Ap84GOMKaFE2ojOuCp8YFUio1iVZxS+5/+5xQLDMxrK52k3ojUAo88w0TX8rdXrmqbRRQeiDtIC/7NSgEuujRFLMf/1q2wu0mOgvlMv8G2Pjr+8nVGf/st/EssxNav/ZHRmJJSkgaDk+9BvPbVnJVDm58miX60vKvgxmMNwikSWpZA==', digitalSignature='QxN9ROiDR06Va+Iv+PvnTOHvkhh6LrYIzu8/SF52XvA/29gA2qzPshjuP/lBrXcSTo9ZrMHtEZVXMhc3RYF/Hi9dL/0asyez3ZBdi3xI+36LuR6SvI9zyA956M7A6T2pXaVnH+++vCUOz34vEGRHRu0r0SWgVzEiIKkQuyBNwzYggJdUoo33KqFiI07Lb64y9AiwF6CHRbi/VeT7MKavBcfNntjbsRv01i1xFdOc3ILWka2V49iaDDQ8F9aSnk1D/V5JekQzoGJDXhHmxVvDenq9ksqxSTIk2iWwRh+9y0Du8BVp3MnZgxCRaxUJ7eLWQdGF3LGXuHOIW5U+0+H12A==', IV='9WsnD4gtsrIdmwOzX0Ni8Q=='}
+[CryptoService Debug] Encrypted object was:{"errorName":"Invalid Request Exception","description":"No report found."}
+[Error - Invalid Request Exception] No report found.
+
+[Client2] Received proof request
+
+Prover Out of Range exception occurred.
+Error: [Client2] Prover is not in range, can't generate proof...
+
+[Client 2] Going to grid at client epoch: 3
+[Client2] My location: (2,0)
+[Client2] My neighbors are:
+Neighbor 4
+
+
+Asking for proof at http://127.0.0.1:9004/proof
+
+[Client 2] Sending report to server:
+Report:
+Request of epoch 3 at location (2,0) made by user 2 with the Digital Signature GfffruV/ruupwKhdmX9iQ0KV0Yia82+c1M8LEqwN/vyBNSZs1U1IGMPtSW5aCUMaISrneGsBYvmMSi0xJVVF9CHhqvllW4z2Uy4IWSDzlSgKQanAtC7w8uP3ehtbvIMtroMBp3Hrh+k7QHwj46vtzJGMC3ojWYMimhpEJvrPnSPlcXjHjiQAUTH9KJ3KlAhXa3YOuqYgCrMxWvTJvUucqDqsB91MJvxfcVgEzc9KcCAlzNBb4mmTJ4ryImICoOZyPN2yPdcSocJKlZpDnldH3jS51M4Or+pWLBomnMUzN+0f090U8Iy2HITL9z6G1sBkjsxU2f7Un6JIvrJngicbzQ==
+ * Proof of epoch 3 made by user 4 with the Digital Signature Xxr2oT4taPubIqLf+A7gD+7akZtGk+AqOAjDuIMnGYl+DqHRWa8B5CIjW/0GHdZkZaKAtyV3HnS9cfigMUxUcwfsfSQAlhYhkWdLYLdKDS6az5v+O3dRrK4cnhalhSrI1hTZTlbU5hONoSkbRYSLLdube6Dm2veQ1pT4T3ick4Cadunjit/Bij0GUmBK3UJLUkKhegQH5vbJMX5Gh1iiVoc6PiWHy23VvBkDTERZCKhzgjfSaS29H9VjrwK8xZWQlZx6fny1GdRl6sGNp86FjmaNzWF2vF8WPYwqh2bHrsx+qrf0DkbgHPR8PKT6gAbXzkiWBqG6ae1F/YcmQto/Bg== of {Request of epoch 3 at location (2,0) made by user 2 with the Digital Signature GfffruV/ruupwKhdmX9iQ0KV0Yia82+c1M8LEqwN/vyBNSZs1U1IGMPtSW5aCUMaISrneGsBYvmMSi0xJVVF9CHhqvllW4z2Uy4IWSDzlSgKQanAtC7w8uP3ehtbvIMtroMBp3Hrh+k7QHwj46vtzJGMC3ojWYMimhpEJvrPnSPlcXjHjiQAUTH9KJ3KlAhXa3YOuqYgCrMxWvTJvUucqDqsB91MJvxfcVgEzc9KcCAlzNBb4mmTJ4ryImICoOZyPN2yPdcSocJKlZpDnldH3jS51M4Or+pWLBomnMUzN+0f090U8Iy2HITL9z6G1sBkjsxU2f7Un6JIvrJngicbzQ==}
+
+SecureDTO{data='OMjuclI6WWFNs4RUVGNyQA2f+7RaDuz3EWJYZJ+TWAH4e4fr90poR8WmbgMpEd7vOJPFg24tG/HrSmm+PKlFhefRwdAIfDoW3ZnyJLKqv1W4H5DFJEsGJ1Dx43CJnE/aKKfh6N/Zr5rwgFmICJgCKI9tGxbnjyJQj28zvEXq+j6cThxFzBR+rveDkZXPSSQG8aE9fT9cFdeKhmRxKOJzKiQ1WVIfk0khCr++RMWeFRb3XpqKMNfL/61m+MfjSQR14C7z8nVb5oEUsGkgiNrvW1P03OM19scxJXTft83ZJMP/RuI2F7zJKfWtlfxdrJw08QH/GxtKbZoq/Get/pfQNrq0nYCa7Jr7qnC3wujW2qhtLtnjUN7VfEqFqu4Gxtv7sq4j5D9krKXuYRUgjsjo7fmv/+yFOoAaxF30LxhTwTIEieia0EHcbUFH8/ClFA40sF64kn7X6Lf/6HN1o1trEMtFi9NpiAVGUUWZXadGFQusI+84apueN8MgcelvKqZe4JXlr8bK5C+0cdMp5n8L6zn8WU0RFnwr7hlbDnctyLuQdVAbhYHvaKQEsROzp0wXGnEB1FDHKXRGGA4G9qDNhaCjbLX1Vt2kxy+/G3erkN7z3NrmJbcRG8XuD9Ka1CiKPQrONl8EFLlqISgcZK0AWNkUoTTiuaLGo1cxetRT7cXgem292qb6IPOkiWzCerzzkUNHtyubWA7CcJNfv2W3Y28q7Lzm7G5M4CNnQul6QG2n2cUoVEdHFOoqNG5hwlKWlmNLDrcNH90ValncyJUS/9tp+uE2c0UeIIJtVXL+35pr4VMUzWWJ7639d3ctkvhjMp6QL89zQq/e5Fac6372GojHCk04+yS90EcW8dXDqw91GHZ/8xc63cnUNO6KQjbYeh47SapcjjX/ALJ6gSwLxEsmMTydOwqNmpXuCzioFZOCwlAQcpn5iQvwxv977gpHum/eD9kgbuVX/YzfulXVFfWfPyzez2OlpHsCtDr4bVizGtQS3+XYHHB3omTXhV2BCRaELFKYAeB9WREfzU5SzDV3XrCqiOhVnRUrMUb5c758rTZWDvj9UmAUJMcXZU76sof8WxdPV719Y/2O5SioZaYqbQbC9SzBuD2u6mSeC082BqJ7XyBIQ7i/rWlszI9rOqsxqP5SB8y+hqB6RVoWRSW9TajNugiBmfjPNFhA7Y0hhW2gDvu3eMZ+nJtdIcikEsxNK3JyxdXnzNqWAd0fImvoSDFkrdpz4C6nYNuoH/fdha+cKABTFhzFUAvx+ceL3Ui0rHDDKUby5H9VlNZHq+N4yVSdyaWEl8AS17o8MMd2WBlM0OBtMRLrL4pnLC7XtoscUxBmaR5Djjq3cSpoUeXpF416b/ItxmtMEqDYeCgGhSJJe4afWL/EiFmRfhHdJQRKHcd4ydrAs3WNf5YYM7Y2KSKRU4ry4ET/XaL7f53OsBm7L7EpHMe0FUgGPVcSs4s+xs4iZu/BQQ+5UXIE8/CbDWLEOD+KXII6pYlTxjd24E+2igN9FJoJ+tBU6eXkQl4UFfAkD0+bKopOuOMyZnNb14jguo3bAku6O5AynkcQm/C3NcepfIXX3lbIHWT3ViDtzEBW/ly4T7rrmEHbp8s2ToxQa6TuoQs9roupncJXVxZzgzpXILeaf0n021UAaATgZklq0EqGDB7WPiwFGJyPeTnzNV6XbrJjDG3HLLTE+TwgXATO7Tm1CHsIJyAHv8mMdaS3Vo9W8EzIRHXX/peSv8OX4aW9YqIf9t96zpsdKzW0RSawOMCrc7XWDR+G', randomString='hcx9ZB/vjVxI0kFeQfi7mOvsjb75NBolbnIvr9Ecb2K5tBHLQzBf5H5Jt45EwB1/53EqllUv97TLUMrbiu4bggmHhwFhJJw28LLqeHG9gqEfRGLAFFttlMfmNaqg6UcVJW+14q3D+J1BQCCeSHELlZ0OmiK9gsmnUuwiwckJS6VgfD0pXe70o9yY5DA11ZHCPEJfmVYD3MTeDsao7zh588V46LiYLssfRKpA8fo2AVrDuSmyOI4S5eUjHMFsfaGOppbEtgPqriLYoZ7z9cT9ZJoLr+E6zzjmSkl4xf2aBHnF8giVJk7SuXj7qoi7tH90v6ilU8HURBNRq5IYbNsLaw==', digitalSignature='WZeTCBogOt4no6PdJscd/r8qLa05ZyOMCbDB146bGqlLgkQSJ0vm599o2uhQEYRuNObVU2JDfoMtO1dU0JLYXM/2LCAH7ttos7KTFlebGrbHCOSOlJeYTalepgoj4TnWh6eoevhvcmDGJYf12Dl91TH7ZiHUklOc5NGkYHx4bHJ2nSFVOJyrP1UrraZ27GGFedcTsRa/BEhPc7deFdFrttxWtfdBAvq32Xrjo+zKLh9RXMbiK9vIKlgxXNszbNY+JaubhNzkZGTMAD86oYUgV7HdSKICeZHHIMYKB8T8xFVoPoXmYRrFXhaYpbNqnYjd+WLuyAHgBlrUgHeRIFsLEQ==', IV='YhPN9keNzBLOt5AivFhJ+g=='}
+[CryptoService Debug] Encrypted object was:{"errorName":"Invalid report exception","description":"Not enough Proofs to approve the Report."}
+[Error - Invalid report exception] Not enough Proofs to approve the Report.
+
+[Client 2] Report Sent!
+Trying to obtain the Report...
+SecureDTO{data='p7Cgg8RnZXpLTzHhYSt3xS8MB15tQXyz9KaA6d9ysjD88yCDBjEntYSt2jr0xv62ks9wJI0g699O7fYQu/cTICJHMdvNbQDUmCwk0iUideY=', randomString='uiuy/fM1uJ1dJSFilcQ7xXjXcAZ9yYJVCkwrca2EFyhfaccRkvPTkYU0H+B/sHQ7Lbe6W78M9un1zhZEVa++6HghTopA+yJEbo13Xn6dqHTe9UYUbVEV084CN5SadLG7Nv3Nh+koC1ncq2EbtFpbmcT5ybv60DyGTC708w/gQHPMpeOZxciy7LevPFOijQg/NjMBv7sHKspDCd1q3GpbSIiJJgYv6EOQdOrgNlFx2aoMrYOz1ed+SsklWcW162zHJo+2K2BgJnEBuU5Mu66QsFnzldr5bdjLQRz6Wqm2UTyiFZ6RXc+Iu9LA1ibC5lEBdEjkABN+sxbUdrtzochCrg==', digitalSignature='R4ySqPC1OLTaOiuynS5tmNfyBYufdoVxPYZBKzmlWrDhoC92N/C3ojcgnZh1GIP9OmqCbLmLL7vUwWDGzqKLIziSLTklttQLp67ewzSpul3SdqUziZB0EiSViJ2DrP/DPEsL2LTNW+h285o5OmBatIVSdjhpkmxZLfMZFBpJCPSf/wt6lGcsNb7Ss+bhmIHopa0Gs4jbBSMb+fSP92dBDIES+lqUaAhbtznZeMbYcyLcp2dviC+QUyd1xaUm48c3Zeq9Ds/TvAPKUtM5css8ZcuzuVgkeSuzI00mmO4S7AUVrjmpR9Vm5OPKdcEd45SXTejRcpiAHSFXxBi27zfGtQ==', IV='XuNJsYIoZSbj+wd3O1Scsw=='}
+[CryptoService Debug] Encrypted object was:{"errorName":"Invalid Request Exception","description":"No report found."}
+[Error - Invalid Request Exception] No report found.
+
+[Client 2] Going to grid at client epoch: 4
+[Client2] My location: (0,2)
+[Client2] My neighbors are:
+Neighbor 1
+Neighbor 3
+
+
+Asking for proof at http://127.0.0.1:9001/proof
+[Client 2] Error occurred asking for proof: [Client1] Prover is not in range, can't generate proof...
+Asking for proof at http://127.0.0.1:9003/proof
+[Client 2] Error occurred asking for proof: [Client3] Prover is not in range, can't generate proof...
+
+[Client 2] Sending report to server:
+Report:
+Request of epoch 4 at location (0,2) made by user 2 with the Digital Signature keSdPlsDEWl7g9rGKWRQpQFAMG9FwxnWyz7IoNZgBAQP8qH3zWnapph5IX+ogTz9WGXPQJ1E5E6+96ggBvDq5TqlryePD7IrGjzx+pIz6c9+7eUnodQtTao2hTij/9RF8UFVpUZuJFspfKczMpWsfwsd9oD2PcqakM7kDkg8Kjw+3a/XK4Qv5z/W2CwkedjyIXdC6oONnY/H904Zb8Ymv+wAtsv9mUr0xMcGDEvhrk0pqXAqq3AqWpLhGAHW0ICD8RyIHhS3SeK5+gaGcxHngPcgZDAvHK7s9SNj1NIcZZo3YHZs/jpOiPNJFuaiOlmsJcXbdNcZKdQOFVBZnU3tnw==
+
+SecureDTO{data='ISpE7wVOUcCHgg7IQsqZPbUqcHJ/LqQF00kFIgr3MXroEsizl+CIUm5V1hvjh/DrIsDGrrBweJyc1HIlK8dASdwZG9TJ+wVQN4ZwxQhYXIC6i80R+dfeNq2kYcG4yMHVQFEZZhfesuWTkr01MIDBYaMVEYnCSGX05E4IK0uMKgpZurgcDUFn8ZGSx3Lu4C5HF9DqeyfYoOoj52qHBacjhrQVftGZmBrCdS7oJXD/9RAnKoz+wX5zawEIU7pAf5wtjyYvZT2PuKEo0a2qCtikH1BidTB4hCMhBx2ZlglsO3+AFHrpQNzNjxomqXrnxv8zfFlGvefwTYqg8Ii0MLypECzxk96b0DQCJJUwgNe0WajuEUtjN3WWDiU+ovOOjxtHnllpywqS+FxtQVLfabdu5vwvjAB1NexO/tO3ftwNtVxhFn4JDd9y/2OF36vOBbUJywXR84r1gotZk5ieBf9kDKaxqWl1zxGs3CMZkjiReMqBYDgwamH38QTvwjLSJR+c4oHxKipRd32MB11zy/GoKtqfKzsUxNqXOUIYV3l0oXRjowt97CXAPAkRUTRLLAiGlpyk+z/9p2zHH/LWpiyDku9vHe17FUk+avGgVJ/SSvBdnh+6z7k/exrSwJXGumE+iUUQMdmTJxN41ZbrjBA7Ng==', randomString='B8jwkvN/utNiQP1NWQyqM9i9jxLIMPnZuGiO8qzqAifAdBuoM+i8gBerA30L9EJOghC9kLHN+DuwuN01sbZpZAQ68sut2Lox1SaVDT2qIp6r2S285p/SuDPYbT2+nkNiQGGotRpZUVi/ulqU+T90Q6W+obTK7Xd4U6bYS9hn7PZTtZtNP3Zny0GJ3JOOhbbm1IkZVk83qoIXd6p1//FEZZoI0c7FkbFFHM+OoNzaHbrzz6mlrVD5LYUrZT6GlR8oHX4oE+9NVrmon+x5PhDgQfE4OYY7Pu5Trxvpbhn1vr4cGL/lotbMrmQsmwQNt19tF8i0yaJ2YSE7m68UCmKsiQ==', digitalSignature='KtmJHK5NS0IjyctVyi7A08k0J0snkYGX0tHcZ9D86kcymNQ7hTCEE7Fu2+pjZ3Q/4O1ng6t2t4pwVxyESWSNCcv3POK3ij3mVuTxPlOWsDTEUTGJ0jliV5puU+VHUC4liK2HKVKxdByeeEEqlq696VbC5RRpCA8Vjnc+YY/SpTMPbmwqnwyv2vIWp/IWUzYejPbR52Jy4dACXOA1wKKPvUtAkc6JkZFaaGEys7DgcBeeQWbbNufDZsyDVPTlpv+jFTQI8KdqjOWE9BBJ9ePpPYeEItQWW0/873Ppec2BAUH7eCLLKUpxt2BjxZRkO9znzkKyPrZhW0g6FO/g1KfHdw==', IV='I0U3cAkT+QE4cqmO8qxHlA=='}
+[CryptoService Debug] Encrypted object was:{"errorName":"Invalid report exception","description":"Not enough Proofs to approve the Report."}
+[Error - Invalid report exception] Not enough Proofs to approve the Report.
+
+[Client 2] Report Sent!
+Trying to obtain the Report...
+SecureDTO{data='gVPDrruMTEjDUi8OAutHiJybhcsIm1PvLIb3f81pjnEuYqTEy9UkBkWcf3kagrQhlx3WSwBreC4pmItUjcIEnNRRu05PE+56OYWEfsF4lGA=', randomString='h6RI6SkpgwnQXFGGzOoNO6RNReIjY2dwuXDFcPjyN+gfW9yK00UazBnHPvrNrrcR4fFNfpfBCWtRbEXBfR26XtjUm7nFY86eb9WpjGvjjy4nsR6Yo+S3LhfBfcts69jtJRnUYTsDM8y+lmHEjwGFldR2NRrYCevtGRavAvTug1FRL4+J/XG+ppjrpFmbG47YaKyjJoZU6gqBqtTfcDKh7SGgVLiFfe8y9mOrfx2EMgQGkAYPDdt2C1rTeLzKGv1+9DA911pCXhq4QyWSeWEZsvzHZVb1Q9Spzose+jbMTaQv3cLM3XrcNi5QLpM665oenMXxV44ugrAXd+RxaonRzA==', digitalSignature='hlL8Y3UV1pdIwtR5RFq9jzVtEcm1cK59VSOELRM1virSvFhJiWtx6xXa6udvMF/6iQTHTx0/cT2jR1u3bd62Kbv7/B4ZM3wvt3iFJpUT1bTqe3Yl/EedJigUddXO7t1BHkfUIO89TU/eB5lg4/qWJpprZXUlQTj9SdWXbKVHCAEjIX4Xhulx+gMNafj1MALmzf5hRqp/ZcKbgzSEUwNKwPCGQzUuKmyiP2f6DvGwL0r4zkVUi8qvshIqh1NCX7JvLv0udp28zkfk9inpNSnGsoLP0P/2r1fq4wQ8FkE/pTAHG0z1cs9qCCFF0msysFAbDKjONi6cA335WECTcTHORg==', IV='puk/5M0c7TedRs33PAKUVw=='}
+
+[Client2] Received proof request
+
+[Client2] Received proof request
+[CryptoService Debug] Encrypted object was:{"errorName":"Invalid Request Exception","description":"No report found."}
+[Error - Invalid Request Exception] No report found.
+
+[Client 2] Going to grid at client epoch: 5
+[Client 2] Not present in the grid at epoch: 5. Currently in vacation, try again later.
+
+[Client 2] Going to grid at client epoch: 6
+[Client 2] Not present in the grid at epoch: 6. Currently in vacation, try again later.
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
+
+[Client 2] Nothing to do here, epochs have run out...
