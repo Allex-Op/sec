@@ -3,7 +3,6 @@ package pt.ulisboa.tecnico.sec.secureserver.business.domain.users;
 import java.util.ArrayList;
 import java.util.List;
 import pt.ulisboa.tecnico.sec.secureserver.business.domain.reports.Report;
-import pt.ulisboa.tecnico.sec.services.exceptions.InvalidReportException;
 
 import javax.persistence.*;
 

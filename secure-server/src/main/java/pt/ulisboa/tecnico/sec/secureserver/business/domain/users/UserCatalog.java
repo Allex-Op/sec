@@ -27,7 +27,7 @@ public class UserCatalog {
 			query.setParameter(User.FIND_BY_USER_ID_USERID, userId);
 			return query.getSingleResult();
 		} catch(Exception e) {
-			throw new ApplicationException("Error on getUserById class UserCatalog");
+			throw new ApplicationException("UserId " + userId + " not found.");
 		}
 	}
 
@@ -44,5 +44,11 @@ public class UserCatalog {
 		} catch(Exception e) {
 			throw new ApplicationException("Error on checkIfNonceExists class UserCatalog");
 		}
+	}
+
+	@Transactional
+	public void updateUser(User u, String nonce) {
+		u.addNonceReceived(nonce);
+		em.persist(u);
 	}
 }

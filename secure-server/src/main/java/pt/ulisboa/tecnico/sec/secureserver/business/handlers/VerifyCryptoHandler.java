@@ -102,6 +102,7 @@ public class VerifyCryptoHandler {
             throw new RepeatedNonceException("Nonce repeated.");
 
         User user = userCatalog.getUserById(userId);
-        user.addNonceReceived(nonce);
+        //user.addNonceReceived(nonce);
+        userCatalog.updateUser(user, nonce);
     }
 }

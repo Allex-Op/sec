@@ -34,7 +34,7 @@ public class ReportCatalog {
 
 			return query.getResultList();
 		} catch(Exception e) {
-			throw new ApplicationException("Error at getReportsOfLocationAt class ReportCatalog.");
+			throw new ApplicationException("Error obtaining report at location x:" + x + " y:" + y + " on epoch:" + epoch);
 		}
 	}
 
@@ -43,8 +43,6 @@ public class ReportCatalog {
 	 */
 	public Report getReportOfUserIdAtEpoch(String userId, int epoch) throws ApplicationException {
 		try {
-
-
 			TypedQuery<Report> query = em.createNamedQuery(Report.FIND_REPORT_BY_USER_ID_AT_EPOCH, Report.class);
 			query.setParameter(Report.FIND_REPORT_BY_USER_ID_AT_EPOCH_EPOCH, epoch);
 			query.setParameter(Report.FIND_REPORT_BY_USER_ID_AT_EPOCH_USER_ID, userId);
@@ -53,8 +51,7 @@ public class ReportCatalog {
 		} catch(NoResultException e) {
 			return null;
 		} catch(Exception e) {
-			e.printStackTrace();
-			throw new ApplicationException("Error at getReportOfUserIdAtEpoch at class ReportCatalog.");
+			throw new ApplicationException("Error obtaining report of userId:" + userId + " at epoch:" + epoch);
 		}
 	}
 }

@@ -133,7 +133,7 @@ public class ObtainReportTestCommand extends Command {
 	
 	private void obtainReport(String userIdSender, String userIdRequested, int epoch) {
 		try {
-			ReportDTO report = this.userService.obtainLocationReport(SpecialClientApplication.userId, "100100100", 1);
+			ReportDTO report = this.userService.obtainLocationReport(userIdSender, userIdRequested, epoch);
 			System.out.println("Obtained report: ");
 			if (report != null)
 				System.out.println(report.toString());
