@@ -7,7 +7,7 @@ The world pandemic we live in calls for tools for dependable location tracking a
 - [Deployment & Testing](#deployment-and-testing)
 
 # System Architecture Overview
-![System](docs/system_overview.png)
+![System](docs/photos/system_overview.png)
 
 ## Communication between entities
 * All communication between Client and Server are encrypted and properly signed
@@ -49,7 +49,7 @@ After executing the command there will be an initial delay of around 5 seconds b
 
 
 Example organization:
-![Help COmmand](./docs/deployed_apis.png)
+![Help COmmand](./docs/photos/deployed_apis.png)
 
 ## Testing
 
@@ -58,4 +58,4 @@ implemented. Those cases can be executed throught the commands "obtainreporttest
 
 To see all test possibilities execute the command "help" in the special user terminal.
 
-![Help COmmand](./docs/help.png)
+![Help COmmand](./docs/photos/help.png)
