@@ -18,6 +18,7 @@ public class HelpCommand extends Command {
 				System.lineSeparator() + "   Supported Commands are:" +
 				System.lineSeparator() + "   * obtainreport <user_id> <epoch>" +
 				System.lineSeparator() + "   * usersatlocation <x_location> <y_location> <epoch>" +
+				System.lineSeparator() + "   * getproofsofuseratepochs <user_id> <epoch_1> <epoch_2> ... <epoch_n>" +
 				System.lineSeparator() + "   * submitreporttest <option>" +
 				System.lineSeparator() + "   * gatherproofstest <option>" +
 				System.lineSeparator() + "   * obtainreporttest <option>" +

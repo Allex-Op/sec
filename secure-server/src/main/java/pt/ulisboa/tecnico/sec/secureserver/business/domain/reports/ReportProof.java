@@ -7,7 +7,18 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Proof")
+@NamedQueries({
+		@NamedQuery(name = ReportProof.FIND_PROOFS_BY_USER_ID_AT_EPOCH, query="SELECT p FROM ReportProof p WHERE p.epoch =:" +
+				ReportProof.FIND_PROOFS_BY_USER_ID_AT_EPOCH_EPOCH + " AND p.user.userId = (SELECT u.userId FROM User u WHERE u.userId =:" +
+				ReportProof.FIND_PROOFS_BY_USER_ID_AT_EPOCH_USER_ID + ")"
+		)
+})
 public class ReportProof {
+	
+	public static final String FIND_PROOFS_BY_USER_ID_AT_EPOCH = "ReportProof.findProofsByUserIdAtEpoch";
+	public static final String FIND_PROOFS_BY_USER_ID_AT_EPOCH_EPOCH = "epoch";
+	public static final String FIND_PROOFS_BY_USER_ID_AT_EPOCH_USER_ID = "userId";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long identifier;

@@ -37,5 +37,15 @@ public class DTOFactory {
 		
 		return reportDTO;
 	}
+	
+	public static RequestUserProofsDTO makeRequestUserProofsDTO(String userIdSender, String userIdRequested, List<Integer> epochs) {
+		RequestUserProofsDTO requestUserProofsDTO = new RequestUserProofsDTO();
+		
+		requestUserProofsDTO.setUserIdSender(userIdSender);
+		requestUserProofsDTO.setUserIdRequested(userIdRequested);
+		requestUserProofsDTO.setEpochs(epochs);
+		
+		return requestUserProofsDTO;
+	}
 
 }

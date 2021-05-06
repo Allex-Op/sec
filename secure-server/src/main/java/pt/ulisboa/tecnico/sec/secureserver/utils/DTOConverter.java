@@ -11,11 +11,26 @@ import pt.ulisboa.tecnico.sec.services.dto.DTOFactory;
 import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestProofDTO;
+import pt.ulisboa.tecnico.sec.services.dto.ResponseUserProofsDTO;
 import pt.ulisboa.tecnico.sec.services.dto.SpecialUserResponseDTO;
 
 public class DTOConverter {
 	
 	private DTOConverter() {}
+	
+	public static List<ProofDTO> makeListProofDTO(List<ReportProof> proofs) {
+		List<ProofDTO> proofsDTO = new ArrayList<>();
+		for (ReportProof proof : proofs) {
+			proofsDTO.add(makeProofDTO(proof));
+		}
+		return proofsDTO;
+	}
+	
+	public static ProofDTO makeProofDTO(ReportProof proof) {
+		Report reportAux = proof.getReport();
+		RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(reportAux.getX(), reportAux.getY(), reportAux.getEpoch(), reportAux.getUser().getUserId(), reportAux.getDigitalSignature());
+		return DTOFactory.makeProofDTO(proof.getEpoch(), proof.getUser().getUserId(), requestProofDTO, proof.getDigitalSignature());
+	}
 	
 	public static ReportDTO makeReportDTO(Report report) {
 		// generate Request Proof DTO
@@ -39,6 +54,10 @@ public class DTOConverter {
 		responseDTO.setUsers(usersList);
 		
 		return responseDTO;
+	}
+
+	public static ResponseUserProofsDTO makeResponseUserProofsDTO(List<ProofDTO> proofsDTO) {
+		return new ResponseUserProofsDTO(proofsDTO);
 	}
 
 }

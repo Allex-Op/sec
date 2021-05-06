@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.sec.secureclient.services;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -144,5 +145,36 @@ public class SpecialUserService implements ISpecialUserService {
 
         return clientResponse.getProof();
     }
+
+	@Override
+	public ResponseUserProofsDTO requestMyProofs(String userIdSender, String userIdRequested, List<Integer> epochs)
+			throws ApplicationException {
+		RequestUserProofsDTO requestUserProofsDTO = new RequestUserProofsDTO();
+		requestUserProofsDTO.setUserIdSender(userIdSender);
+		requestUserProofsDTO.setUserIdRequested(userIdRequested);
+		requestUserProofsDTO.setEpochs(epochs);
+		
+		byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
+		SecureDTO secureDTO = CryptoService.generateNewSecureDTO(requestUserProofsDTO, userIdSender, randomBytes);
+		
+		String urlAPI = PathConfiguration.GET_PROOFS_AT_EPOCHS;
+
+        // Set HTTP headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+
+        // Send request and return the SecureDTO with the ReportDTO encapsulated
+        HttpEntity<SecureDTO> entity = new HttpEntity<>(secureDTO, headers);
+        ResponseEntity<SecureDTO> result = restTemplate.exchange(urlAPI, HttpMethod.POST, entity, SecureDTO.class);
+        SecureDTO sec = result.getBody();
+
+        // Check digital signature
+        ResponseUserProofsDTO response = (ResponseUserProofsDTO) CryptoService.extractEncryptedData(sec, ResponseUserProofsDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));
+
+        // Verify if conversion was successfull and its a valid report
+        if (response == null || !CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey()))
+            return null;
+		return response;
+	}
 
 }

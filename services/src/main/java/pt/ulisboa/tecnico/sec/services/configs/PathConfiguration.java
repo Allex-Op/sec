@@ -11,6 +11,7 @@ public class PathConfiguration {
 	public static final String GET_REPORT_URL = SERVER_URL + "/getReport";
 	public static final String SUBMIT_REPORT_URL = SERVER_URL + "/submitReport";
 	public static final String OBTAIN_USERS_AT_LOCATION_EPOCH = SERVER_URL +  "/locations/management/";
+	public static final String GET_PROOFS_AT_EPOCHS = SERVER_URL + "/getProofs";
 
 
 	// Key Paths

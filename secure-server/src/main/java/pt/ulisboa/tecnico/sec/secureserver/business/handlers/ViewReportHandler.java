@@ -8,10 +8,13 @@ import org.springframework.stereotype.Service;
 
 import pt.ulisboa.tecnico.sec.secureserver.business.domain.reports.Report;
 import pt.ulisboa.tecnico.sec.secureserver.business.domain.reports.ReportCatalog;
+import pt.ulisboa.tecnico.sec.secureserver.business.domain.reports.ReportProof;
 import pt.ulisboa.tecnico.sec.secureserver.business.domain.users.User;
 import pt.ulisboa.tecnico.sec.secureserver.business.domain.users.UserCatalog;
 import pt.ulisboa.tecnico.sec.secureserver.utils.DTOConverter;
+import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
+import pt.ulisboa.tecnico.sec.services.dto.ResponseUserProofsDTO;
 import pt.ulisboa.tecnico.sec.services.dto.SpecialUserResponseDTO;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 import pt.ulisboa.tecnico.sec.services.exceptions.InvalidRequestException;
@@ -34,11 +37,7 @@ public class ViewReportHandler {
 		User userSender = userCatalog.getUserById(userIdSender);
 		User userRequest = userCatalog.getUserById(userIdRequested);
 
-		if(userSender == null || userRequest == null)
-			throw new InvalidRequestException("Request malformed");
-
-		if(!userSender.isSpecialUser() && !userIdSender.equals(userIdRequested))
-			throw new NoRequiredPrivilegesException("The sender id can not request the information of the requested id.");
+		validateUserSenderAndRequestedOfRequest(userSender, userRequest);
 
 		Report report = reportCatalog.getReportOfUserIdAtEpoch(userRequest.getUserId(), epoch);
 		if(report == null)
@@ -64,6 +63,28 @@ public class ViewReportHandler {
 		}
 		
 		return DTOConverter.makeSpecialUserResponseDTO(users);
+	}
+	
+	public ResponseUserProofsDTO requestMyProofs(String userIdSender, String userIdRequested, List<Integer> epochs) throws ApplicationException {
+		User userSender = userCatalog.getUserById(userIdSender);
+		User userRequest = userCatalog.getUserById(userIdRequested);
+		
+		validateUserSenderAndRequestedOfRequest(userSender, userRequest);
+		
+		List<ReportProof> proofs = reportCatalog.getProofsWrittenByUserAtEpochs(userRequest, epochs);
+		
+		List<ProofDTO> proofsDTO = DTOConverter.makeListProofDTO(proofs);
+		return DTOConverter.makeResponseUserProofsDTO(proofsDTO);
+	}
+	
+	// PRIVATES
+	
+	private void validateUserSenderAndRequestedOfRequest(User userSender, User userRequest) throws ApplicationException {
+		if(userSender == null || userRequest == null)
+			throw new InvalidRequestException("Request malformed");
+
+		if(!userSender.isSpecialUser() && !userSender.getUserId().equals(userRequest.getUserId()))
+			throw new NoRequiredPrivilegesException("The sender id can not request the information of the requested id.");
 	}
 
 }

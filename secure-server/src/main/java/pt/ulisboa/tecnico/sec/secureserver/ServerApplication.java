@@ -12,8 +12,17 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class ServerApplication {
 
 	public static int epoch = 0;
+	public static String serverId;
 
 	public static void main(String[] args) {
+		if (args.length < 2) {
+			System.out.println("Need 2 arguments: <port> <userId_integer>");
+			System.exit(0);
+			return;
+		}
+		
+		serverId = args[1];
+		
 		SpringApplication.run(ServerApplication.class, args);
 	}
 
