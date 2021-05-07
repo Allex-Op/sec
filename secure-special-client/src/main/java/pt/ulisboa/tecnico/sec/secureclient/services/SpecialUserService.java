@@ -44,14 +44,7 @@ public class SpecialUserService implements ISpecialUserService {
 	public ReportDTO obtainInfo(SecureDTO secureDTO, byte[] randomBytes) {
 		String urlAPI = PathConfiguration.GET_REPORT_URL;
 
-        // Set HTTP headers
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-
-        // Send request and return the SecureDTO with the ReportDTO encapsulated
-        HttpEntity<SecureDTO> entity = new HttpEntity<>(secureDTO, headers);
-        ResponseEntity<SecureDTO> result = restTemplate.exchange(urlAPI, HttpMethod.POST, entity, SecureDTO.class);
-        SecureDTO sec = result.getBody();
+        SecureDTO sec = NetworkService.sendMessageToServers(secureDTO, urlAPI);
 
         // Check digital signature
         ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(sec, ReportDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));
@@ -79,17 +72,8 @@ public class SpecialUserService implements ISpecialUserService {
 	public void sendInfo(SecureDTO secureDTO, byte[] randomBytes) throws UnreachableClientException {
         String urlAPI = PathConfiguration.SUBMIT_REPORT_URL;
 
-        // Set HTTP req headers
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-
-        // Set HTTP req body
-        HttpEntity<SecureDTO> entity = new HttpEntity<>(secureDTO, headers);
-
         try {
-            // Send request & receive response
-            ResponseEntity<SecureDTO> result = restTemplate.exchange(urlAPI, HttpMethod.POST, entity, SecureDTO.class);
-            SecureDTO sec = result.getBody();
+            SecureDTO sec = NetworkService.sendMessageToServers(secureDTO, urlAPI);
             CryptoService.extractEncryptedData(sec, String.class, CryptoUtils.createSharedKeyFromString(randomBytes));
         } catch(Exception e) {
             throw new UnreachableClientException("[Special Client "+ SpecialClientApplication.userId+"] Wasn't able to contact server.");
@@ -111,15 +95,8 @@ public class SpecialUserService implements ISpecialUserService {
         SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userId, randomBytes);
         
         String urlAPI = PathConfiguration.OBTAIN_USERS_AT_LOCATION_EPOCH;
-        
-        // Set HTTP headers
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        
-        // Send request and return the SecureDTO with the ReportDTO encapsulated
-        HttpEntity<SecureDTO> entity = new HttpEntity<>(secureDTO, headers);
-        ResponseEntity<SecureDTO> result = restTemplate.exchange(urlAPI, HttpMethod.POST, entity, SecureDTO.class);
-        SecureDTO sec = result.getBody();
+
+        SecureDTO sec = NetworkService.sendMessageToServers(secureDTO, urlAPI);
         
         // Check digital signature
         SpecialUserResponseDTO response = (SpecialUserResponseDTO) CryptoService.extractEncryptedData(sec, SpecialUserResponseDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));
@@ -130,13 +107,8 @@ public class SpecialUserService implements ISpecialUserService {
 	}
 
     public ProofDTO requestLocationProof(String url, RequestProofDTO request) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
-        HttpEntity<RequestProofDTO> entity = new HttpEntity<>(request, headers);
-
-        ResponseEntity<ClientResponseDTO> result = restTemplate.exchange(url, HttpMethod.POST, entity, ClientResponseDTO.class);
-        ClientResponseDTO clientResponse = result.getBody();
+        ClientResponseDTO clientResponse = NetworkService.sendMessageToClient(request, url);
 
         if(clientResponse != null && clientResponse.getErr() != null) {
             System.out.println("[Special Client " + SpecialClientApplication.userId + "] Error occurred asking for proof: " + clientResponse.getErr().getDescription());
@@ -159,14 +131,7 @@ public class SpecialUserService implements ISpecialUserService {
 		
 		String urlAPI = PathConfiguration.GET_PROOFS_AT_EPOCHS;
 
-        // Set HTTP headers
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-
-        // Send request and return the SecureDTO with the ReportDTO encapsulated
-        HttpEntity<SecureDTO> entity = new HttpEntity<>(secureDTO, headers);
-        ResponseEntity<SecureDTO> result = restTemplate.exchange(urlAPI, HttpMethod.POST, entity, SecureDTO.class);
-        SecureDTO sec = result.getBody();
+        SecureDTO sec = NetworkService.sendMessageToServers(secureDTO, urlAPI);
 
         // Check digital signature
         ResponseUserProofsDTO response = (ResponseUserProofsDTO) CryptoService.extractEncryptedData(sec, ResponseUserProofsDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));

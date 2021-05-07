@@ -1,14 +1,6 @@
 package pt.ulisboa.tecnico.sec.secureclient.services;
 
-import java.util.Arrays;
-
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,19 +16,11 @@ import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
 public class LocationProofService implements ILocationProofService {
 	
 	private static List<String> nonces = new ArrayList<>();
-	
-	private static RestTemplate restTemplate = new RestTemplate();
 
 	@Override
 	public ProofDTO requestLocationProof(String url, RequestProofDTO request) {
-		HttpHeaders headers = new HttpHeaders();
 		
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-
-		HttpEntity<RequestProofDTO> entity = new HttpEntity<>(request, headers);
-
-		ResponseEntity<ClientResponseDTO> result = restTemplate.exchange(url, HttpMethod.POST, entity, ClientResponseDTO.class);
-		ClientResponseDTO clientResponse = result.getBody();
+		ClientResponseDTO clientResponse = NetworkService.sendMessageToClient(request, url);
 
 		if(clientResponse != null && clientResponse.getErr() != null) {
 			System.out.println("[Client " + ClientApplication.userId + "] Error occurred asking for proof: " + clientResponse.getErr().getDescription());

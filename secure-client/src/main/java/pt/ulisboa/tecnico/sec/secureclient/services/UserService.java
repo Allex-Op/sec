@@ -1,11 +1,8 @@
 package pt.ulisboa.tecnico.sec.secureclient.services;
 
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import pt.ulisboa.tecnico.sec.secureclient.ClientApplication;
 import pt.ulisboa.tecnico.sec.services.configs.PathConfiguration;
-import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestLocationDTO;
 import pt.ulisboa.tecnico.sec.services.dto.RequestUserProofsDTO;
@@ -17,13 +14,10 @@ import pt.ulisboa.tecnico.sec.services.interfaces.IUserService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class UserService implements IUserService {
-
-    private static RestTemplate restTemplate = new RestTemplate();
 
     /**
      *  Requests a location report of a certain user at a certain epoch
@@ -39,14 +33,7 @@ public class UserService implements IUserService {
         
         String urlAPI = PathConfiguration.GET_REPORT_URL;
 
-        // Set HTTP headers
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-
-        // Send request and return the SecureDTO with the ReportDTO encapsulated
-        HttpEntity<SecureDTO> entity = new HttpEntity<>(secureDTO, headers);
-        ResponseEntity<SecureDTO> result = restTemplate.exchange(urlAPI, HttpMethod.POST, entity, SecureDTO.class);
-        SecureDTO sec = result.getBody();
+        SecureDTO sec = NetworkService.sendMessageToServers(secureDTO, urlAPI);
 
         // Check digital signature
         ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(sec, ReportDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));
@@ -78,17 +65,8 @@ public class UserService implements IUserService {
 
         String urlAPI = PathConfiguration.SUBMIT_REPORT_URL;
 
-        // Set HTTP req headers
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-
-        // Set HTTP req body
-        HttpEntity<SecureDTO> entity = new HttpEntity<>(secureDTO, headers);
-
         try {
-            // Send request & receive response
-            ResponseEntity<SecureDTO> result = restTemplate.exchange(urlAPI, HttpMethod.POST, entity, SecureDTO.class);
-            SecureDTO sec = result.getBody();
+            SecureDTO sec = NetworkService.sendMessageToServers(secureDTO, urlAPI);
             CryptoService.extractEncryptedData(sec, String.class, CryptoUtils.createSharedKeyFromString(randomBytes));
         } catch(Exception e) {
             throw new UnreachableClientException("[Client "+ ClientApplication.userId+"] Wasn't able to contact server.");
@@ -108,14 +86,7 @@ public class UserService implements IUserService {
 		
 		String urlAPI = PathConfiguration.GET_PROOFS_AT_EPOCHS;
 
-        // Set HTTP headers
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-
-        // Send request and return the SecureDTO with the ReportDTO encapsulated
-        HttpEntity<SecureDTO> entity = new HttpEntity<>(secureDTO, headers);
-        ResponseEntity<SecureDTO> result = restTemplate.exchange(urlAPI, HttpMethod.POST, entity, SecureDTO.class);
-        SecureDTO sec = result.getBody();
+        SecureDTO sec = NetworkService.sendMessageToServers(secureDTO, urlAPI);
 
         // Check digital signature
         ResponseUserProofsDTO response = (ResponseUserProofsDTO) CryptoService.extractEncryptedData(sec, ResponseUserProofsDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));
