@@ -7,11 +7,12 @@ public class PathConfiguration {
 	public static final String HOST = ACCESS_PROTOCOL + "://127.0.0.1";
 
 	public static final String SERVER_URL = HOST + ":8080";
+	public static final int SERVER_PORT_BASE = 9200;
 
-	public static final String GET_REPORT_URL = SERVER_URL + "/getReport";
-	public static final String SUBMIT_REPORT_URL = SERVER_URL + "/submitReport";
-	public static final String OBTAIN_USERS_AT_LOCATION_EPOCH = SERVER_URL +  "/locations/management/";
-	public static final String GET_PROOFS_AT_EPOCHS = SERVER_URL + "/getProofs";
+	public static final String GET_REPORT_ENDPOINT =  "/getReport";
+	public static final String SUBMIT_REPORT_ENDPOINT =  "/submitReport";
+	public static final String OBTAIN_USERS_AT_LOCATION_EPOCH_ENDPOINT = "/locations/management/";
+	public static final String GET_PROOFS_AT_EPOCHS_ENDPOINT = "/getProofs";
 
 
 	// Key Paths
@@ -30,5 +31,10 @@ public class PathConfiguration {
 	public static String getClientURL(int client) {
 		return HOST + ":" + (9000 + client) + "/proof";
 	}
+	public static String getServerUrl(int server) { return HOST + ":" + (SERVER_PORT_BASE + server); }
+	public static String getGetReportURL(int server) { return getServerUrl(server) + GET_REPORT_ENDPOINT; }
+	public static String getSubmitReportURL(int server) { return getServerUrl(server) + SUBMIT_REPORT_ENDPOINT; }
+	public static String getObtainUsersAtLocationEpochURL(int server) { return getServerUrl(server) + OBTAIN_USERS_AT_LOCATION_EPOCH_ENDPOINT; }
+	public static String getGetProofsAtEpochsURL(int server) { return getServerUrl(server) + GET_PROOFS_AT_EPOCHS_ENDPOINT; }
 
 }

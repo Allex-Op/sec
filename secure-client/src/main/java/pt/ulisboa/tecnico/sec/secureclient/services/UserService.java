@@ -31,7 +31,7 @@ public class UserService implements IUserService {
         byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
         SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes);
         
-        String urlAPI = PathConfiguration.GET_REPORT_URL;
+        String urlAPI = PathConfiguration.getGetReportURL(1);
 
         SecureDTO sec = NetworkService.sendMessageToServers(secureDTO, urlAPI);
 
@@ -63,7 +63,7 @@ public class UserService implements IUserService {
     	byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
     	SecureDTO secureDTO = CryptoService.generateNewSecureDTO(reportDTO, userID, randomBytes);
 
-        String urlAPI = PathConfiguration.SUBMIT_REPORT_URL;
+        String urlAPI = PathConfiguration.getSubmitReportURL(1);
 
         try {
             SecureDTO sec = NetworkService.sendMessageToServers(secureDTO, urlAPI);
@@ -84,7 +84,7 @@ public class UserService implements IUserService {
 		byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
 		SecureDTO secureDTO = CryptoService.generateNewSecureDTO(requestUserProofsDTO, userIdSender, randomBytes);
 		
-		String urlAPI = PathConfiguration.GET_PROOFS_AT_EPOCHS;
+		String urlAPI = PathConfiguration.getGetProofsAtEpochsURL(1);
 
         SecureDTO sec = NetworkService.sendMessageToServers(secureDTO, urlAPI);
 

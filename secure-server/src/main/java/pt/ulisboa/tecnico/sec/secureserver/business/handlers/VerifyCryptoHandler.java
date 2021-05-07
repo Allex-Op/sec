@@ -28,7 +28,7 @@ public class VerifyCryptoHandler {
      *  0º Verify Nonce
      *  1º Digital signature of the ReportDTO
      *  2º Digital signature of all proofs
-     *  3º Check for duplicated proofs ( 1 witness can only issue one proof for the associated report(
+     *  3º Check for duplicated proofs ( 1 witness can only issue one proof for the associated report)
      *  4º Check if the proofs belong to the submitted report.
      */
     public ReportDTO verifyAllCryptoConditions(ReportDTO reportDTO) throws ApplicationException {

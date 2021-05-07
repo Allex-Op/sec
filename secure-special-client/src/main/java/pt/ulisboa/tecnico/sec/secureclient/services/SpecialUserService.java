@@ -42,7 +42,7 @@ public class SpecialUserService implements ISpecialUserService {
 	}
 	
 	public ReportDTO obtainInfo(SecureDTO secureDTO, byte[] randomBytes) {
-		String urlAPI = PathConfiguration.GET_REPORT_URL;
+		String urlAPI = PathConfiguration.getGetReportURL(1);
 
         SecureDTO sec = NetworkService.sendMessageToServers(secureDTO, urlAPI);
 
@@ -70,7 +70,7 @@ public class SpecialUserService implements ISpecialUserService {
 	}
 
 	public void sendInfo(SecureDTO secureDTO, byte[] randomBytes) throws UnreachableClientException {
-        String urlAPI = PathConfiguration.SUBMIT_REPORT_URL;
+        String urlAPI = PathConfiguration.getSubmitReportURL(1);
 
         try {
             SecureDTO sec = NetworkService.sendMessageToServers(secureDTO, urlAPI);
@@ -94,7 +94,7 @@ public class SpecialUserService implements ISpecialUserService {
         byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
         SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userId, randomBytes);
         
-        String urlAPI = PathConfiguration.OBTAIN_USERS_AT_LOCATION_EPOCH;
+        String urlAPI = PathConfiguration.getObtainUsersAtLocationEpochURL(1);
 
         SecureDTO sec = NetworkService.sendMessageToServers(secureDTO, urlAPI);
         
@@ -129,7 +129,7 @@ public class SpecialUserService implements ISpecialUserService {
 		byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
 		SecureDTO secureDTO = CryptoService.generateNewSecureDTO(requestUserProofsDTO, userIdSender, randomBytes);
 		
-		String urlAPI = PathConfiguration.GET_PROOFS_AT_EPOCHS;
+		String urlAPI = PathConfiguration.getGetProofsAtEpochsURL(1);
 
         SecureDTO sec = NetworkService.sendMessageToServers(secureDTO, urlAPI);
 

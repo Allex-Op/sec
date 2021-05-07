@@ -52,7 +52,7 @@ public class Controller {
 			CryptoService.signProofDTO(proof);
 
 			ClientResponseDTO clientResponse = new ClientResponseDTO();
-			clientResponse.setProof(proof);
+			clientResponse.setProof(proof); // sends a Proof to a Witness
 			clientResponse.setNonce(CryptoUtils.generateNonce());
 			CryptoService.signClientResponse(clientResponse, CryptoUtils.getClientPrivateKey(ClientApplication.userId));
 
