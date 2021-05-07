@@ -2,7 +2,7 @@ package pt.ulisboa.tecnico.sec.services.utils.crypto;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.tools.javac.code.Types;
+
 import pt.ulisboa.tecnico.sec.services.configs.CryptoConfiguration;
 import pt.ulisboa.tecnico.sec.services.dto.*;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
@@ -21,14 +21,14 @@ public class CryptoService {
      *  as the client already possesses the key.
      */
 	// to be used by the server cuz it uses Server private key
-	public static SecretKey getSecretKeyFromDTO(SecureDTO sec) {
+	public static SecretKey getSecretKeyFromDTO(SecureDTO sec, String serverId) {
 	    try {
             // Obtain encrypted secret key in base64
             String randomString = sec.getRandomString();
 
             // Getting the encrypted random string from Custom Protocol Response
             byte[] encryptedStringBytes = CryptoUtils.decodeBase64(randomString);
-            PrivateKey kp = CryptoUtils.getServerPrivateKey();
+            PrivateKey kp = CryptoUtils.getServerPrivateKey(serverId);
             byte[] decryptedStringBytes = CryptoUtils.decrypt(encryptedStringBytes, kp);
 
             // Generate Secret Key
@@ -58,10 +58,10 @@ public class CryptoService {
      *  Returns the randomBytes (used to create the shared key) encrypted and encoded in base64,
      *  only used by the client.
      */
-    public static String encryptRandomBytes(byte[] randomBytes) {
+    public static String encryptRandomBytes(byte[] randomBytes, String serverId) {
         try {
             // Encrypt the random bytes with the server public key, so he can decrypt it later
-            PublicKey pk = CryptoUtils.getServerPublicKey();
+            PublicKey pk = CryptoUtils.getServerPublicKey(serverId);
             byte[] encryptedRandomBytes = CryptoUtils.encrypt(randomBytes, pk);
             return CryptoUtils.encodeBase64(encryptedRandomBytes);
         } catch(Exception e) {
@@ -109,8 +109,8 @@ public class CryptoService {
     }
     
     // to be used by the server cuz it uses Server private key
-    public static Object extractEncryptedData(SecureDTO sec, Class<?> aClass) {
-    	SecretKey originalKey = getSecretKeyFromDTO(sec);
+    public static Object extractEncryptedData(SecureDTO sec, Class<?> aClass, String serverId) {
+    	SecretKey originalKey = getSecretKeyFromDTO(sec, serverId);
     	return extractEncryptedData(sec, aClass, originalKey);
     }
 
@@ -169,17 +169,17 @@ public class CryptoService {
      * Generates a new SecureDTO from user with userId specified that encapsulates 
      * a LocationReportDTO or a ReportDTO
      */
-    public static <T> SecureDTO generateNewSecureDTO(T unsecureDTO, String userId, byte[] randomBytes) {
+    public static <T> SecureDTO generateNewSecureDTO(T unsecureDTO, String userId, byte[] randomBytes, String serverId) {
         SecretKey key = generateSecretKey(randomBytes);
-        return createSecureDTO(unsecureDTO, key, encryptRandomBytes(randomBytes), CryptoUtils.getClientPrivateKey(userId));
+        return createSecureDTO(unsecureDTO, key, encryptRandomBytes(randomBytes,serverId), CryptoUtils.getClientPrivateKey(userId));
     }
     
     /**
      * Generates a response SecureDTO of a client request that encapsulates a ReportDTO
      */
-    public static <T> SecureDTO generateResponseSecureDTO(SecureDTO receivedSecureDTO, T unsecureResponseDTO) {
-    	SecretKey key = getSecretKeyFromDTO(receivedSecureDTO);
-    	return createSecureDTO(unsecureResponseDTO, key, "", CryptoUtils.getServerPrivateKey());
+    public static <T> SecureDTO generateResponseSecureDTO(SecureDTO receivedSecureDTO, T unsecureResponseDTO, String serverId) {
+    	SecretKey key = getSecretKeyFromDTO(receivedSecureDTO, serverId);
+    	return createSecureDTO(unsecureResponseDTO, key, "", CryptoUtils.getServerPrivateKey(serverId));
     }
 
     /**

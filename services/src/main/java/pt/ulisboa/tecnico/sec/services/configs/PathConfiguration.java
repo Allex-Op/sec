@@ -20,11 +20,11 @@ public class PathConfiguration {
 	public static final String CLIENT_KEY_FOLDER = System.getProperty("user.dir") + "/services/src/main/java/pt/ulisboa/tecnico/sec/services/keys/client";
 	public static final String SERVER_KEY_FOLDER = System.getProperty("user.dir") + "/services/src/main/java/pt/ulisboa/tecnico/sec/services/keys/server";
 
-	public static final String SERVER_PUBLIC_KEY_NAME = "Spub.key";
-	public static final String SERVER_PRIVATE_KEY_NAME = "Spriv.key";
+	//public static final String SERVER_PUBLIC_KEY_NAME = "S1pub.key";
+	//public static final String SERVER_PRIVATE_KEY_NAME = "S1priv.key";
 
-	public static final String SERVER_PUBLIC_KEY = SERVER_KEY_FOLDER + "/" + SERVER_PUBLIC_KEY_NAME;
-	public static final String SERVER_PRIVATE_KEY = SERVER_KEY_FOLDER + "/" + SERVER_PRIVATE_KEY_NAME;
+	//public static final String SERVER_PUBLIC_KEY = SERVER_KEY_FOLDER + "/" + SERVER_PUBLIC_KEY_NAME;
+	//public static final String SERVER_PRIVATE_KEY = SERVER_KEY_FOLDER + "/" + SERVER_PRIVATE_KEY_NAME;
 
 	private PathConfiguration() {}
 	
@@ -36,5 +36,8 @@ public class PathConfiguration {
 	public static String getSubmitReportURL(int server) { return getServerUrl(server) + SUBMIT_REPORT_ENDPOINT; }
 	public static String getObtainUsersAtLocationEpochURL(int server) { return getServerUrl(server) + OBTAIN_USERS_AT_LOCATION_EPOCH_ENDPOINT; }
 	public static String getGetProofsAtEpochsURL(int server) { return getServerUrl(server) + GET_PROOFS_AT_EPOCHS_ENDPOINT; }
+
+	public static String getServerPublicKey(String serverId) { return SERVER_KEY_FOLDER + "/S" + serverId + "pub.key"; }
+	public static String getServerPrivateKey(String serverId) { return SERVER_KEY_FOLDER + "/S" + serverId + "priv.key"; }
 
 }

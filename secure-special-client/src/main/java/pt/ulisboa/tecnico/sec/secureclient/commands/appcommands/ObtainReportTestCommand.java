@@ -72,7 +72,7 @@ public class ObtainReportTestCommand extends Command {
 		
         // Convert the above request body to a secure request object
 		byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes);
+        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes, "1");
 		
         // changing digital signature
         secureDTO.setDigitalSignature("THIS_IS_AN_INVALID_SIGNATURE_LAHLAHLAH");
@@ -114,7 +114,7 @@ public class ObtainReportTestCommand extends Command {
 		
         // Convert the above request body to a secure request object
 		byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes);
+        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes, "1");
         
         System.out.println("[Special Client "+ SpecialClientApplication.userId+"] Trying to obtain the reports...");
 		

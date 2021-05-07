@@ -29,7 +29,7 @@ public class UserService implements IUserService {
 
         // Convert the above request body to a secure request object
         byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes);
+        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes, "1");
         
         String urlAPI = PathConfiguration.getGetReportURL(1);
 
@@ -38,8 +38,8 @@ public class UserService implements IUserService {
         // Check digital signature
         ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(sec, ReportDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));
 
-        // Verify if conversion was successfull and its a valid report
-        if (report == null || report.getRequestProofDTO().getUserID() == null || !CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey()))
+        // Verify if conversion was successful and its a valid report
+        if (report == null || report.getRequestProofDTO().getUserID() == null || !CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey("1")))
             return null;
         return report;
     }
@@ -61,7 +61,7 @@ public class UserService implements IUserService {
     @Override
     public void submitLocationReport(String userID, ReportDTO reportDTO) throws ApplicationException {
     	byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-    	SecureDTO secureDTO = CryptoService.generateNewSecureDTO(reportDTO, userID, randomBytes);
+    	SecureDTO secureDTO = CryptoService.generateNewSecureDTO(reportDTO, userID, randomBytes, "1");
 
         String urlAPI = PathConfiguration.getSubmitReportURL(1);
 
@@ -82,7 +82,7 @@ public class UserService implements IUserService {
 		requestUserProofsDTO.setEpochs(epochs);
 		
 		byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-		SecureDTO secureDTO = CryptoService.generateNewSecureDTO(requestUserProofsDTO, userIdSender, randomBytes);
+		SecureDTO secureDTO = CryptoService.generateNewSecureDTO(requestUserProofsDTO, userIdSender, randomBytes, "1");
 		
 		String urlAPI = PathConfiguration.getGetProofsAtEpochsURL(1);
 
@@ -92,7 +92,7 @@ public class UserService implements IUserService {
         ResponseUserProofsDTO response = (ResponseUserProofsDTO) CryptoService.extractEncryptedData(sec, ResponseUserProofsDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));
 
         // Verify if conversion was successfull and its a valid report
-        if (response == null || !CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey()))
+        if (response == null || !CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey("1")))
             return null;
 		return response;
 	}

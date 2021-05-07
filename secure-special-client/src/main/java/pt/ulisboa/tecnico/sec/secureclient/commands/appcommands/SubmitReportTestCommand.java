@@ -136,7 +136,7 @@ public class SubmitReportTestCommand extends Command {
         byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
 
         // We will send this secureDTO two times, because it will contain the same 'NONCE'
-        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(report, SpecialClientApplication.userId, randomBytes);
+        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(report, SpecialClientApplication.userId, randomBytes, "1");
 
         epochInReport--;
         ((SpecialUserService) userService).sendInfo(secureDTO, randomBytes);

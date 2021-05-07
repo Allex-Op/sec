@@ -2,7 +2,7 @@ cd .. && mvn clean package
 
 sudo -u postgres psql -d sec -a -f secure-server/src/main/java/META-INF/drop-tables.sql
 
-java -jar secure-server/target/secure-server-1.0.jar --server.port=8080 | tee deploy/logs/server_log.txt &
+java -jar secure-server/target/secure-server-1.0.jar --server.port=9201 1 | tee deploy/logs/server_log.txt &
 
 # Wait for the server to initiate the database before inserting the data
 sleep 15

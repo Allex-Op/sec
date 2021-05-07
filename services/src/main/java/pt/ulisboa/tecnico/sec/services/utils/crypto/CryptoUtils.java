@@ -185,11 +185,11 @@ public class CryptoUtils {
         return null;
     }
 
-    public static PrivateKey getServerPrivateKey() {
+    public static PrivateKey getServerPrivateKey(String serverId) {
         try {
             return CryptoUtils.readKeyPairFromFile(
-                    PathConfiguration.SERVER_PUBLIC_KEY,
-                    PathConfiguration.SERVER_PRIVATE_KEY
+                    PathConfiguration.getServerPublicKey(serverId),
+                    PathConfiguration.getServerPrivateKey(serverId)
             ).getPrivate();
         } catch(Exception e) {
             System.out.println("Error reading server private key");
@@ -198,11 +198,11 @@ public class CryptoUtils {
         return null;
     }
 
-    public static PublicKey getServerPublicKey() {
+    public static PublicKey getServerPublicKey(String serverId) {
         try {
         	return CryptoUtils.readKeyPairFromFile(
-                    PathConfiguration.SERVER_PUBLIC_KEY,
-                    PathConfiguration.SERVER_PRIVATE_KEY
+                    PathConfiguration.getServerPublicKey(serverId),
+                    PathConfiguration.getServerPrivateKey(serverId)
             ).getPublic();
         } catch(Exception e) {
             System.out.println("Error reading server public key");

@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.sec.secureserver.business.handlers;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import pt.ulisboa.tecnico.sec.secureserver.ServerApplication;
 import pt.ulisboa.tecnico.sec.services.dto.ErrorMessageResponse;
 import pt.ulisboa.tecnico.sec.services.dto.SecureDTO;
 import pt.ulisboa.tecnico.sec.services.exceptions.*;
@@ -23,7 +24,7 @@ public class ExceptionHandlerControl {
         System.out.println("Error: " + e.getLocalizedMessage());
 
         ErrorMessageResponse err = new ErrorMessageResponse("Application Exception", e.getLocalizedMessage());
-        return CryptoService.createSecureDTO(err, e.getSessionKey(), "", CryptoUtils.getServerPrivateKey());
+        return CryptoService.createSecureDTO(err, e.getSessionKey(), "", CryptoUtils.getServerPrivateKey(ServerApplication.serverId));
     }
 
     @ExceptionHandler(value = InvalidReportException.class)
@@ -32,7 +33,7 @@ public class ExceptionHandlerControl {
         System.out.println("Error: " + e.getLocalizedMessage());
 
         ErrorMessageResponse err = new ErrorMessageResponse("Invalid report exception", e.getLocalizedMessage());
-        return CryptoService.createSecureDTO(err, e.getSessionKey(), "", CryptoUtils.getServerPrivateKey());
+        return CryptoService.createSecureDTO(err, e.getSessionKey(), "", CryptoUtils.getServerPrivateKey(ServerApplication.serverId));
     }
 
     @ExceptionHandler(value = SignatureCheckFailedException.class)
@@ -41,7 +42,7 @@ public class ExceptionHandlerControl {
         System.out.println("Error: " + e.getLocalizedMessage());
 
         ErrorMessageResponse err = new ErrorMessageResponse("Signature check fail exception.", e.getLocalizedMessage());
-        return CryptoService.createSecureDTO(err, e.getSessionKey(), "", CryptoUtils.getServerPrivateKey());
+        return CryptoService.createSecureDTO(err, e.getSessionKey(), "", CryptoUtils.getServerPrivateKey(ServerApplication.serverId));
     }
 
     @ExceptionHandler(value = RepeatedNonceException.class)
@@ -50,7 +51,7 @@ public class ExceptionHandlerControl {
         System.out.println("Error: " + e.getLocalizedMessage());
 
         ErrorMessageResponse err = new ErrorMessageResponse("Repeated nonce exception", e.getLocalizedMessage());
-        return CryptoService.createSecureDTO(err, e.getSessionKey(), "", CryptoUtils.getServerPrivateKey());
+        return CryptoService.createSecureDTO(err, e.getSessionKey(), "", CryptoUtils.getServerPrivateKey(ServerApplication.serverId));
     }
 
     @ExceptionHandler(value = InvalidRequestException.class)
@@ -59,7 +60,7 @@ public class ExceptionHandlerControl {
         System.out.println("Error: " + e.getLocalizedMessage());
 
         ErrorMessageResponse err = new ErrorMessageResponse("Invalid Request Exception", e.getLocalizedMessage());
-        return CryptoService.createSecureDTO(err, e.getSessionKey(), "", CryptoUtils.getServerPrivateKey());
+        return CryptoService.createSecureDTO(err, e.getSessionKey(), "", CryptoUtils.getServerPrivateKey(ServerApplication.serverId));
     }
 
     @ExceptionHandler(value = NoRequiredPrivilegesException.class)
@@ -68,7 +69,7 @@ public class ExceptionHandlerControl {
         System.out.println("Error: " + e.getLocalizedMessage());
 
         ErrorMessageResponse err = new ErrorMessageResponse("No required privilege Exception", e.getLocalizedMessage());
-        return CryptoService.createSecureDTO(err, e.getSessionKey(), "", CryptoUtils.getServerPrivateKey());
+        return CryptoService.createSecureDTO(err, e.getSessionKey(), "", CryptoUtils.getServerPrivateKey(ServerApplication.serverId));
     }
 
 }

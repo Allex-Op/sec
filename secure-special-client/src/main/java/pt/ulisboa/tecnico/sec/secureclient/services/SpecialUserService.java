@@ -37,7 +37,7 @@ public class SpecialUserService implements ISpecialUserService {
 
         // Convert the above request body to a secure request object
         byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes);
+        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes, "1");
         return obtainInfo(secureDTO, randomBytes);
 	}
 	
@@ -48,7 +48,7 @@ public class SpecialUserService implements ISpecialUserService {
 
         // Check digital signature
         ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(sec, ReportDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));
-        if(CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey())) {
+        if(CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey("1"))) {
             return report;
         } else
             return null;
@@ -65,7 +65,7 @@ public class SpecialUserService implements ISpecialUserService {
         System.out.println("\n[Special Client" + SpecialClientApplication.userId + "] Report being sent:\n" + reportDTO.toString());
 
         byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(reportDTO, userID, randomBytes);
+        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(reportDTO, userID, randomBytes, "1");
         sendInfo(secureDTO, randomBytes);
 	}
 
@@ -92,7 +92,7 @@ public class SpecialUserService implements ISpecialUserService {
 		
 		// Convert the above request body to a secure request object
         byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userId, randomBytes);
+        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userId, randomBytes, "1");
         
         String urlAPI = PathConfiguration.getObtainUsersAtLocationEpochURL(1);
 
@@ -100,7 +100,7 @@ public class SpecialUserService implements ISpecialUserService {
         
         // Check digital signature
         SpecialUserResponseDTO response = (SpecialUserResponseDTO) CryptoService.extractEncryptedData(sec, SpecialUserResponseDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));
-        if(CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey())) {
+        if(CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey("1"))) {
             return response;
         } else
             return null;
@@ -127,7 +127,7 @@ public class SpecialUserService implements ISpecialUserService {
 		requestUserProofsDTO.setEpochs(epochs);
 		
 		byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-		SecureDTO secureDTO = CryptoService.generateNewSecureDTO(requestUserProofsDTO, userIdSender, randomBytes);
+		SecureDTO secureDTO = CryptoService.generateNewSecureDTO(requestUserProofsDTO, userIdSender, randomBytes, "1");
 		
 		String urlAPI = PathConfiguration.getGetProofsAtEpochsURL(1);
 
@@ -136,8 +136,8 @@ public class SpecialUserService implements ISpecialUserService {
         // Check digital signature
         ResponseUserProofsDTO response = (ResponseUserProofsDTO) CryptoService.extractEncryptedData(sec, ResponseUserProofsDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));
 
-        // Verify if conversion was successfull and its a valid report
-        if (response == null || !CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey()))
+        // Verify if conversion was successful and its a valid report
+        if (response == null || !CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey("1")))
             return null;
 		return response;
 	}
