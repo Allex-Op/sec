@@ -13,15 +13,22 @@ public class ServerApplication {
 
 	public static int epoch = 0;
 	public static String serverId;
+	public static int numberOfServers;
 
 	public static void main(String[] args) {
 		if (args.length < 2) {
-			System.out.println("Need 2 arguments: <port> <userId_integer>");
+			System.out.println("[Server " + serverId + "] Need 2 arguments: <port> <userId_integer> <number_of_servers>");
 			System.exit(0);
 			return;
 		}
-		
-		serverId = args[1];
+
+		try {
+			serverId = args[1];
+			numberOfServers = Integer.parseInt(args[2]);
+		} catch (NumberFormatException e) {
+			System.out.println("[Server " + serverId + "] The number of Servers must be an Integer.");
+			return;
+		}
 		
 		SpringApplication.run(ServerApplication.class, args);
 	}

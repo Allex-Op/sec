@@ -26,15 +26,22 @@ public class SpecialClientApplication extends SpringBootServletInitializer imple
 	private static final CommandDispatcher commandDispatcher = new CommandDispatcher();
 	
 	public static String userId;
+	public static int numberOfServers;
 	
 	public static void main(String[] args) {
-		if (args.length < 2) {
-			System.out.println("[Special Client\"" + userId+ "\"] Need 2 arguments: <port> <userId_integer>");
+		if (args.length < 3) {
+			System.out.println("[Special Client\"" + userId + "\"] Need 2 arguments: <port> <userId_integer> <number_of_servers>");
 			System.exit(0);
 			return;
 		}
-		
-		userId = args[1];
+
+		try {
+			userId = args[1];
+			numberOfServers = Integer.parseInt(args[2]);
+		} catch (NumberFormatException e) {
+			System.out.println("[Special Client\"" + userId + "\"] The number of Servers must be an Integer.");
+			return;
+		}
 
 		SpringApplication.run(SpecialClientApplication.class, args);
 	}

@@ -37,7 +37,7 @@ public class EpochTriggerMonitor {
 	
 	@Scheduled(fixedRate = 10000, initialDelay = 5000)
 	public void publish() throws ApplicationException {
-		// Incase this is on the bottom and if an exception occurs this value won't be increased and the client
+		// In case this is on the bottom and if an exception occurs this value won't be increased and the client
 		// will be delayed, possibly permanently.
 		ClientApplication.incrementEpoch();
 
