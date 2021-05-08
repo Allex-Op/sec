@@ -108,7 +108,7 @@ public class UserController {
 			SecretKey sk = CryptoService.getSecretKeyFromDTO(sec, ServerApplication.serverId);
 
 			if(sk == null)
-				return new SecureDTO();
+				return null;
 
 			e.setSecretKey(sk);
 			throw e;

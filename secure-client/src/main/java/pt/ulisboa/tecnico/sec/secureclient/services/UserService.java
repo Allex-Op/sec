@@ -27,17 +27,6 @@ public class UserService implements IUserService {
         // Prepare the body of the HTTP request
         RequestLocationDTO req = buildRequestLocation(userIdSender, userIdRequested, epoch);
 
-//        // Convert the above request body to a secure request object
-//        byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-//        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes, "1");
-//        
-//        String urlAPI = PathConfiguration.getGetReportURL(1);
-//
-//        SecureDTO sec = NetworkService.sendMessageToServers(secureDTO, urlAPI);
-//
-//        // Check digital signature
-//        ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(sec, ReportDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));
-
     	return NetworkService.sendMessageToServers(req, ReportDTO.class, userIdSender, PathConfiguration.GET_REPORT_ENDPOINT);
     }
 
@@ -57,17 +46,6 @@ public class UserService implements IUserService {
      */
     @Override
     public void submitLocationReport(String userID, ReportDTO reportDTO) throws ApplicationException {
-//    	byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-//    	SecureDTO secureDTO = CryptoService.generateNewSecureDTO(reportDTO, userID, randomBytes, "1");
-//
-//        String urlAPI = PathConfiguration.getSubmitReportURL(1);
-//
-//        try {
-//            SecureDTO sec = NetworkService.sendMessageToServers(secureDTO, urlAPI);
-//            CryptoService.extractEncryptedData(sec, String.class, CryptoUtils.createSharedKeyFromString(randomBytes));
-//        } catch(Exception e) {
-//            throw new UnreachableClientException("[Client "+ ClientApplication.userId+"] Wasn't able to contact server.");
-//        }
     	NetworkService.sendMessageToServersWithoutResponse(reportDTO, userID, PathConfiguration.SUBMIT_REPORT_ENDPOINT);
     }
 
@@ -78,21 +56,7 @@ public class UserService implements IUserService {
 		requestUserProofsDTO.setUserIdSender(userIdSender);
 		requestUserProofsDTO.setUserIdRequested(userIdRequested);
 		requestUserProofsDTO.setEpochs(epochs);
-		
-//		byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-//		SecureDTO secureDTO = CryptoService.generateNewSecureDTO(requestUserProofsDTO, userIdSender, randomBytes, "1");
-//		
-//		String urlAPI = PathConfiguration.getGetProofsAtEpochsURL(1);
-//
-//        SecureDTO sec = NetworkService.sendMessageToServers(secureDTO, urlAPI);
-//
-//        // Check digital signature
-//        ResponseUserProofsDTO response = (ResponseUserProofsDTO) CryptoService.extractEncryptedData(sec, ResponseUserProofsDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));
-//
-//        // Verify if conversion was successfull and its a valid report
-//        if (response == null || !CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey("1")))
-//            return null;
-//		return response;
+
 		return NetworkService.sendMessageToServers(requestUserProofsDTO, ResponseUserProofsDTO.class, userIdSender, PathConfiguration.GET_PROOFS_AT_EPOCHS_ENDPOINT);
 	}
 }
