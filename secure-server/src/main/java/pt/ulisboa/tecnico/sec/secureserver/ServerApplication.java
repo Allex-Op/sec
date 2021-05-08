@@ -16,8 +16,8 @@ public class ServerApplication {
 	public static int numberOfServers;
 
 	public static void main(String[] args) {
-		if (args.length < 2) {
-			System.out.println("[Server " + serverId + "] Need 2 arguments: <port> <userId_integer> <number_of_servers>");
+		if (args.length < 3) {
+			System.out.println("[Server " + serverId + "] Need 3 arguments: <port> <userId_integer> <number_of_servers>");
 			System.exit(0);
 			return;
 		}
