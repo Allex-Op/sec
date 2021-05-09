@@ -1,6 +1,8 @@
 package pt.ulisboa.tecnico.sec.services.dto;
 
 
+import java.util.Objects;
+
 /**
  * Object issued by witnesses to the prover, to acknowledge the location of the prover
  */
@@ -44,6 +46,19 @@ public class ProofDTO {
     @Override
     public String toString() {
         return " * Proof of epoch " + epoch + " made by user " + userID + " with the Digital Signature " + digitalSignature + " of {" + ( requestProofDTO == null ? "NULL" : requestProofDTO.toString() ) + "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProofDTO proofDTO = (ProofDTO) o;
+        return epoch == proofDTO.epoch && userID.equals(proofDTO.userID) && requestProofDTO.equals(proofDTO.requestProofDTO) && digitalSignature.equals(proofDTO.digitalSignature);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(epoch, userID, requestProofDTO, digitalSignature);
     }
 
 }

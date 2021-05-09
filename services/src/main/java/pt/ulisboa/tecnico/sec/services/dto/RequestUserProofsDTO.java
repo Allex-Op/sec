@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.sec.services.dto;
 
 import java.util.List;
+import java.util.Objects;
 
 public class RequestUserProofsDTO {
 
@@ -44,5 +45,17 @@ public class RequestUserProofsDTO {
 	public void setEpochs(List<Integer> epochs) {
 		this.epochs = epochs;
 	}
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		RequestUserProofsDTO that = (RequestUserProofsDTO) o;
+		return userIdSender.equals(that.userIdSender) && userIdRequested.equals(that.userIdRequested) && epochs.equals(that.epochs);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(userIdSender, userIdRequested, epochs);
+	}
 }

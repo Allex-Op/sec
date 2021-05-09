@@ -13,7 +13,8 @@ public class PathConfiguration {
 	public static final String SUBMIT_REPORT_ENDPOINT =  "/submitReport";
 	public static final String OBTAIN_USERS_AT_LOCATION_EPOCH_ENDPOINT = "/locations/management/";
 	public static final String GET_PROOFS_AT_EPOCHS_ENDPOINT = "/getProofs";
-
+	public static final String SERVER_ECHO = "/echo";
+	public static final String SERVER_READY = "/ready";
 
 	// Key Paths
 

@@ -1,6 +1,8 @@
 package pt.ulisboa.tecnico.sec.services.dto;
 
 
+import java.util.Objects;
+
 /**
  * A request made by the prover sent to witnesses, to ask for location acknowledgement
  */
@@ -66,4 +68,16 @@ public class RequestProofDTO {
         return "Request of epoch " + epoch + " at location (" + x + "," + y + ") made by user " + userID + " with the Digital Signature " + digitalSignature;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RequestProofDTO that = (RequestProofDTO) o;
+        return x == that.x && y == that.y && epoch == that.epoch && userID.equals(that.userID) && digitalSignature.equals(that.digitalSignature) && nonce.equals(that.nonce);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y, epoch, userID, digitalSignature, nonce);
+    }
 }

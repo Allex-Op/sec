@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.sec.services.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Server answer to client that asked for a location report,
@@ -54,5 +55,18 @@ public class ReportDTO {
         this.requestProofDTO = new RequestProofDTO();
         this.proofsList = new ArrayList<>();
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ReportDTO reportDTO = (ReportDTO) o;
+        return reportDTO.equals(reportDTO.requestProofDTO) && proofsList.equals(reportDTO.proofsList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(requestProofDTO, proofsList);
     }
 }

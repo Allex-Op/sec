@@ -1,5 +1,7 @@
 package pt.ulisboa.tecnico.sec.services.dto;
 
+import java.util.Objects;
+
 /**
  * Message sent by clients to the servers asking for a location report,
  * doesn't require digitalSignature as this message is encapsulated in a SecureDTO.
@@ -50,5 +52,18 @@ public class RequestLocationDTO {
 
     public void setUserIDRequested(String userIDRequested) {
         this.userIDRequested = userIDRequested;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RequestLocationDTO that = (RequestLocationDTO) o;
+        return x == that.x && y == that.y && epoch == that.epoch && userIDSender.equals(that.userIDSender) && userIDRequested.equals(that.userIDRequested);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y, epoch, userIDSender, userIDRequested);
     }
 }

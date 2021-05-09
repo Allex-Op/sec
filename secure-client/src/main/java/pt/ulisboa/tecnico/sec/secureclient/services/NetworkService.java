@@ -80,7 +80,7 @@ public class NetworkService {
             res = existsQuorumOfResponses(responseClass);
         } while (!numberOfResponses && res != null);
 
-        if (successfulRequest.get() <= (ByzantineConfigurations.NUMBER_OF_SERVERS + ByzantineConfigurations.MAX_BYZANTINE_USERS) / 2) {
+        if (successfulRequest.get() <= (ByzantineConfigurations.NUMBER_OF_SERVERS + ByzantineConfigurations.MAX_BYZANTINE_FAULTS) / 2) {
             completeGetDTO(userIdSender, readId);
             return null;
         }
@@ -134,7 +134,7 @@ public class NetworkService {
                     if (temp == null) {
                         continue;
                     }
-                    if (Collections.frequency(report, temp) > (ByzantineConfigurations.NUMBER_OF_SERVERS + ByzantineConfigurations.MAX_BYZANTINE_USERS) / 2) {
+                    if (Collections.frequency(report, temp) > (ByzantineConfigurations.NUMBER_OF_SERVERS + ByzantineConfigurations.MAX_BYZANTINE_FAULTS) / 2) {
                         return (R) temp;
                     }
                 }
@@ -149,7 +149,7 @@ public class NetworkService {
                     if (temp == null) {
                         continue;
                     }
-                    if (Collections.frequency(responseUserProofs, temp) > (ByzantineConfigurations.NUMBER_OF_SERVERS + ByzantineConfigurations.MAX_BYZANTINE_USERS) / 2) {
+                    if (Collections.frequency(responseUserProofs, temp) > (ByzantineConfigurations.NUMBER_OF_SERVERS + ByzantineConfigurations.MAX_BYZANTINE_FAULTS) / 2) {
                         return (R) temp;
                     }
                 }
@@ -196,9 +196,9 @@ public class NetworkService {
             } catch (Exception e) {
                 responses = true;
             }
-        } while (!responses && returnValue.size() <= (ByzantineConfigurations.NUMBER_OF_SERVERS + ByzantineConfigurations.MAX_BYZANTINE_USERS) / 2);
+        } while (!responses && returnValue.size() <= (ByzantineConfigurations.NUMBER_OF_SERVERS + ByzantineConfigurations.MAX_BYZANTINE_FAULTS) / 2);
 
-        if (returnValue.size() <= (ByzantineConfigurations.NUMBER_OF_SERVERS + ByzantineConfigurations.MAX_BYZANTINE_USERS) / 2){
+        if (returnValue.size() <= (ByzantineConfigurations.NUMBER_OF_SERVERS + ByzantineConfigurations.MAX_BYZANTINE_FAULTS) / 2){
             System.out.println("Report was not submitted. Not enough responses from Servers.");
         }
 	}
