@@ -47,6 +47,11 @@ public class RequestUserProofsDTO {
 	}
 
 	@Override
+	public String toString() {
+		return "Request User Proofs sent by " + userIdSender + " for user " + userIdRequested + " at epochs " + epochs.toString();
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;

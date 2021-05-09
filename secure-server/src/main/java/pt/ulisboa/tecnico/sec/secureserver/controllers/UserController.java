@@ -49,6 +49,7 @@ public class UserController {
 			RequestDTO requestDTO = new RequestDTO();
 			requestDTO.setRequestLocationDTO(req);
 			requestDTO.setClientId(req.getUserIDSender());
+			requestDTO.setServerId(ServerApplication.serverId);
 			NetworkService.sendBroadcast(requestDTO);
 
 			ReportDTO report = this.userService.obtainLocationReport(req.getUserIDSender(), req.getUserIDRequested(), req.getEpoch());
@@ -82,6 +83,7 @@ public class UserController {
 			RequestDTO requestDTO = new RequestDTO();
 			requestDTO.setRequestLocationDTO(req);
 			requestDTO.setClientId(req.getUserIDSender());
+			requestDTO.setServerId(ServerApplication.serverId);
 			NetworkService.sendBroadcast(requestDTO);
 
 			SpecialUserResponseDTO result = this.userService.obtainUsersAtLocation(req.getUserIDSender(), req.getX(), req.getY(), req.getEpoch());
@@ -116,6 +118,7 @@ public class UserController {
 			RequestDTO requestDTO = new RequestDTO();
 			requestDTO.setReportDTO(report);
 			requestDTO.setClientId(report.getRequestProofDTO().getUserID());
+			requestDTO.setServerId(ServerApplication.serverId);
 			NetworkService.sendBroadcast(requestDTO);
 
 			// Submit report
@@ -151,6 +154,7 @@ public class UserController {
 			RequestDTO requestDTO = new RequestDTO();
 			requestDTO.setRequestUserProofsDTO(requestUserProofs);
 			requestDTO.setClientId(requestUserProofs.getUserIdSender());
+			requestDTO.setServerId(ServerApplication.serverId);
 			NetworkService.sendBroadcast(requestDTO);
 
 			ResponseUserProofsDTO result = this.userService.requestMyProofs(clientIdSender, requestUserProofs.getUserIdRequested(), requestUserProofs.getEpochs());
@@ -175,7 +179,7 @@ public class UserController {
 		RequestDTO requestDTO = (RequestDTO) CryptoService.extractEncryptedData(secureDTO, RequestDTO.class, ServerApplication.serverId);
 		if (requestDTO == null)
 			throw new ApplicationException("[SERVER " + ServerApplication.serverId + "] SecureDTO object was corrupt or malformed, was not possible to extract the information.");
-		System.out.println("\n[SERVER" + ServerApplication.serverId + "] Received echo from: " + requestDTO.getClientId());
+		System.out.println("\n[SERVER" + ServerApplication.serverId + "] Received an echo from " + requestDTO.getServerId());
 
 		networkService.echo(requestDTO);
 	}
@@ -188,7 +192,7 @@ public class UserController {
 		RequestDTO requestDTO = (RequestDTO) CryptoService.extractEncryptedData(secureDTO, RequestDTO.class, ServerApplication.serverId);
 		if (requestDTO == null)
 			throw new ApplicationException("[SERVER " + ServerApplication.serverId + "] SecureDTO object was corrupt or malformed, was not possible to extract the information.");
-		System.out.println("\n[SERVER" + ServerApplication.serverId + "] Received ready from: " + requestDTO.getClientId());
+		System.out.println("\n[SERVER" + ServerApplication.serverId + "] Received a ready from " + requestDTO.getServerId());
 
 		networkService.ready(requestDTO);
 	}

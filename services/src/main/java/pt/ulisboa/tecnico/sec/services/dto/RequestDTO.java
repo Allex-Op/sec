@@ -5,6 +5,7 @@ import java.util.Objects;
 public class RequestDTO {
 
     private String clientId; // The sender
+    private String serverId; // The server who sent
 
     private RequestLocationDTO requestLocationDTO;
     private ReportDTO reportDTO;
@@ -41,6 +42,14 @@ public class RequestDTO {
         this.clientId = clientId;
     }
 
+    public String getServerId() {
+        return serverId;
+    }
+
+    public void setServerId(String serverId) {
+        this.serverId = serverId;
+    }
+
     public boolean encapsulationOfRequestLocationIsEmpty() {
         return requestLocationDTO == null;
     }
@@ -51,6 +60,17 @@ public class RequestDTO {
 
     public boolean encapsulationOfRequestUserProofsIsEmpty() {
         return requestUserProofsDTO == null;
+    }
+
+    @Override
+    public String toString() {
+        if (!encapsulationOfRequestLocationIsEmpty()) {
+            return "Request: [" + requestLocationDTO.toString() + "]";
+        }
+        if (!encapsulationOfReportIsEmpty()) {
+            return "Request: [" + reportDTO.toString() + "]";
+        }
+        return "Request: [" + requestUserProofsDTO.toString() + "]";
     }
 
     @Override

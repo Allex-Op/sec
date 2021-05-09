@@ -55,6 +55,11 @@ public class RequestLocationDTO {
     }
 
     @Override
+    public String toString() {
+        return "Request Location sent by " + userIDSender + ": (" + x + "," + y + ") at epoch " + epoch + " of user " + userIDRequested;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

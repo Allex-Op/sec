@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.sec.secureserver.services;
 
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -30,12 +31,11 @@ public class NetworkService {
     private static Map<String, Boolean> delivered = new ConcurrentHashMap<>();
     private static final Object readyWait = new Object();
     private static final Object echoWait = new Object();
+    public static boolean initDone = false;
 
-
-    @Autowired
-    public NetworkService() {
+    public static void init() {
+        initDone = true;
         waitForQuorum();
-
     }
 
     public static void waitForQuorum() {
@@ -44,13 +44,17 @@ public class NetworkService {
             while (true) {
                 if (newRequest) {
                     //Count echos
+
                     for (Map.Entry<String, Map<String, RequestDTO>> clientMap : echos.entrySet()) {
+                        System.out.println("COUNT ECHOS");
                         final Collection<RequestDTO> requests = clientMap.getValue().values();
                         Set<RequestDTO> uniqueSet = new HashSet<>(requests);
                         for (RequestDTO temp : uniqueSet) {
+                            System.out.println("ENTROU NO FOR DO ECHO");
                             if (temp == null) {
                                 continue;
                             }
+                            System.out.println("COLLECTION FREQUENCY ECHOS " + Collections.frequency(requests, temp) + " and set = " + requests.toString());
                             //If we have a quorum of echos and sentready = false
                             if (Collections.frequency(requests, temp) > (ByzantineConfigurations.NUMBER_OF_SERVERS + ByzantineConfigurations.MAX_BYZANTINE_FAULTS) / 2
                                     && !sentReady.containsKey(clientMap.getKey())) {
@@ -78,12 +82,16 @@ public class NetworkService {
                 if (newRequest) {
                     //Count Readys
                     for (Map.Entry<String, Map<String, RequestDTO>> clientMap : readys.entrySet()) {
+                        System.out.println("COUNT READY");
                         final Collection<RequestDTO> requests = clientMap.getValue().values();
                         Set<RequestDTO> uniqueSet = new HashSet<>(requests);
                         for (RequestDTO temp : uniqueSet) {
+                            System.out.println("ENTROU NO FOR DO READY");
                             if (temp == null) {
                                 continue;
                             }
+                            System.out.println("COLLECTION FREQUENCY READYS " + Collections.frequency(requests, temp) + " and set " + requests.toString());
+
                             //If we have readys > f and sentready = false
                             if (Collections.frequency(requests, temp) > ByzantineConfigurations.MAX_BYZANTINE_FAULTS
                                     && !sentReady.containsKey(clientMap.getKey())) {
@@ -140,8 +148,10 @@ public class NetworkService {
     }
 
     public static void sendBroadcast(RequestDTO request) throws ApplicationException {
-
         newRequest = true;
+        if (!initDone) {
+            init();
+        }
 
         initClient(request.getClientId()); // restart for that client
 
