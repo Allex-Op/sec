@@ -1,5 +1,4 @@
-cd .. && mvn clean package
-
+cd ..
 sudo -u postgres psql -d sec4 -a -f secure-server/src/main/java/META-INF/drop-tables.sql
 
 java -jar secure-server/target/secure-server-1.0.jar --server.port=9204 4 4 --spring.datasource.url=jdbc:postgresql://localhost:5432/sec4 | tee deploy/logs/server4_log.txt &

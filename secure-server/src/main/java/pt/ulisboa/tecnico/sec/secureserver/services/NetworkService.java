@@ -49,6 +49,8 @@ public class NetworkService {
                         System.out.println("COUNT ECHOS");
                         final Collection<RequestDTO> requests = clientMap.getValue().values();
                         Set<RequestDTO> uniqueSet = new HashSet<>(requests);
+                        System.out.println("lista de requests: " + requests);
+
                         for (RequestDTO temp : uniqueSet) {
                             System.out.println("ENTROU NO FOR DO ECHO");
                             if (temp == null) {
@@ -149,7 +151,7 @@ public class NetworkService {
 
     public static void sendBroadcast(RequestDTO request) throws ApplicationException {
         newRequest = true;
-        if (!initDone) {
+        if (!initDone) {    //TODO: Devia estar sincronizado TOCTOU, varias thread podem ler false e tentar inicializar
             init();
         }
 

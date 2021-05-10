@@ -27,12 +27,13 @@ public class NetworkService {
 	private static Map<Integer, Map<String, ReportDTO>> answersReport = new ConcurrentHashMap<>();
     private static Map<Integer, Map<String, ResponseUserProofsDTO>> answersUserProofs = new ConcurrentHashMap<>();
 	private static int readId = 0;
-	private static ReportDTO lastReportAnswers;
+	private static ReportDTO lastReportAnswers; //TODO: N garantimos que todos clientes lêm mesma cena
 	private static ResponseUserProofsDTO lastUserProofsAnswers;
 
 	private NetworkService() {}
 	
 	public static <P, R> R sendMessageToServers(P unsecureDTO, Class<R> responseClass, String userIdSender, String endpoint) {
+	    //todo: estruturas de dados precisam estar concorrentes?
         ConcurrentLinkedDeque<R> replies = new ConcurrentLinkedDeque<>();
         CountDownLatch latchResponses = new CountDownLatch(ByzantineConfigurations.NUMBER_OF_SERVERS);
         AtomicInteger successfulRequest = new AtomicInteger();
@@ -66,9 +67,11 @@ public class NetworkService {
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
-                latchResponses.countDown();
+                latchResponses.countDown();     //TODO: Isto é necessário?
             }).exceptionally(e -> null);
         }
+
+
         boolean numberOfResponses = false;
         R res;
         do {
