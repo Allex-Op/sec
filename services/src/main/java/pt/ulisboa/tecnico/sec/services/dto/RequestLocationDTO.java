@@ -60,11 +60,31 @@ public class RequestLocationDTO {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RequestLocationDTO that = (RequestLocationDTO) o;
-        return x == that.x && y == that.y && epoch == that.epoch && userIDSender.equals(that.userIDSender) && userIDRequested.equals(that.userIDRequested);
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        RequestLocationDTO other = (RequestLocationDTO) obj;
+        if (epoch != other.epoch)
+            return false;
+        if (userIDRequested == null) {
+            if (other.userIDRequested != null)
+                return false;
+        } else if (!userIDRequested.equals(other.userIDRequested))
+            return false;
+        if (userIDSender == null) {
+            if (other.userIDSender != null)
+                return false;
+        } else if (!userIDSender.equals(other.userIDSender))
+            return false;
+        if (x != other.x)
+            return false;
+        if (y != other.y)
+            return false;
+        return true;
     }
 
     @Override

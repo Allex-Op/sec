@@ -49,11 +49,32 @@ public class ProofDTO {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProofDTO proofDTO = (ProofDTO) o;
-        return epoch == proofDTO.epoch && userID.equals(proofDTO.userID) && requestProofDTO.equals(proofDTO.requestProofDTO) && digitalSignature.equals(proofDTO.digitalSignature);
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ProofDTO other = (ProofDTO) obj;
+        if (digitalSignature == null) {
+            if (other.digitalSignature != null)
+                return false;
+        } else if (!digitalSignature.equals(other.digitalSignature))
+            return false;
+        if (epoch != other.epoch)
+            return false;
+        if (requestProofDTO == null) {
+            if (other.requestProofDTO != null)
+                return false;
+        } else if (!requestProofDTO.equals(other.requestProofDTO))
+            return false;
+        if (userID == null) {
+            if (other.userID != null)
+                return false;
+        } else if (!userID.equals(other.userID))
+            return false;
+        return true;
     }
 
     @Override

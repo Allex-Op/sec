@@ -33,6 +33,10 @@ public class NetworkService {
     private static final Object echoWait = new Object();
     public static boolean initDone = false;
 
+    private static Object lock = new Object();
+    private static Thread echoJob;
+    private static Thread readyJob;
+
     public static void init() {
         initDone = true;
         waitForQuorum();
@@ -40,37 +44,29 @@ public class NetworkService {
 
     public static void waitForQuorum() {
         //Thread waiting for quorum of echos
-        CompletableFuture.runAsync(() -> {
+        echoJob = new Thread(() -> {
             while (true) {
                 if (newRequest) {
                     //Count echos
 
                     for (Map.Entry<String, Map<String, RequestDTO>> clientMap : echos.entrySet()) {
-                        System.out.println("COUNT ECHOS");
                         final Collection<RequestDTO> requests = clientMap.getValue().values();
                         Set<RequestDTO> uniqueSet = new HashSet<>(requests);
-                        System.out.println("lista de requests: " + requests);
-
                         for (RequestDTO temp : uniqueSet) {
-                            System.out.println("ENTROU NO FOR DO ECHO");
                             if (temp == null) {
                                 continue;
                             }
-                            System.out.println("COLLECTION FREQUENCY ECHOS " + Collections.frequency(requests, temp) + " and set = " + requests.toString());
                             //If we have a quorum of echos and sentready = false
                             if (Collections.frequency(requests, temp) > (ByzantineConfigurations.NUMBER_OF_SERVERS + ByzantineConfigurations.MAX_BYZANTINE_FAULTS) / 2
                                     && !sentReady.containsKey(clientMap.getKey())) {
                                 sentReady.putIfAbsent(clientMap.getKey(), true);
-                                synchronized (readyWait) {
-                                    sendReadys(temp);
-                                }
+                                temp.setServerId(ServerApplication.serverId);
+                                sendReadys(temp);
                             }
                         }
                     }
-                }
-                synchronized (echoWait) {
                     try {
-                        echoWait.wait();
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         return;
                     }
@@ -79,25 +75,23 @@ public class NetworkService {
         });
 
         //Waiting for quorum of readys
-        CompletableFuture.runAsync(() -> {
+        readyJob = new Thread(() -> {
             while (true) {
                 if (newRequest) {
                     //Count Readys
-                    for (Map.Entry<String, Map<String, RequestDTO>> clientMap : readys.entrySet()) {
-                        System.out.println("COUNT READY");
+                    for (Map.Entry<String, Map<String, RequestDTO>> clientMap : readys.entrySet()) { //TODO EMPTY
                         final Collection<RequestDTO> requests = clientMap.getValue().values();
                         Set<RequestDTO> uniqueSet = new HashSet<>(requests);
                         for (RequestDTO temp : uniqueSet) {
-                            System.out.println("ENTROU NO FOR DO READY");
                             if (temp == null) {
                                 continue;
                             }
-                            System.out.println("COLLECTION FREQUENCY READYS " + Collections.frequency(requests, temp) + " and set " + requests.toString());
 
                             //If we have readys > f and sentready = false
                             if (Collections.frequency(requests, temp) > ByzantineConfigurations.MAX_BYZANTINE_FAULTS
                                     && !sentReady.containsKey(clientMap.getKey())) {
                                 sentReady.putIfAbsent(clientMap.getKey(), true);
+                                temp.setServerId(ServerApplication.serverId);
                                 sendReadys(temp);
                             }
 
@@ -112,16 +106,16 @@ public class NetworkService {
                             }
                         }
                     }
-                }
-                synchronized (readyWait) {
                     try {
-                        readyWait.wait();
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         return;
                     }
                 }
             }
         });
+        echoJob.start();
+        readyJob.start();
     }
 
     static void sendReadys(RequestDTO request) {
@@ -151,10 +145,11 @@ public class NetworkService {
 
     public static void sendBroadcast(RequestDTO request) throws ApplicationException {
         newRequest = true;
-        if (!initDone) {    //TODO: Devia estar sincronizado TOCTOU, varias thread podem ler false e tentar inicializar
-            init();
+        synchronized (lock) {
+            if (!initDone) {    //TODO: Devia estar sincronizado TOCTOU, varias thread podem ler false e tentar inicializar
+                init();
+            }
         }
-
         initClient(request.getClientId()); // restart for that client
 
         deliverWait.putIfAbsent(request.getClientId(), new Object());
@@ -162,22 +157,19 @@ public class NetworkService {
         if (!sentEcho.containsKey(request.getClientId())) { //if sentecho = false
             sentEcho.put(request.getClientId(), true);
             for (int i = 1; i<= ServerApplication.numberOfServers; i++) {
-                int serverId = i;
-                CompletableFuture.runAsync(() -> {
-                    // Convert the above request body to a secure request object
-                    byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-                    SecureDTO secureDTO = CryptoService.generateNewSecureDTO(request, ServerApplication.serverId, randomBytes, serverId + "");
+                // Convert the above request body to a secure request object
+                byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
+                SecureDTO secureDTO = CryptoService.generateNewSecureDTO(request, ServerApplication.serverId, randomBytes, i + "");
 
-                    String url = PathConfiguration.buildUrl(PathConfiguration.getServerUrl(serverId), PathConfiguration.SERVER_ECHO);
-                    sendMessageToServer(secureDTO, url);
-                });
+                String url = PathConfiguration.buildUrl(PathConfiguration.getServerUrl(i), PathConfiguration.SERVER_ECHO);
+                sendMessageToServer(secureDTO, url);
             }
         }
 
         if (!delivered.containsKey(request.getClientId())) {
             synchronized (deliverWait.get(request.getClientId())) {
                 try {
-                    deliverWait.get(request.getClientId()).wait(10000); //TODO verify wait with few seconds
+                    deliverWait.get(request.getClientId()).wait(20000); //TODO verify wait with few seconds
                 } catch (InterruptedException e) {
                     throw new ApplicationException("Error in Broadcast", e);
                 }
@@ -205,19 +197,19 @@ public class NetworkService {
     }
 
     public void echo(RequestDTO request) {
+        System.out.println("Im executing the echo method");
         echos.putIfAbsent(request.getClientId(), new ConcurrentHashMap<>());
-        echos.get(request.getClientId()).put(ServerApplication.serverId, request);
-        synchronized (echoWait) {
-            echoWait.notifyAll();
-        }
+        System.out.println(echos.get(request.getClientId()));
+        echos.get(request.getClientId()).put(request.getServerId(), request);
+        System.out.println(echos.get(request.getClientId()));
     }
 
     public void ready(RequestDTO request) {
+        System.out.println("Im executing the ready method");
         readys.putIfAbsent(request.getClientId(), new ConcurrentHashMap<>());
-        readys.get(request.getClientId()).put(ServerApplication.serverId, request);
-        synchronized (readyWait) {
-            readyWait.notifyAll();
-        }
+        System.out.println(readys.get(request.getClientId()));
+        readys.get(request.getClientId()).put(request.getServerId(), request);
+        System.out.println(readys.get(request.getClientId()));
     }
 
 }

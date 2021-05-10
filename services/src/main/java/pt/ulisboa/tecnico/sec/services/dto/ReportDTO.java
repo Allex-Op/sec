@@ -58,12 +58,27 @@ public class ReportDTO {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ReportDTO reportDTO = (ReportDTO) o;
-        return reportDTO.equals(reportDTO.requestProofDTO) && proofsList.equals(reportDTO.proofsList);
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ReportDTO other = (ReportDTO) obj;
+        if (proofsList == null) {
+            if (other.proofsList != null)
+                return false;
+        } else if (!proofsList.equals(other.proofsList))
+            return false;
+        if (requestProofDTO == null) {
+            if (other.requestProofDTO != null)
+                return false;
+        } else if (!requestProofDTO.equals(other.requestProofDTO))
+            return false;
+        return true;
     }
+
 
     @Override
     public int hashCode() {

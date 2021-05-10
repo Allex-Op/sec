@@ -69,11 +69,36 @@ public class RequestProofDTO {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RequestProofDTO that = (RequestProofDTO) o;
-        return x == that.x && y == that.y && epoch == that.epoch && userID.equals(that.userID) && digitalSignature.equals(that.digitalSignature) && nonce.equals(that.nonce);
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        RequestProofDTO other = (RequestProofDTO) obj;
+        if (digitalSignature == null) {
+            if (other.digitalSignature != null)
+                return false;
+        } else if (!digitalSignature.equals(other.digitalSignature))
+            return false;
+        if (epoch != other.epoch)
+            return false;
+        if (nonce == null) {
+            if (other.nonce != null)
+                return false;
+        } else if (!nonce.equals(other.nonce))
+            return false;
+        if (userID == null) {
+            if (other.userID != null)
+                return false;
+        } else if (!userID.equals(other.userID))
+            return false;
+        if (x != other.x)
+            return false;
+        if (y != other.y)
+            return false;
+        return true;
     }
 
     @Override

@@ -73,16 +73,52 @@ public class RequestDTO {
         return "Request: [" + requestUserProofsDTO.toString() + "]";
     }
 
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        RequestDTO that = (RequestDTO) o;
+//        if (!this.encapsulationOfRequestLocationIsEmpty() && !that.encapsulationOfRequestLocationIsEmpty()) return clientId.equals(that.clientId) && requestLocationDTO.equals(that.requestLocationDTO);
+//        if (!this.encapsulationOfReportIsEmpty() && !that.encapsulationOfReportIsEmpty()) return clientId.equals(that.clientId) && reportDTO.equals(that.reportDTO);
+//        if (!this.encapsulationOfRequestUserProofsIsEmpty() && !that.encapsulationOfRequestUserProofsIsEmpty()) return clientId.equals(that.clientId) && requestUserProofsDTO.equals(that.requestUserProofsDTO);
+//        return false;
+//    }
+
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RequestDTO that = (RequestDTO) o;
-        return clientId.equals(that.clientId) && requestLocationDTO.equals(that.requestLocationDTO) && reportDTO.equals(that.reportDTO) && requestUserProofsDTO.equals(that.requestUserProofsDTO);
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        RequestDTO other = (RequestDTO) obj;
+        if (clientId == null) {
+            if (other.clientId != null)
+                return false;
+        } else if (!clientId.equals(other.clientId))
+            return false;
+        if (reportDTO == null) {
+            if (other.reportDTO != null)
+                return false;
+        } else if (!reportDTO.equals(other.reportDTO))
+            return false;
+        if (requestLocationDTO == null) {
+            if (other.requestLocationDTO != null)
+                return false;
+        } else if (!requestLocationDTO.equals(other.requestLocationDTO))
+            return false;
+        if (requestUserProofsDTO == null) {
+            if (other.requestUserProofsDTO != null)
+                return false;
+        } else if (!requestUserProofsDTO.equals(other.requestUserProofsDTO))
+            return false;
+        return true;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(clientId, requestLocationDTO, reportDTO, requestUserProofsDTO);
     }
+
 }

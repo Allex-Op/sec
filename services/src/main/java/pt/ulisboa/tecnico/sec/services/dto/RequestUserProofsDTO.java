@@ -52,11 +52,30 @@ public class RequestUserProofsDTO {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		RequestUserProofsDTO that = (RequestUserProofsDTO) o;
-		return userIdSender.equals(that.userIdSender) && userIdRequested.equals(that.userIdRequested) && epochs.equals(that.epochs);
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RequestUserProofsDTO other = (RequestUserProofsDTO) obj;
+		if (epochs == null) {
+			if (other.epochs != null)
+				return false;
+		} else if (!epochs.equals(other.epochs))
+			return false;
+		if (userIdRequested == null) {
+			if (other.userIdRequested != null)
+				return false;
+		} else if (!userIdRequested.equals(other.userIdRequested))
+			return false;
+		if (userIdSender == null) {
+			if (other.userIdSender != null)
+				return false;
+		} else if (!userIdSender.equals(other.userIdSender))
+			return false;
+		return true;
 	}
 
 	@Override
