@@ -37,6 +37,34 @@ public class EpochTriggerMonitor {
 	
 	@Scheduled(fixedRate = 10000, initialDelay = 5000)
 	public void publish() throws ApplicationException {
+		// For debug only to test byzantine regular register
+		if(true)
+			return;
+
+		// For debug only to avoid epoch increases, remove after testing
+		if(true) {
+			System.out.println("Submitting report at epoch: " + ClientApplication.epoch);
+			RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(10, 2, ClientApplication.epoch, ClientApplication.userId, "");
+			CryptoService.signRequestProofDTO(requestProofDTO);
+
+			ProofDTO proofDTO1 = DTOFactory.makeProofDTO(ClientApplication.epoch, "1", requestProofDTO, "");
+			CryptoService.signProofDTO(proofDTO1);
+
+			ProofDTO proofDTO2 = DTOFactory.makeProofDTO(ClientApplication.epoch, "2", requestProofDTO, "");
+			CryptoService.signProofDTO(proofDTO2);
+
+			ProofDTO proofDTO3 = DTOFactory.makeProofDTO(ClientApplication.epoch, "4", requestProofDTO, "");
+			CryptoService.signProofDTO(proofDTO3);
+
+			ReportDTO report = DTOFactory.makeReportDTO(requestProofDTO, Arrays.asList(proofDTO1,proofDTO2,proofDTO3));
+
+			ClientApplication.epoch--;
+			userService.submitLocationReport(ClientApplication.userId, report);
+
+			return;
+		}
+
+
 		// In case this is on the bottom and if an exception occurs this value won't be increased and the client
 		// will be delayed, possibly permanently.
 		ClientApplication.incrementEpoch();
@@ -120,4 +148,5 @@ public class EpochTriggerMonitor {
 		System.out.println("\n[Client " + ClientApplication.userId + "] Going to grid at client epoch: " + ClientApplication.epoch);
 		return Grid.getLocationOfUserAtEpoch(myId, ClientApplication.epoch);
 	}
+
 }

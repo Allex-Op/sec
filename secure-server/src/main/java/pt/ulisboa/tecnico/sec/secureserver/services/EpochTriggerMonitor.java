@@ -12,10 +12,8 @@ public class EpochTriggerMonitor {
 
 	@Scheduled(fixedRate = 10000, initialDelay = 5000)
 	public void publish() {
-		ServerApplication.incrementEpoch();
-
 		Date date = new Date();
-		System.out.println("[Server"+ new Timestamp(date.getTime())+ "] Epoch change, current epoch now is " + ServerApplication.epoch + " (deprecated, server epoch doesn't influence anything, it will be removed).");
+		System.out.println("[Server Id: " + ServerApplication.serverId + "] Server heartbeat at " + new Timestamp(date.getTime()));
 	}
 
 

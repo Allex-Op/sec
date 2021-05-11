@@ -86,7 +86,6 @@ public class CryptoService {
 
             // Get the original JSON Object as String
             data = CryptoUtils.decrypt(originalKey, dataEncrypted, IV);
-            System.out.println("[CryptoService Debug] Encrypted object was:" + data);
 
             // Convert string json to DTO
             return convertStringToJson(data, aClass);
@@ -138,7 +137,6 @@ public class CryptoService {
             // Sign the secureDTO
             signSecureDTO(sec, signKey);
 
-            System.out.println(sec);
             return sec;
         } catch(Exception e) {
             System.out.println("Error creating secureDTO...");
@@ -241,7 +239,7 @@ public class CryptoService {
      * Build secureDTO message signature
      */
     public static String buildSecureDTOMessage(SecureDTO sec) {
-        return sec.getData() + sec.getRandomString() + sec.getIv() + sec.getNonce();
+        return sec.getData() + sec.getRandomString() + sec.getIv() + sec.getNonce() + sec.getTimestamp() + sec.getRid();
     }
 
 

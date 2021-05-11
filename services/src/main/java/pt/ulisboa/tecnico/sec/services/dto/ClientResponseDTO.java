@@ -6,6 +6,7 @@ public class ClientResponseDTO {
     private String nonce;
     private String digitalSignature;
 
+    public ClientResponseDTO() {}
 
     public ErrorMessageResponse getErr() {
         return err;

@@ -13,6 +13,7 @@ public class RequestLocationDTO {
     private String userIDSender;    // The userId of the person sending
     private String userIDRequested; // The userId of the report requested
 
+    public RequestLocationDTO() {}
 
     public int getEpoch() {
         return epoch;

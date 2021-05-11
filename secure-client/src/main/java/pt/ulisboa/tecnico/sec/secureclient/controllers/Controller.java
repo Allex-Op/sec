@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import pt.ulisboa.tecnico.sec.secureclient.ClientApplication;
 import pt.ulisboa.tecnico.sec.secureclient.services.UserService;
 import pt.ulisboa.tecnico.sec.services.configs.ByzantineConfigurations;
+import pt.ulisboa.tecnico.sec.services.configs.PathConfiguration;
 import pt.ulisboa.tecnico.sec.services.dto.*;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 import pt.ulisboa.tecnico.sec.services.exceptions.ProverOutOfRangeException;
@@ -68,5 +69,23 @@ public class Controller {
 	public ReportDTO requestLocationInformation(@PathVariable int epoch) {
 		System.out.println("\n[Client"+ClientApplication.userId+"] Sending report request for user "+ ClientApplication.userId + " at epoch" + epoch);
 		return userService.obtainLocationReport(ClientApplication.userId, ClientApplication.userId, epoch);
+	}
+
+	/**
+	 *	Client asks for the proofs it has issued for other clients
+	 */
+	@GetMapping(PathConfiguration.GET_PROOFS_AT_EPOCHS_ENDPOINT)
+	public ResponseUserProofsDTO requestIssuedProofs() throws ApplicationException {
+		System.out.println("\n[Client"+ClientApplication.userId+"] Sending request to obtain issued proofs at epoch " + ClientApplication.epoch);
+		ArrayList<Integer> epochs = new ArrayList<>();
+		epochs.add(-1);
+		ResponseUserProofsDTO response = userService.requestMyProofs(ClientApplication.userId, ClientApplication.userId, epochs);
+
+		System.out.println("User issued proofs:");
+		for (ProofDTO proof : response.getProofs()) {
+			System.out.println(proof);
+		}
+
+		return response;
 	}
 }

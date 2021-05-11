@@ -3,7 +3,9 @@ package pt.ulisboa.tecnico.sec.services.dto;
 import java.util.List;
 
 public class SpecialUserResponseDTO {
-	
+
+    public SpecialUserResponseDTO() {}
+
     private List<String> users;
 
     public void setUsers(List<String> witnesses) {

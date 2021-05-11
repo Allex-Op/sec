@@ -11,6 +11,8 @@ public class RequestDTO {
     private ReportDTO reportDTO;
     private RequestUserProofsDTO requestUserProofsDTO;
 
+    public RequestDTO() {}
+
     public RequestLocationDTO getRequestLocationDTO() {
         return requestLocationDTO;
     }

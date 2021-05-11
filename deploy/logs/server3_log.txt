@@ -7,194 +7,74 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.4.3)
 
-2021-05-10 20:58:55.017  INFO 17165 --- [           main] p.u.t.s.secureserver.ServerApplication   : Starting ServerApplication v1.0 using Java 11.0.11 on ubuntu with PID 17165 (/home/thunder-marks/IdeaProjects/Secure-Communication/secure-server/target/secure-server-1.0.jar started by root in /home/thunder-marks/IdeaProjects/Secure-Communication)
-2021-05-10 20:58:55.024  INFO 17165 --- [           main] p.u.t.s.secureserver.ServerApplication   : No active profile set, falling back to default profiles: default
-2021-05-10 20:58:59.345  INFO 17165 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2021-05-10 20:58:59.401  INFO 17165 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 0 JPA repository interfaces.
-2021-05-10 20:59:02.480  INFO 17165 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9203 (http)
-2021-05-10 20:59:02.598  INFO 17165 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2021-05-10 20:59:02.599  INFO 17165 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
-2021-05-10 20:59:02.870  INFO 17165 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2021-05-10 20:59:02.871  INFO 17165 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 7518 ms
-2021-05-10 20:59:03.965  INFO 17165 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2021-05-10 20:59:04.324  INFO 17165 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.28.Final
-2021-05-10 20:59:04.605  INFO 17165 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2021-05-10 20:59:04.853  INFO 17165 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2021-05-10 20:59:05.836  INFO 17165 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2021-05-10 20:59:06.033  INFO 17165 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
-2021-05-10 20:59:08.720  INFO 17165 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2021-05-10 20:59:08.949  INFO 17165 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-05-10 20:59:09.577  WARN 17165 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2021-05-10 20:59:10.105  INFO 17165 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2021-05-10 20:59:10.814  INFO 17165 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
-2021-05-10 20:59:10.979  INFO 17165 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9203 (http) with context path ''
-2021-05-10 20:59:11.009  INFO 17165 --- [           main] p.u.t.s.secureserver.ServerApplication   : Started ServerApplication in 18.401 seconds (JVM running for 19.616)
-[Server2021-05-10 20:59:15.999] Epoch change, current epoch now is 1 (deprecated, server epoch doesn't influence anything, it will be removed).
-[Server2021-05-10 20:59:25.998] Epoch change, current epoch now is 2 (deprecated, server epoch doesn't influence anything, it will be removed).
-[Server2021-05-10 20:59:35.999] Epoch change, current epoch now is 3 (deprecated, server epoch doesn't influence anything, it will be removed).
-2021-05-10 20:59:37.773  INFO 17165 --- [nio-9203-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-05-10 20:59:37.777  INFO 17165 --- [nio-9203-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2021-05-10 20:59:37.782  INFO 17165 --- [nio-9203-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2021-05-11 15:04:23.372  INFO 25209 --- [           main] p.u.t.s.secureserver.ServerApplication   : Starting ServerApplication v1.0 using Java 11.0.11 on ubuntu with PID 25209 (/home/allex/Secure-Communication/secure-server/target/secure-server-1.0.jar started by allex in /home/allex/Secure-Communication)
+2021-05-11 15:04:23.393  INFO 25209 --- [           main] p.u.t.s.secureserver.ServerApplication   : No active profile set, falling back to default profiles: default
+2021-05-11 15:04:27.631  INFO 25209 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-05-11 15:04:27.749  INFO 25209 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 63 ms. Found 0 JPA repository interfaces.
+2021-05-11 15:04:30.503  INFO 25209 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9203 (http)
+2021-05-11 15:04:30.516  INFO 25209 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-05-11 15:04:30.516  INFO 25209 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
+2021-05-11 15:04:30.590  INFO 25209 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-05-11 15:04:30.591  INFO 25209 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 6863 ms
+2021-05-11 15:04:31.546  INFO 25209 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-05-11 15:04:31.938  INFO 25209 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.28.Final
+2021-05-11 15:04:32.645  INFO 25209 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-05-11 15:04:33.398  INFO 25209 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-05-11 15:04:35.163  INFO 25209 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-05-11 15:04:35.414  INFO 25209 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2021-05-11 15:04:42.152  INFO 25209 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-11 15:04:43.237  INFO 25209 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-05-11 15:04:44.302  WARN 25209 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-05-11 15:04:45.443  INFO 25209 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-11 15:04:47.026  INFO 25209 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2021-05-11 15:04:47.333  INFO 25209 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9203 (http) with context path ''
+2021-05-11 15:04:47.427  INFO 25209 --- [           main] p.u.t.s.secureserver.ServerApplication   : Started ServerApplication in 26.265 seconds (JVM running for 29.737)
+[Server Id: 3] Server heartbeat at 2021-05-11 15:04:52.383
+2021-05-11 15:04:55.643  INFO 25209 --- [nio-9203-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-05-11 15:04:55.644  INFO 25209 --- [nio-9203-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-05-11 15:04:55.646  INFO 25209 --- [nio-9203-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
 
-[SERVER3] Received submit report request at server epoch:3
-[CryptoService Debug] Encrypted object was:{"requestProofDTO":{"x":1,"y":1,"epoch":1,"userID":"1","digitalSignature":"tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==","nonce":"42a67a96-159f-4700-a5ca-7c2604a3584c"},"proofsList":[]}
-SecureDTO{data='3D7pSC2y6TulEeyN6sh2eCKyQQ9shSiNvx3zZPmVjpHN38EWrFYq/zMJ6XUCZ6hl8TCGOoc2qVtXWjOCSI5Y+rBshYnmhqLQMAoVT/mw8zxwFQvnZLa8aes9BWD0q3gS8aO3ao0EeQgQ4QqA2QQ/G4TvvGlwiTyzhemcuL31Vx8zwk16uKTIkVcgtEMbrtJqtXdbGb0VxXi3fyVdFQsXN5FlVpaw3RSfRuUYKET8L3Pwgi8TNnJHSk9G7y3rTfS13ddEwXiN8wxsMhK9Vx2nDprLXt4yYGxlllQHmnmyp2Hpm80rbD8UeSn2E/Fpy8uFY84byiWZMsSYOElW/W7xGChe/+T5KZta6HGTbfmAkJ+jm+BX2sMj3pKk/2ZClaVyh/SwJSeu71KbgJE3gxMyRNT8x7wHulNfI96CcwGGG+v4/4z603Qx/vK2LB2e01fzvtCtrD8jzGewC9mzuFSpJcDORvrcJA8ABsp5/nkZa1YNhN87O+55ho9xlzkMsUx6AFvxruIpKVfSGwCC64dGRYY8bHzC6MAQQWnnaMuDDTUnJrvUkCMm3cGuIXdLvH8sreoryJpQUHgziz1TrFE8LdBMJvUgsrCzaxtG/xhDbrCd3pjtlMwcZKvDLshUBc2z8d+Sqw4W5kN+oMxzwvhzi4MtNsSc11oSo9LM7u2VmnTzU3sl/IEHnTFTt4nPC0bkEDVJFf5jsnFmLk5BNLz0fu2qv7WJTCuukyeZaIzMMXywWCw2qVRynkuQQLo3cASuaV7oE0HSoS5gyifT43bgRw==', randomString='dXqHfH4dkn9MR0nhDSziHM8cGs2iDjPFeM943EUS2rRK2O2ELMEhLhidHk0+EdPNGQGZ2hXOZzylb+q3y9wv4UJ6NUjIKMqMxrAXnJEUXA0f4a+9qdMFOlfAdrjwSrEkFuq6+2KVZdhDoWV9uXEmM5ydkuTtxc8AvEW1ngROMaNQj8ct++x8wTf5y67DOW8SrYOnFgjiwgk5LSbEJYK+gE8MEP2CUhs9jrYQngZoc4izmb8j8IlctEcs/rv9oXbfTMbKbZayDQa9MNg3nvM6CysnIGHhigL3LYzQDnkVDQvBZGe67NULfaDAKffATCrJkW0gXqczecfLNcVrczYAbg==', digitalSignature='A8yrwRrZIzPzt5TBMroqKg8e+MSl1id7fbRRZD63aMstxWZBpQlPVK4cN+naEo62t/+mOwrDudW4ZFg21Dj7mlhinOY9E1bJq/CJLY5ufqR4H88oxVVq41lk9uyvQuu5DFdrFEBjVQE5l448Bejge00vwzVZAdhuepaZpPTNZ3PcWK3nTGr0XxdbBlZo/C2fQr4ek99/ZpTJUhIetOqDxNZ4mNi7UYQhnk+s4bwSyzt5fCOTLOZ30IMP5aM2HKTrmwVA0LHWFnf9i880bmhOC23N4lStnJsKFo8cf3CBBB2VUgKFM+UgiDVZWTJKBS0XWQVaulnk+6DWLRqJGUE3XQ==', IV='6yvbqWRA7TBjcu0kYKfF0A=='}
-[CryptoService Debug] Encrypted object was:{"clientId":"1","serverId":"2","requestLocationDTO":null,"reportDTO":{"requestProofDTO":{"x":1,"y":1,"epoch":1,"userID":"1","digitalSignature":"tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==","nonce":"42a67a96-159f-4700-a5ca-7c2604a3584c"},"proofsList":[]},"requestUserProofsDTO":null}
-[CryptoService Debug] Encrypted object was:{"clientId":"1","serverId":"1","requestLocationDTO":null,"reportDTO":{"requestProofDTO":{"x":1,"y":1,"epoch":1,"userID":"1","digitalSignature":"tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==","nonce":"42a67a96-159f-4700-a5ca-7c2604a3584c"},"proofsList":[]},"requestUserProofsDTO":null}
-
-[SERVER3] Received an echo from 1
-Im executing the echo method
-{}
-{1=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
+[SERVER3] Received get client issued proofs request.
 
 [SERVER3] Received an echo from 2
-Im executing the echo method
-{1=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-{1=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-], 2=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-SecureDTO{data='KLcyNEBmSMtzoh6s0L4+b0Ug60we0C1zkit4LwzUXvynIutURuEbSkEUiNL8TQsrUfyCq3mTNAQRXMiRXtsZ0/uH+4IcZZeo1dnEWpXsJL0sOhzC1fKdibzpeB76k2uGZV2sZp2xuiYkpDiqvdlDV+Tl0X9fps60dy6DtmbrbzxFHBpIKzuxKh0FCDeJgBpoZbEx7zaKyZSGqQtQMh66qsRKMXn4wNk4pIJ7CeSiTil+ET0Gn/UY7bvckuRTSoeKnc/kbDuq69i5Fh2K0SHBGED3dTHBkALeI2DfBUlfx/YZJrQfAGRQbKuJS/PuzYTUORTou4yRuQwwwLCF2JRuiM0AMER6Xlh3bmG9umKBCqsPALlS5m1duLJ/8N9vwzR5mkyp6jN+wbDBdcCq5LOiG3hpZuGSPMF+QON6z+4JZhenxCtBze+jXZJp3A5do2jyKON8HBB+00lc5Wi+U5oWiv3Q4Iptu2/KJ2SsPyOt3W8irH8bE2X8YkUAeeNA3RsdonVFhtNJEAel4G0oDSrmI5pAjzYsJ+XTTTDE07vJOJBLZ6F1mJnOZ5HjPxTZXtMzsc1fsUDzBSKUGYtggl/drvGB5J7K6euaze8wSkeSAZm14JAlfceVgvN2jI5EgUAs8A0LW7M5r5Cw90Dq85f4zHpU0wtRTY0aYd/EMEZ7zWSHw1EAHdwyyZDZh2jOlzuQcHP0s6yH0enrFCzTlf8AFmmslWopS4VMSNEI06epZ6uWjJKJnXm9GJmLLK9Vn2Cd7idrYkV4TIFw78v2JSTuGQ==', randomString='FB7T04Urqp2UKSJDyBu6QVfd26iClCpQljIgsVmjmWxJCSIwOUioH3i5iPa2tMC87S/Revd8wotr5WDxn2xprScVVW/nFAIrn6JkAWGO6N9A9c1WQe8+DUSu+prvVZ6VucI6aqO1yBUVA7bPllzs9+oUyW3OX3yE494Y7/ovzkWqZG5t2bWBzDnN0p46t+1JDT3uIYYMXMe7zLDSDL3UP6Hfz1NIdvdnOisWdj+tomuJcT7IhA+daO41s2BPQp1onDVtwCP+Dd85KIu22IWeg34DCyheY9MKrA1CCOyfF4oy3g32wLyZwPKgMhH8P2OB2zFHrrPItGWQxu69jFvGvg==', digitalSignature='YeV0tHB4u7MXnAfW12S/U9VxGg4pLxY73258BGerRJzl6hyqfKVabEEeGiDEnXt/yAzcwmFTGm/tGI4j+zcXzOVZbYW3WRtk16Fd5cc/7zmv/0t3PLs9eNq7B3/W4kXF115CW2HjmeANmev/EbxsbWDe4JrsldsoMScgQX82d5cwNy7WgDE06DAftj+2kJ3RGXKPwcQCadyeURSWimohOaEEPlEkLNIlKuPfXC3XHljMGQvgYDdskgUU1t44T3o+ONMVXjM+bbZYE7eDl07HdKiRDjP2EaYu57KfvdQkh89232vYay/P25Nko8NXjEt321RRjggTo4IjZbwHg/jZdw==', IV='890UQ6R0jnagoxxE/UaH1g=='}
-SecureDTO{data='HAOWpvWF2WBB8f/BtJcY2hVGOrnQl+IB1x71nfA39oePhBUjS/2DtqXCz7TncNywjhohdZeQunTVaSdUq6+Ll/MEe+cBcdqGkovv5mRUOrXg5yBD1fv01Rjs+X1PzAMaVb/OcjBVnaoNuY1/HvcY/bdiOIs6vib98DEc2AUcZZAATFknXiOyoNIuvKGRPXepbI7hqqJ8gotlsBEjzbtZEjLz9ym+yhCJxc6QOT2n7gEpnVuV7at59k2teouog4zmbv5f26n/ZS/Vlcs4Au48K8j30Zt3I94VRsB6ZKvcxX5InR7T28fjsU8X6ijdsbDb4CNnIN/A/9o+SEQteP35yormx1yxv3wPTgxrU//+nX2vy3CtvU1PV7qbe1BhPJmTclkvOQvQxzv4XmsmeD2kIJPINUID+iJpq8oyNOGPj6uT+jYQXLPwKqjGAVIsCbjUXOQDle9qnxu8DYbUC/cTHkWqROMhQTWzXCNtBC9aJDcvoSfGD7vsq0hO0QONoDU1Msy2ZmmCMlk2Al6fiCfPBN3fQQ9MyTD7aQQFF7GcQLKR/Bw/2AwgVRY0s9zCRSeXSzXBsIeFFxV4/M4zXV9HHLLtxv6JisAaz6lFsbO5xxwQz9jzGMkXoHeVUystw2lVbh08i5EZ30IlGyamAkbqG05yJXY//XqMNCyFteZ/T3hGbyHLWhqmplgZoRMtrUo1aDsUTQHPPD599V++FjWNe3wCcBnhIiuseDAOe9SZ8aJJboi5pjqdMIj0H1C8Bc/s62WFRmaxK7I0ehl3aq/3zA==', randomString='KHvEFPOG7KWvKbwwTV8H5Bci6BkvdYE2lchMWWL4xgvstGk19//zEizdPwyHHxwkqZy/2Gv4MAFq8n/V6ZwBXW7plZahKMQPha91JKSOAMK3EhTEyxhSghAaWA8SEF3X3gZ6ILcKqpE6Ievk4vlkCjIuYTN4nQV4ke0Lp8c/egzIn2un8EtHNm1njt80pUgE+NHQdSsKLfVXt2KhSPEQtxpdOYbMgZXmkTmXaZbPB+0dPTG0sWOUnUll/TBqsyCzf4PzC93UOi/ycmeTpxMUgl0/LKZB4nQBvf4pc1DpjuJfH+EAxHP4ajCRU7Jb9RAMqvc9/Kv01lsllK+0s5Blfw==', digitalSignature='e3kEEOHwE0Arfmz7daKrB0JL+Y9BCvwaNOOcR7AgxlHpt/E6UT+7U+BJMCBX1nO+Im62XZDzQhf+o6pwoP+rgL3xFvl3yQH+1xNwFTE4p967HB/pZxQqGeQZT6wUnFO6UiSmRLVdFvEwjm6MoOTBMzh6trt2Q8xEjK3yH1y1kyo/g273VCFqVjkh06LBX0++wOq9HuWPVfheI/0iVXL1pjGDLp6hDveh6P00WZpMb4re5GC+FS5+73zmw0weLBh8nHft48hBwXUSDxF0H7DPI+Ou6jjqqb1YgKZp4B3zo/Cq1aLXMDPQVffnEpY8i2GHWDHB7kjUyI9UddVc9eCkEA==', IV='0G3GJM1aomEIezKalfkHxA=='}
-[CryptoService Debug] Encrypted object was:{"clientId":"1","serverId":"3","requestLocationDTO":null,"reportDTO":{"requestProofDTO":{"x":1,"y":1,"epoch":1,"userID":"1","digitalSignature":"tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==","nonce":"42a67a96-159f-4700-a5ca-7c2604a3584c"},"proofsList":[]},"requestUserProofsDTO":null}
 
-[SERVER3] Received an echo from 3
-Im executing the echo method
-{1=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-], 2=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-{1=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-], 2=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-], 3=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-SecureDTO{data='iz8lDJBUNI3PeiqI/YOfpX84JjZvZLIsFGJCjWTadVukS+zg28ssnIdsxNABOQp3E9yaEAl+PaYK8qK+nI15vy/BPy4rxpHuDsJRPgcDQzAQ+3MzqQ3fu+CymyfYf4wOxg3J41rCVEtpvn0I8xjEuQ9cXq4VQQTBmUWlVG6mcgGs+ymAMq0H8QjDM6cYIzsEiHuY1qTfuNXFfilfbj0/OiUX3UB9BxI6fDsdpIL8wKPeB4ElJW3oXYk2b828Cao4/CDpe+O0H4dt0sQpFoM5kSSp/NpVkTZPRjzwLc3n4a75uSLMJYz0gtG7Jultvw0n+eqKjD0YgEWzfR00NtCf+nUKuC/ppi2AUo9+Rz6XjCbKL+ZXR1C5yajpm9e3Sr2uuXOAIv6IjU0XglFn4eF+AfA1BMKQcp6SwoS+VDpPZgqyghU6VsCYKZF6ePrVuFcsyTJQxKDINxyvGoVWwxMHr4yhOeoctfd+VxkKyHpAGCURGlAe+RiBboEtv0I5dzY2AMdj8crk+sBMJhrgnT59brdHRu7045PUOCvNhY4tb2so2q+XdaFfIh86TohlB4dwH0AzHAZAdIY3L03cgGqI7ykxItuI2Xlrz258vldu23k7RO6IeXdPoAk71WNNKTKWNH4XKYm+tj3svq9O4TDZe4IiJ9/4yGArWbPyiHMiXcYPMybZObbOkW4BVCtywqLXegS5UOHIxaydhSnQRDGNuFDzVhkErCwefUvgTCL9/dGkpwfiGpg8tV7yuHtqpll53b8mhZHC+zJ7O5pKRUVytw==', randomString='WkvfPTyxDZn8T1CMIZbB7w6VdZjZIsaUD8c23BAQkBCMd9dPQbvaiFKtyYBUPJl9ix41yFeDihEDW6oCIUSjQKYuUiIQsp125dL4ig9tBoxz2TFdTnf1D/e7mSvDMLV2thQsTKiJudA8i08RYRgwx6+iwmldTgMrQMYMf0lSnYzJaMcL7qsdcB6qznr2T/w25pv8yvZ4/RA34Ug/YAYAC6f5qVmf0P7pV44cjI0SrVtYP/4IMxkJm8CKCOBRMGe4DeHhn5fZIVFm0loon2JCA1yDy1iL0u+HB2p8Tj473/yLa8i1DuigYH8NobSMLdMQYi7gV6rDKF415up4F2fKGg==', digitalSignature='lof0jti+oFXOe27Ysk1q9B0kVe43wZwgRXZ8o/Hr7phLIcNjwhUxmT1uxpNk53aWJ6/qN7Iaqnl7t4N75TNcIy8WHzoWLp8KQXMCUsSX8rCtlYVWacAYZ+HooHSE7tLT8RgUopT/UAOgEXjc59AoAjQrquzcfR0EHZyCk1eCR6WYnF+jnM5hR5TI7NNEx49ca9rMYk8J9cloNTaQu6NhFIhceBsEdRrxDi9Kj10wyRda7zE1IbY8fndjpcUw7SzYDs4xmVdP9oeXTDodn69YC+CoRBzfRtuQ1YD+eIEXQyy+7xwYRSN5bZ1jLDWOCBzC9dcEmVYmMKTSbspByg+xTw==', IV='QurzvMwQn1qNcnCqTYRYNg=='}
-[CryptoService Debug] Encrypted object was:{"clientId":"1","serverId":"2","requestLocationDTO":null,"reportDTO":{"requestProofDTO":{"x":1,"y":1,"epoch":1,"userID":"1","digitalSignature":"tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==","nonce":"42a67a96-159f-4700-a5ca-7c2604a3584c"},"proofsList":[]},"requestUserProofsDTO":null}
-
-[SERVER3] Received a ready from 2
-Im executing the ready method
-{}
-{2=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-[CryptoService Debug] Encrypted object was:{"clientId":"1","serverId":"1","requestLocationDTO":null,"reportDTO":{"requestProofDTO":{"x":1,"y":1,"epoch":1,"userID":"1","digitalSignature":"tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==","nonce":"42a67a96-159f-4700-a5ca-7c2604a3584c"},"proofsList":[]},"requestUserProofsDTO":null}
-
-[SERVER3] Received a ready from 1
-Im executing the ready method
-{2=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-{1=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-], 2=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-SecureDTO{data='zkiDdHm5KCTMZB+6TOwXm2rnk97gbGAiblOsOP2kJ94kYr9/ln84NzwSIdqxPLC79HDeCrV5HwjAuFtHV3vLQBbsU6jztBJSDwn5sMUjdtJAw7BLmTNg54cO+gLM1ZI2+3Oe7d030+wo1osERF2Y8YVJIBxhEtnIVkA7Ia3f6UxdwRi3XUSB5/AfndwPSLI/c7QhE/Tq6ZnyJe5nJPLsll1mXEwk6/hl7mlkclxPNc5mzwfjNqpatjjTTU9X9xB93NuGPkuJkvtO/wybmsJZUfzMJNSdGYmz/rGfVLg3k7O6Z0JdMiOTQcq7y6xV6xPGOJLuucUoykawXzINsjJP/W2+/qVlsFwl1BbNnCfBhDZOGJ7/aSHa8DN0liR5i+pE1Ev89BURrgH1txGgLHbDB1HVPQtgGEOsXXQqku3NodwwulW1i0h9tkaoxjOZvo38SVvQt5QhOf/LzlTpn+wbyy9/TT0oP4pjWFgRL5WvzXVpsO3UKPXTGgFC2cgGGEahhXDd975Y0U7Oa3zSis8T3Kftq6SKXtWsWqCXtuziOdU3BCVGD4qAWA1p8bOaLLyk9uF+4LLjSo81XpCa7g5lHj+6Z2tlZKZK928vnzu4VfkmzhadKiJn6hr0xxDHRJDQ9/pILdNRC3+7yqKniGbfIxj/TiVGID3mywmdxi74ZQpaBWeUn8tUzR7itMgrnk8Lr+/ippWScEmUQ1bidFyMyBVpoTyN3J70G92P/lVUzQzZgt+Xp8Zt4iZSfAh7HdzMQzOUM78RVgF+CoxrxZ7Hsg==', randomString='Y91Lr1Y5MWNWeXU02bDFiG1H83a3gK7HDfGxqPdyHrhobjhpWQGftNHfY/FjbVTEFTWRK7XRTmjXmfqUgUymRLcvmQICKFzXxk5V1qOxg2K0CWc9BhGahFsTOwNr7zmzg2bdN+UjxW7LDhhNIJL52S291BBxX41QUFIe/ca4YJY3DC17VOb6DFESy8ojggR9Yhwaa5I7BtgUH/IXSqLaBFsMY068VD9HrZY5lbRYI73xSBPPhndBF6L7jOd+9tdZox4F+T4fyf3a8gkF4rssfc4amIjFqXUyBcVtRTd9GD0V7p3WSl6jfJbREwlIxkxK5A8DAoWyfX0FWM/l9LzfiA==', digitalSignature='oD8KCFNxg9E85RblnilI50bO4MJBKiJ8ZN+HVNzsZIKBOFoTGURtSFdDCYh1oC+jXEM63Ku+4Os6AEWf/X+ZtMaUfE7I0Dlhk1Oxk2aNnWkdViEkohb2/z7O+FjFFL56yCMq7y8eP3L7vMAzeS3ZNmaIN1/k+MPwHLTQE0tIiqleE1YCFbH0WtbcQfSU7XSJNm3ACci7QCvfDvQsthYEgKT4h56ELMdbzZlX61oJEWBsTTqvE5mOCJilsSyrgFCyEMkAxEE5IkjuHNg1pManAZ/BwMMeclt/dMco5RQHlImLLhX7xihLoa7VXyidkRNhwfA5pflT0X0N0luW2cn16w==', IV='C+ld82dFcDz6jnHEeGr/8A=='}
-SecureDTO{data='fosdLrEuHLMmQmJToulEjlSVVKS+qny8CpzebJRGEPGPfJvKV/9wSFQh8WGzQBIJMEuUZdbclz3ENBz91OpojBM+LM755KDkcnwX/zd7TcmwkswaiPrYmJ9/UMcf37/Kh5FZlJgJ3Y9sEkVGfYaq71W6nSjC3xJrn+D9uiNi8846E0Myz3TaOZ5OehwzVUyiEQxTNMkv5rnlsAEuONl3CplGDu1G9mDbTC6mYLnh9JO6BDBN6AAh3fjiqTtJTJEF9kc++yXlxNdy12sVJ8q3hoE0yeOP2h4r1iRXy8mV04z0u7CtyuSqDQ3kOynGFb1RqkFZxdzFiKnDh03Nfkj8uAuyEpVQDQerAhb77KKeF9m5yeLmqXxGb0KX1bmQ0Unx+OxBH6OX6xrEPmu/AkIL4bCa+lC1jEfPmuoH44dkYmmtq9UswtVlL2OTxZxJR0+X1WTqg98S1SSrp1gI9VfQ2dYIjVC6Yl4l8QID1tjH7v5SATkmIgTDcfyKxKFcg35mBN8qCzR30EXYtE98OwCl6Yocn/FdQRn2c+p0NIMPGLF3EnH06R674bOZD6RGFNdrwM8nzZ9cmvSUf8xDJVQBG17PJTQe6mhenzDlYsxRYLSGAn4y0WAhuDiV2inbJCrzFdWKPgmthGekOB3wh6ovbizNg4Ln25oxD9gmDUg9R60kqFi2QiOMzIoVw+wixR6CK4QR2sUCObhsSFxnfTNXlq9N6stDu6Rjk1VKZbT/7/i7v/UUBGkhUvFQh6cehZxd492U1fpsOYvDLoYg9tXEBA==', randomString='NCM1XnuiX/ZVEzu5KGvcOQen22qdLloRSbV4Ew2lzufcC7DUIYxjOzXnimjDlYbUI8kB4a0rxQ1A2jRnbbygZ01ZXaVF8h7yJXq/MmLl1qPp8TKKfp6x3AdQUiINWBtgo8YIYje+MPFMPZwffPeSqTbApljXCi4Y8FNhk72KKEWZTpm3BWhNCsZvFU/7aVracIs/4mvGceC0Z3TsHLQ9kU59Z7oA/aoLMX0xal8plS2BcmkIvPE8oXILmPO17FL6DbTUeYDZ0H2yqPpr3giaD0kecB+BQhMY/Az+xwGooUwsq0LVGRHmLWILqV1+NZCDtK7aOojcsoR7z+vvuUhJCA==', digitalSignature='fft9Yi3ZU+dA5XtF+iTjQ10veAD1seQs8mjNbHQjI0eSh5j+rzCLMkD8aBurQf5dVhwgJCLdpOaNOvdldUz4g0lS6snZDWyGU+koJDsc5ytaXEfPXYVwZV7JKNaSXcYITZYQS1/7t1Pq18c6EwURIMK9j41bs/7Kyw7XHoc+UtjHjkTzCKwY8skBk4OJs/lybWHoR64Y+M1fubb1tJLw3R+BcmUrOAy5RgYRaqvJGWhzauQNGq1KB3/intLFXQ173Fee2zmnRF5pOd/qsutgB32Uprgi+9/K+oie7dR17vvBt/PbUvkxUfFgnyZFwtncdzn2pbaSekxpFLUHBKZVLQ==', IV='1Y8mmnZU2OFqvecWIfcArQ=='}
-SecureDTO{data='mAdvEjXnb63uswpeBIfrtJPRvLx+6ZpBEhY936A/ASHK2mOpKs9MNSoacVuT8OisQgTo/Qrs46rQ9Sd+giokqLqo5T+Da1bJD5KFgiCtzJ9OhW+epR/oBP53n0TECpmhdTcF2x4sNCl8L1s4bVXcTUochbL0qN8RF3XU28oRC+e4EFA52rMa+rOjOK2jxt9kWwt4/65hOGuBN4mwHOgRuqxXnNdq4o6qFdFXgqhOx8tzpLwJbjFaHeOVKoGy3oZhzi9lhXDkvdaDf65jb6VYgHdVWTLCP1LoR/ENnq3NzRSiJ/7XO2Qa6CZT9tSfVpHsR3Vaww0JhE/gNfxGzVcYXXmewJOm2CB39M5u8TdgRmAec/eVwoidqu0MAWp+TTtspD1onlaWtNOApAc4DP/ARuC1+k1aUw+2+kJ03igrmNQW4/M37j4lic1btQFvj+l8W6LCrnbW2FeQDW5FQmWzPVV6V3T5BAlbzawQcigqb6/U2y4+amRjfzzqDq2EScYEYbiLoLWFJwMGmYI5l2w3UJdxmOkm9QLAZY+m4YizlQDQyzqZsK5rt3yIDJkcZI3djC1n5GkxsvPytJBbGwr0EIkRU/e5wHZ12/6GjK+uMdrLaVafBTU5uXlC/t7f9tn5QIDAK4NejjZ9vkSh3foKFrlfIEq2ZkAusSmVl39Kh0poYvZIdnqePxamsvEGTw6+xoX22I92VpDflj7uxTTYOWZl0Vm/awxmwsMeRr6KzylQjKPecnSP8k3I0K48C1evkqm8UekEzoaa0/XlxwCIuA==', randomString='f0bZD7Agd3k5OKaAenNhtWZxHnOCgeE33xNXZXOa+B/2JRSdceh5GZ2B+Cr6BQMvKC+tWK4+6eTKTGOODDj8b/0C9NgFgWQUAPY/p2ciChV1IU67Mok1JBxJwCtEC27voNjOdH5YNLOXt5I+II5FJKQDIul+XWlnWQ3bmdB1C4dsVpB/V0UBMMEaNkUrort+u7uvJN8FQgc1qfIHMPDfWCjvTHrqm567Waa6OKHuyDwRhJHy5V74kJ9M9cd4PjwPXYPTLuY9jnROM41vznSDGiMC4Qs1OhmLKzFk4+l0ZKjU5Q/gjgpQdZQM0SM8Hvzj7dKUypymZezsUc7jId3qNg==', digitalSignature='XDdOrmaE4AVP8K7/zKO1XmWWNlli5hRQboF+1+Ue3dk6cK/LmsYS9xOlBRjMslgqvT3ePgOZmxtHnof6nWtIRAwKz+DAmYv2qzBnqedZ8PiCcWw2IZVAMnqvU9YY51Wob2BGk7BFBf498IzTmIwb4g+d9kMzRmxUR7lll3+Zdzw4OGjLOsuhSCJedKEtMD/QBpR0zmQVOnVrG0FeMmWz7iA/Ahtaep29LliSIoZsAGnmvKktWUZvJwRHesDA78ERmC5A2O8YMBnKqjRSmhN7GEhDVCjSVpLToIdfJFOv6/GTSun9BrYwsQGjsHAIPRA1A5PQgmGmxhmgqrTcNwSPNQ==', IV='c4ZNaMNhsrGofzc1I1It0g=='}
-SecureDTO{data='Gz1tb9E9tr8EpDJAF4DcmJqWX/R++Fvy/2cqYuKT688ebLD1SS+PUajpBuhU1PoPYeTBKNlh4/COd1OcVvFUSPa26UgjR29AtRtntKLC7Fcet+2MY72vq2iFHuqTOtOET5MO5eDqQfGUkTma3YBQbzfXGO0jiy7xMJICo7lp9HqUtjYTo70pU4+RGf+1B+Tui/vGv1Ke6z09eV/UWcjMEZBV6oX4WKkLXKbyktq1bCS8XasOG3zVZExv5skaRm97a4gFMLMwUFDuODxkU2Dxq8cDJ73H3X7kENaw5anr3yiOCH+q9A1TwV8kE4We2oKyvyDyDjHDNREd210uwoFyqwavsrFMH9+A7KSBO2XIv+RXZCQTEeVLiGELgSSJN6+ig5enI1h1mxqk4lTMKXESBJ8x9rMerNASLw0uu3u7d6HpLn4066tbhZ3nKGk2SCSLpndkCOvu+eWNY1llKZFMCdpGfrXZmWXuMXSt5QuCmIG3qsUv6UNep7B5/AqQHeUokZc2XjypsqU9dgxSyMDPwNrfqD6izEpuW4GFRWrE5KEFvSFXTIeE2qBSDBnMCDBDw7+M3eI7wUsKTkHntXuUzTsdzIPJ/CgJIsbNyjJRS/A2pRPyPWfP2p1XBq0o3Bue95SLvPG9e/hTIAx9aw1ekQO4IqRMzr8/RkO3qwM2DAb7vPiKldoKLXcECjBgWgyvSLUxbrbHwBrbQAHvwBg08HtzLY7ij9jG4gOfeioyHvCTyERI8p+91NGCUGhJoSfLYiEkIcutnvBloRTYvm+PSQ==', randomString='WLrBs+4IIoMFxTblXAIBc/ZrVqAle5xenhUBLqLKiYsUr2mQjo/dahUI3ch9tYxO/aLCY0ioV+4jgxK2NklgkXPOhNTgsSGmpMLqO9qXxsOwVQVkncrVPqvKiYcoha6NqWeLUb/cd8RBLw7KRrmPsRrrfFVU0EomxXZqeumECzZFiWn1pMDvC/tntP59bELhBhs7LsJYMlplf8waLonndLN9HKESESsQRv3CtaJXvD1By6QFAQx9CjfLZeoor7r7IWx/txyHFnXTpcm+UsjtVcAFtGce3bkT4wW1ARhXKC1bKA3Uy9tPmnaiyob7e4gGqX31LycuSj038b1hkJdjww==', digitalSignature='dMWp0YvmgiqWeb7uD5j7pekL7ULEzf3QzL3frVUDsRNby9bp3l0xOHW48N3rWYPAMrlUTP46PCPsckhI0RrMJncLIzm8mVsUFCCTcsNKMVfjzrZozNFVDEv6irDGsv51IOPuLNv9TIEiNEC6/5I+A3gV+d5SWzMEL4k373SLtzR4IKjvtnf3zmFvTCzurmATfuiGzjjlqpvE0T2mKoDfG9tJ0eCEoQY1IWBe4yQ0+G71hTmx6keMLWuKwY+r19bpV0qXFIxY0IpL0Kf4U6IN4I0qR6blPPnYIaY/DsSs+xgESZIbPWD+XfHtW8m+T76RuV+KnDLKoVjjgMAL+lLfQA==', IV='LJPaUF7ftM2jUX0dalYS4w=='}
-[CryptoService Debug] Encrypted object was:{"clientId":"1","serverId":"3","requestLocationDTO":null,"reportDTO":{"requestProofDTO":{"x":1,"y":1,"epoch":1,"userID":"1","digitalSignature":"tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==","nonce":"42a67a96-159f-4700-a5ca-7c2604a3584c"},"proofsList":[]},"requestUserProofsDTO":null}
-
-[SERVER3] Received a ready from 3
-Im executing the ready method
-{1=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-], 2=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-{1=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-], 2=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-], 3=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-
-[SERVER 3] Exception caught, rethrowing for ExceptionHandler.
-Invalid report exception occurred.
-Error: Not enough Proofs to approve the Report.
-SecureDTO{data='uw61Tjvx6i94f2N2E80rKAoqWU9Uxk9lKwhmDXFEFfKy2Bw5HqFnPe6t+9+Cu4ffACRE3TpQgb6pxbqPOkpPHDiPzv6tVkvonC0BTlliuLnoq+5P2HQgR9Dv9CpqVJ1C7hthF+2U9puUE3CA2i8STA==', randomString='', digitalSignature='UdOP8dncN0U3U5JjbN9GrC2G0CHVutWc9V8Mt3j1m6mhdJ3LY88ph80fahC1dpIYjoo5mBuUGQ6lI/YddL4BSIJf9ZuYCbEPC6vD4P+oVXtfaNwKnG6iwCqALMH9/WWQeHSfk61FlDAdoldi3kScM80ahYJwHyQblk89PzHyKOTTuZUI8jv5ZwtMrj3Zb+fwK50Lgf0yGyP11KYiDaCTBAJg1RWnvgu8Rmcn7sPXZ+jv3KbMz0gRp0QtvXp9VP1RJZHwwNOiS/Fy1M1HvDvvC0AYdeWovdDlTz9FSdpmvm8rtYF7hMkjpDW0GPRZhHDTqvmFtSj9Ha6Hh2vDXX82vg==', IV='jglERt38UZPEnLjb9YtjXQ=='}
-[CryptoService Debug] Encrypted object was:{"clientId":"1","serverId":"4","requestLocationDTO":null,"reportDTO":{"requestProofDTO":{"x":1,"y":1,"epoch":1,"userID":"1","digitalSignature":"tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==","nonce":"42a67a96-159f-4700-a5ca-7c2604a3584c"},"proofsList":[]},"requestUserProofsDTO":null}
-
-[SERVER3] Received a ready from 4
-Im executing the ready method
-{}
-{4=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-[CryptoService Debug] Encrypted object was:{"clientId":"1","serverId":"4","requestLocationDTO":null,"reportDTO":{"requestProofDTO":{"x":1,"y":1,"epoch":1,"userID":"1","digitalSignature":"tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==","nonce":"42a67a96-159f-4700-a5ca-7c2604a3584c"},"proofsList":[]},"requestUserProofsDTO":null}
-
-[SERVER3] Received a ready from 4
-Im executing the ready method
-{4=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-{4=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-[CryptoService Debug] Encrypted object was:{"clientId":"1","serverId":"4","requestLocationDTO":null,"reportDTO":{"requestProofDTO":{"x":1,"y":1,"epoch":1,"userID":"1","digitalSignature":"tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==","nonce":"42a67a96-159f-4700-a5ca-7c2604a3584c"},"proofsList":[]},"requestUserProofsDTO":null}
+[SERVER3] Received an echo from 1
 
 [SERVER3] Received an echo from 4
-Im executing the echo method
-{}
-{4=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
 
-[SERVER 3] Received obtain report request at server epoch:3
-[CryptoService Debug] Encrypted object was:{"x":0,"y":0,"epoch":1,"userIDSender":"1","userIDRequested":"1"}
-SecureDTO{data='ugl+twMiUpOan8Z5PvKfBd+KKYLCilfL61hw0S0V8YLUCaBbgqifPFJ4HgaAxK8c9EaIBA9EiQpvfF5QkqayzsXd3868aGnkHtGtUYvZ8dbqxCBrJohMl9FLsGI8+DgCfG71eTRInWXB/9HTfDLP1XHos4FYloDuUv/EBuuGBWfkxO8jsPKS3CinrA32f5ObcHtjQR8+vHF7wLcNiTA0X0RvsfEB58B9Cx7RfuVl46Q=', randomString='Y4mos0HztT2m3RhLhFGQt2En88y483cjKuL3sYaLUSgalxK9Egpk+DRru3BXeBlMx9CnYoIBdpWbafk/vl93ckIXVC6zmzDvORr5kgYal4zMYvKJqFpN+IQ5o212FlwVIBt6I2kkGC2MddzVtimWub7y6cON2+Pmu1fzZXfM6dJLD/BmSY1jH1RKNi3+6oyd+nE+tgykRnwvCk2l5qBzaXY5bNyiXSaI4hcjQIcEP1fKYiU6ZJVf2BZbhRpiqKpr+p0v4zRFkWeIiL5iL0yZ1+oxh0rLMD+9GadzCVRAwUA8PUykdxqo7H+ptS7Hbm898b+SJj7aFYQRFYvRZ5N+7Q==', digitalSignature='dLCm+u3TyOEVlF52FPx0Pvx/c0ccm+oHTYqp7Vlv5dr9ZWWnpC69ebCjlpYfrtsv4f7oCXqUFRRUZ5fQxUGBvb2720XyS0ec4LVprs/PdeeEsc2trRVTzBCLuZXogMbwSdgCNWsoKBe1SAk43/GftHXnbXxYwvytkgV8vkih51iPMZA2KWvP1G6+ntHyd8JbeF0csRsODRvfGs/wFbkgXGneicAGFdwVTB2Wjs9rv6wfhE10os/5CbbGeu6vayl+eRBPmaLeu83tKKwiwD0GkrftyL1pVJp4kKA+KxNCpoycqvD9MZNKoJuec+8qN65Gbjfd1Quyx0RaWU6yytIQsg==', IV='Xg8ao2VnemxmmrSTG4rMLw=='}
-SecureDTO{data='gbcvEl6z6pj3VMb8BFs6nMy8xc5vuu9tJVN47RJtOGeki1M/7nTU/Rga/7oS6fxBv+8mMba2x+GzuxzSMwvsKrjz/KFM8z+0sIa7ZqOgP3NrLjuxS+krZWrSYX7W+5kVlYBRniR9t03WTkyBNx7ojei2xUJy5aPXMg1g1ytDX0QCvAm+Nt1fZMK3icT5g33gAGxcCvb0B4gbhYqwjU4vUX4aT4wcaQcNSRbuSu/gQM8=', randomString='ZpPlsEWjOWBD3XenSe77Hpj7GSF/l63Ivv7qbk6EWB+z8ziR1nTHRPPtfEcjiYIK2qukL0LcZC2jVZ/EsybR2QDdAKG6/JhUM1f11dvZJ3a/6AcuNtiFS8svqMOzwkqfeciIcnVAz0qm7HXaL94UC5t3o2Ei3NdilE+4kO2pUwyswdzFka2L06NAOJnWSCB+4vraMA1QEn4Cdd9MbgneqJThSneWh0Wy5Vjqyt1yP7AlCCL8GXPTDVsBDbE6KhJKttoikvFt6wftJIPe2GowmPAuXnQmmpD5cRlJr/dif8HD3XBgIvK/D1TTHAu/4y4eDauTGpFQzkk41kqvxlUR7A==', digitalSignature='jbsP8TR1XhQ8zLwKHX3PvnQcSDmZkqwPpO6f+9FsTJ1f1+ABb995CBbVipWHjHh7uw3VukfU1t603PLToA3f/Ybs3O9H4cK1on8+mICtAbi30BXZVqfcrjyZdj9TG0qPuxi4nBSLw6FEMO/r6te7uM6u5QYVRtVk7vbwsJmbVfwa8AlHdPe+n/LECec7CnVLToFfrvPRH9lud7Wtr9JZKPaFCdYwjLr7if5rsh1regnc+V9zB/A1ZjV1SWvH/+s81btFZJUSgWBeRkTb5Ar+eLiXK5FOyTTwx+aD2ibX/lwBy+5+pBIp0dX3ZVKkcvnh65QDtpk1PtFutnjWpTeUNg==', IV='dg0GpTunHqRDP4aYNpXq7Q=='}
-SecureDTO{data='3ds2Fkd8ECzt7ADfc4uUPDxbL+x+A7nBLG/h74f51+ts4pRdktqvl0j2p9wez3TiJt0OJtK0nCQML4qhA/+eVIh4jcQ39MBgb/BhRxOipjSkAHSjX5jBGDlqNO2+36+GY34U0X/IvsLAHOq4jWJ+JHlDUiiFgFaZDuXhUuXeVaVGnv+iOXU/F7KD2NX6Cgd9tgrt87gMzMPz1lBd/5hmpQVaXKj50riavzG1evpBDPg=', randomString='bEeaUfqUkPjT2Z9RRj4dhMnO/za3iWqQSVOzS7TtbGVCQ+AERUuxI9xJP4mR2/H3mFC/NP1KWvgR6EUUvkfxwW6fA1PL5X8Ngp4ZFwKFbkklT+LwcNtNjlF3I09ax6ZvwIrvLO0owCm7SwOam0NWFCYndSiLq49MYglYK34/JmqGxGtLoy3F37ngzeRlsDIXy1LVCXwsL8vsQ5and2X0OgeyclcGKy8u/2FTQtqonRvAUl3+InIQINPuyvVMSOya8Xsc0wCZYA/5mTYNenQQAO5ipZkUxFGSu9BGY8fjpHXACgj2krdNVuFJb0CMV/xgZzCwLEeS6e5sE6DmOaUPOw==', digitalSignature='FIskWhiIiIGI3N8PBleJU+eQrFaH18PXrrWtAeIPLqpwo7Eyt+XxNiQsBE2g2PGy+XykntvariDr95H1PlDA+XnDDCBIHsozcfNT9TFwntUQIieWF2vQwPpaJZ3WWHMTWxo429eJ/CaWaiR7RXeOwEsX23xoQiKbGlX+TObNGxxmcQG/v/EPkgLJ6Ng4hdt6HuL9kHOvWNt5TqYQ/uRlLkD76Lg+xCfynhsdg49uELWUF+EkQB7l1xEeeXOpRSInmQNsFeowNBeqeXUcdEDyNVQLHpXBERM/4bS9iEqXymK3Obcyp3SPz0VWNMTeZo5QyZZxWRljfxxycA6GCmwsgA==', IV='dCL17RdFynC1eeUmv9nV1A=='}
-[CryptoService Debug] Encrypted object was:{"clientId":"1","serverId":"2","requestLocationDTO":{"x":0,"y":0,"epoch":1,"userIDSender":"1","userIDRequested":"1"},"reportDTO":null,"requestUserProofsDTO":null}
-
-[SERVER3] Received an echo from 2
-Im executing the echo method
-{4=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-[CryptoService Debug] Encrypted object was:{"clientId":"1","serverId":"3","requestLocationDTO":{"x":0,"y":0,"epoch":1,"userIDSender":"1","userIDRequested":"1"},"reportDTO":null,"requestUserProofsDTO":null}
-{2=Request: [Request Location sent by 1: (0,0) at epoch 1 of user 1], 4=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-
-[SERVER3] Received an echo from 3
-Im executing the echo method
-{2=Request: [Request Location sent by 1: (0,0) at epoch 1 of user 1], 4=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-{2=Request: [Request Location sent by 1: (0,0) at epoch 1 of user 1], 3=Request: [Request Location sent by 1: (0,0) at epoch 1 of user 1], 4=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-[CryptoService Debug] Encrypted object was:{"clientId":"1","serverId":"1","requestLocationDTO":{"x":0,"y":0,"epoch":1,"userIDSender":"1","userIDRequested":"1"},"reportDTO":null,"requestUserProofsDTO":null}
-SecureDTO{data='2r/FxeUjpV1JXer8G0zgZfi3JtkBEa1zQJ6VqV7wiydmy7tQPtK40zB6kEOXEZwcYay3nZh3RHv0xwng0/cksHNDSabIDhGVB3NoL9Wkn+VSIJO1p99ofoG+Pyt1qxsd6+TWeLM5UKcPIxKM+1e8qcVG5nm3GJftXuM/I0dmG7ZDzh24LEHIDBBhkHaQkHjB42MGehJeAJV/p+POaB/syDUBVD4O+uK/XJ44ZmmuwO8=', randomString='UOy+86FqLSQZTfKxksI1T4C3Y1Ngo22xwBayt43dT3sQ8UUJxheG5DjxL3OUp+F9tCJYZgBQjFGfDvjsYyHnU1SfBOz/bxHnUH8uUtWIfZFOuF8GLGJXszLSkCFpZaOU0Q4mPuoOjwt2gsFRGLpvzzfjTI4svY19BONZ0ir639ikrvKgfJtaW/VeYS1lsSowdvPnQ1cRtfqnL1Er2NWcdXY3q5gVtVu9NiGSuNQiGOqRLTvqEFBI3e/bfHJ2pnc1YJESMeF3/+jzEzf+JmYAQl9gqqCrU3fKOkBI83qgI9ifu2JTsHYpDq07kpn/WjXXJQjQ7yJ/YrzwSJZwYWmMsQ==', digitalSignature='SnhLHWAvVoi6AxYTwvj6IxZP317xIfjDqHd/ErdBA6y6ub+z0NV1comh+Daffozy1tV9WPXhiLMr9xuAM7Ozs4Pbio9VNkOpBT3aOZdCUCTyHxQVXRZr3xMwlPywVNyCDDD3hUqqd7nBdwdfM69rbv/QQz9RFAQpQgtzm5kNgiXJ8def5OWRN0/P5XyMDnkMXnx9s1Xm8znZLCr0vSSA0MkWJubTaINYdxjuoqiis3VMSP78IDPQka9JU+XVFQ/g0I88NeVwW3unI86O7WEJHluIIYDPB0m6uGlBkfT4KBW1focROncoKPv3MDRcC/X9yREuMSOutczD2wx2Fdw56Q==', IV='xA/dqUAGPYscg4/3Ozy7bA=='}
-
-[SERVER3] Received an echo from 1
-Im executing the echo method
-{2=Request: [Request Location sent by 1: (0,0) at epoch 1 of user 1], 3=Request: [Request Location sent by 1: (0,0) at epoch 1 of user 1], 4=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-{1=Request: [Request Location sent by 1: (0,0) at epoch 1 of user 1], 2=Request: [Request Location sent by 1: (0,0) at epoch 1 of user 1], 3=Request: [Request Location sent by 1: (0,0) at epoch 1 of user 1], 4=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-[CryptoService Debug] Encrypted object was:{"clientId":"1","serverId":"2","requestLocationDTO":{"x":0,"y":0,"epoch":1,"userIDSender":"1","userIDRequested":"1"},"reportDTO":null,"requestUserProofsDTO":null}
+[SERVER3] Received a ready from 1
 
 [SERVER3] Received a ready from 2
-Im executing the ready method
-{4=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-{2=Request: [Request Location sent by 1: (0,0) at epoch 1 of user 1], 4=Request: [Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-]}
-[Server2021-05-10 20:59:45.999] Epoch change, current epoch now is 4 (deprecated, server epoch doesn't influence anything, it will be removed).
-[Server2021-05-10 20:59:55.999] Epoch change, current epoch now is 5 (deprecated, server epoch doesn't influence anything, it will be removed).
+
+[SERVER3] Received a ready from 4
+[Server Id: 3] Server heartbeat at 2021-05-11 15:05:02.382
+[Server Id: 3] Server heartbeat at 2021-05-11 15:05:12.382
+[Server Id: 3] Server heartbeat at 2021-05-11 15:05:22.383
+[Server Id: 3] Server heartbeat at 2021-05-11 15:05:32.382
+[Server Id: 3] Server heartbeat at 2021-05-11 15:05:42.382
+[Server Id: 3] Server heartbeat at 2021-05-11 15:05:52.383
+[Server Id: 3] Server heartbeat at 2021-05-11 15:06:02.383
+[Server Id: 3] Server heartbeat at 2021-05-11 15:06:12.383
+[Server Id: 3] Server heartbeat at 2021-05-11 15:06:22.382
+[Server Id: 3] Server heartbeat at 2021-05-11 15:06:32.383
+[Server Id: 3] Server heartbeat at 2021-05-11 15:06:42.382
+[Server Id: 3] Server heartbeat at 2021-05-11 15:06:52.382
+[Server Id: 3] Server heartbeat at 2021-05-11 15:07:02.382
+[Server Id: 3] Server heartbeat at 2021-05-11 15:07:12.383
+[Server Id: 3] Server heartbeat at 2021-05-11 15:07:22.384
+[Server Id: 3] Server heartbeat at 2021-05-11 15:07:32.383
+[Server Id: 3] Server heartbeat at 2021-05-11 15:07:42.382
+[Server Id: 3] Server heartbeat at 2021-05-11 15:07:52.383
+[Server Id: 3] Server heartbeat at 2021-05-11 15:08:02.383
+[Server Id: 3] Server heartbeat at 2021-05-11 15:08:12.382
+[Server Id: 3] Server heartbeat at 2021-05-11 15:08:22.382
+[Server Id: 3] Server heartbeat at 2021-05-11 15:08:32.383
+[Server Id: 3] Server heartbeat at 2021-05-11 15:08:42.383
+[Server Id: 3] Server heartbeat at 2021-05-11 15:08:52.382
+[Server Id: 3] Server heartbeat at 2021-05-11 15:09:02.383
+[Server Id: 3] Server heartbeat at 2021-05-11 15:09:12.383
+[Server Id: 3] Server heartbeat at 2021-05-11 15:09:22.383
+[Server Id: 3] Server heartbeat at 2021-05-11 15:09:32.383
+[Server Id: 3] Server heartbeat at 2021-05-11 15:09:42.383
+[Server Id: 3] Server heartbeat at 2021-05-11 15:09:52.382
+[Server Id: 3] Server heartbeat at 2021-05-11 15:10:02.382

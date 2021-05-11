@@ -33,7 +33,6 @@ public class NetworkService {
 	private NetworkService() {}
 	
 	public static <P, R> R sendMessageToServers(P unsecureDTO, Class<R> responseClass, String userIdSender, String endpoint) {
-	    //todo: estruturas de dados precisam estar concorrentes?
         ConcurrentLinkedDeque<R> replies = new ConcurrentLinkedDeque<>();
         CountDownLatch latchResponses = new CountDownLatch(ByzantineConfigurations.NUMBER_OF_SERVERS);
         AtomicInteger successfulRequest = new AtomicInteger();
@@ -180,7 +179,8 @@ public class NetworkService {
                         if (sec == null) {
                             System.out.println("[Client " + ClientApplication.userId + "] Wasn't able to contact server " + serverId);
                         }else {
-                            CryptoService.extractEncryptedData(sec, String.class, CryptoUtils.createSharedKeyFromString(randomBytes));
+                            String answer = (String) CryptoService.extractEncryptedData(sec, String.class, CryptoUtils.createSharedKeyFromString(randomBytes));
+                            System.out.println(answer);
                             returnValue.add(sec); //TODO If sec has exception
                         }
                     } catch(Exception e) {
@@ -192,6 +192,7 @@ public class NetworkService {
                 latch.countDown();
             });
         }
+
         boolean responses;
         do {
             try {
@@ -203,6 +204,8 @@ public class NetworkService {
 
         if (returnValue.size() <= (ByzantineConfigurations.NUMBER_OF_SERVERS + ByzantineConfigurations.MAX_BYZANTINE_FAULTS) / 2){
             System.out.println("Report was not submitted. Not enough responses from Servers.");
+        } else {
+            System.out.println("report submitted");
         }
 	}
 

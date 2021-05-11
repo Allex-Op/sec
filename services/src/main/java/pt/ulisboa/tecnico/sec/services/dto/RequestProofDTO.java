@@ -15,6 +15,8 @@ public class RequestProofDTO {
     private String digitalSignature;
     private String nonce;
 
+    public RequestProofDTO() {}
+
     public int getX() {
         return x;
     }
@@ -65,7 +67,7 @@ public class RequestProofDTO {
 
     @Override
     public String toString() {
-        return "Request of epoch " + epoch + " at location (" + x + "," + y + ") made by user " + userID + " with the Digital Signature " + digitalSignature;
+        return "Request of epoch " + epoch + " at location (" + x + "," + y + ") made by user " + userID;
     }
 
     @Override

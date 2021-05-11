@@ -1,9 +1,4 @@
 cd ..
-sudo -u postgres psql -d sec1 -a -f secure-server/src/main/java/META-INF/drop-tables.sql
-sudo -u postgres psql -d sec2 -a -f secure-server/src/main/java/META-INF/drop-tables.sql
-sudo -u postgres psql -d sec3 -a -f secure-server/src/main/java/META-INF/drop-tables.sql
-sudo -u postgres psql -d sec4 -a -f secure-server/src/main/java/META-INF/drop-tables.sql
-
 
 java -jar secure-server/target/secure-server-1.0.jar --server.port=9201 1 4 --spring.datasource.url=jdbc:postgresql://localhost:5432/sec1 | tee deploy/logs/server1_log.txt &
 java -jar secure-server/target/secure-server-1.0.jar --server.port=9202 2 4 --spring.datasource.url=jdbc:postgresql://localhost:5432/sec2 | tee deploy/logs/server2_log.txt &
@@ -13,13 +8,12 @@ java -jar secure-server/target/secure-server-1.0.jar --server.port=9204 4 4 --sp
 
 
 # Wait for the server to initiate the database before inserting the data
-sleep 35
-sudo -u postgres psql -d sec1 -a -f secure-server/src/main/java/META-INF/load-script.sql
-sudo -u postgres psql -d sec2 -a -f secure-server/src/main/java/META-INF/load-script.sql
-sudo -u postgres psql -d sec3 -a -f secure-server/src/main/java/META-INF/load-script.sql
-sudo -u postgres psql -d sec4 -a -f secure-server/src/main/java/META-INF/load-script.sql
+#sleep 60
+#sudo -u postgres psql -d sec1 -a -f secure-server/src/main/java/META-INF/load-script.sql
+#sudo -u postgres psql -d sec2 -a -f secure-server/src/main/java/META-INF/load-script.sql
+#sudo -u postgres psql -d sec3 -a -f secure-server/src/main/java/META-INF/load-script.sql
+#sudo -u postgres psql -d sec4 -a -f secure-server/src/main/java/META-INF/load-script.sql
 
-echo "SERVERs DEPLOY DONE, START CLIENTS NOW"
 read CONT
 
 ps axf | grep secure-server | grep -v grep | awk '{print "kill -9 " $1}' | sh

@@ -78,10 +78,6 @@ public class CreateReportHandler {
 		int epoch = requestProofDTO.getEpoch();
 		String userId = requestProofDTO.getUserID();
 
-		if (epoch > ServerApplication.epoch)
-			throw new InvalidReportException("Desynchronized epoch, report epoch is at " + epoch + " while current" +
-					"server epoch is at " + ServerApplication.epoch);
-
 		if (proofDTOList.size() < ByzantineConfigurations.MIN_CORRECT_USERS)
 			throw new InvalidReportException("Not enough Proofs to approve the Report.");
 

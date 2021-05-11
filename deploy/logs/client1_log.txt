@@ -7,72 +7,86 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.4.3)
 
-2021-05-10 20:59:30.682  INFO 17442 --- [           main] p.u.t.s.secureclient.ClientApplication   : Starting ClientApplication v1.0 using Java 11.0.11 on ubuntu with PID 17442 (/home/thunder-marks/IdeaProjects/Secure-Communication/secure-client/target/secure-client-1.0.jar started by root in /home/thunder-marks/IdeaProjects/Secure-Communication)
-2021-05-10 20:59:30.685  INFO 17442 --- [           main] p.u.t.s.secureclient.ClientApplication   : No active profile set, falling back to default profiles: default
-2021-05-10 20:59:31.868  INFO 17442 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9001 (http)
-2021-05-10 20:59:31.883  INFO 17442 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2021-05-10 20:59:31.884  INFO 17442 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
-2021-05-10 20:59:31.948  INFO 17442 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2021-05-10 20:59:31.948  INFO 17442 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1172 ms
-2021-05-10 20:59:32.158  INFO 17442 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2021-05-10 20:59:32.334  INFO 17442 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
-2021-05-10 20:59:32.363  INFO 17442 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9001 (http) with context path ''
-2021-05-10 20:59:32.375  INFO 17442 --- [           main] p.u.t.s.secureclient.ClientApplication   : Started ClientApplication in 2.212 seconds (JVM running for 2.623)
+2021-05-11 14:13:21.593  INFO 20838 --- [           main] p.u.t.s.secureclient.ClientApplication   : Starting ClientApplication v1.0 using Java 11.0.11 on ubuntu with PID 20838 (/home/allex/Secure-Communication/secure-client/target/secure-client-1.0.jar started by allex in /home/allex/Secure-Communication)
+2021-05-11 14:13:21.595  INFO 20838 --- [           main] p.u.t.s.secureclient.ClientApplication   : No active profile set, falling back to default profiles: default
+2021-05-11 14:13:22.980  INFO 20838 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9001 (http)
+2021-05-11 14:13:22.997  INFO 20838 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-05-11 14:13:22.998  INFO 20838 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
+2021-05-11 14:13:23.073  INFO 20838 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-05-11 14:13:23.074  INFO 20838 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1368 ms
+2021-05-11 14:13:23.382  INFO 20838 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-11 14:13:23.617  INFO 20838 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2021-05-11 14:13:23.664  INFO 20838 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9001 (http) with context path ''
+2021-05-11 14:13:23.700  INFO 20838 --- [           main] p.u.t.s.secureclient.ClientApplication   : Started ClientApplication in 2.67 seconds (JVM running for 3.117)
+2021-05-11 14:13:30.224  INFO 20838 --- [nio-9001-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-05-11 14:13:30.225  INFO 20838 --- [nio-9001-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-05-11 14:13:30.226  INFO 20838 --- [nio-9001-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 
-[Client 1] Going to grid at client epoch: 1
-[Client1] My location: (1,1)
-[Client1] My neighbors are:
-Neighbor 4
-Neighbor 3
-Neighbor 2
+[Client1] Sending request to obtain issued proofs at epoch 0
+Reading public key: /home/allex/Secure-Communication/services/src/main/java/pt/ulisboa/tecnico/sec/services/keys/server/S0pub.key
+Error reading server public key
+Reading public key: /home/allex/Secure-Communication/services/src/main/java/pt/ulisboa/tecnico/sec/services/keys/server/S1pub.key
+Reading public key: /home/allex/Secure-Communication/services/src/main/java/pt/ulisboa/tecnico/sec/services/keys/server/S2pub.key
+Reading public key: /home/allex/Secure-Communication/services/src/main/java/pt/ulisboa/tecnico/sec/services/keys/server/S3pub.key
+Error encrypting random bytes with server public key
+[Client 1] Wasn't able to contact server.
+[Client 1] Wasn't able to contact server.
+[Client 1] Wasn't able to contact server.
+[Client 1] Wasn't able to contact server.
+2021-05-11 14:13:30.574 ERROR 20838 --- [nio-9001-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException: Client 1 wasn't able to obtain at least (N+f)/2 responses.] with root cause
 
-
-Asking for proof at http://127.0.0.1:9004/proof
-[ Client 1] Wasn't able to contact client 4
-Asking for proof at http://127.0.0.1:9003/proof
-[ Client 1] Wasn't able to contact client 3
-Asking for proof at http://127.0.0.1:9002/proof
-[ Client 1] Wasn't able to contact client 2
-
-[Client 1] Sending report to server:
-Report:
-Request of epoch 1 at location (1,1) made by user 1 with the Digital Signature tCPCKkbho/zgX258kcppxpvZrUo5zNj4iUvuY1akzbjSsP3qps1qnypYVtzOYmXBeWSQs0cQXCuZYA2tsVkv9J93uS6X5lVZEprMbjft+1ddytk/gGCXh2l5cnyWYiFwtX1AHVNiPNgeS3JK5tp+xIVogHiThC32vrlwJsMfAycEeq5EfZqGYVP9KEeBRTdCBXwWFjl2DmST21/GdEIoV+hfswHspcnMCN3kk6pt0Zq7JCui5TsGULnT44vmuUN70JBZrQb8UOxhWieu8q/byydfHVQ8pohGV+NqUw+Wad31oIaJpMrP+B48MlsrI4u+/HMrP7+yknM2CdiWTydqzQ==
-
-SecureDTO{data='xPn1xxeAnyxVOT57Slu35TmVk4SX1RHRIA08vCc0aJQe4/3J7AnpnI4hPuE8yRO7d4qT8j2xObJC5s/wPSc17B09ujFhhfYgAxJXr+qrRLBOD36stw1/Lk/GEo532+0H+Y1SL37Mnj3DDrET7dpgPpOSoEETIDOJy8Q8ILuHq5KcAJN5qcNYJ9994Gq2XL0hFrD6Rl522PZ6L8uIpLgJI06MQloO+LtJB560ly1hu4n/41IqU0txADMrjpeNew35MpZ3GKtYN+wAUc1It+mPi/GtjAYgVBOK8fz6f3pAPJwiYzyfgQzl5Mepc8Ajv/cdX/JKTaDGosfJEpvbZ/VWN3aHUcBGMnVgMGsKSJ8A2UEiXeQsm7f0wAXUhvmhsGcmT+h+Ps3Xu6F/olrB9MvkrS/UtHlVRtDoGv02gFhgUfVOTJaMZyNyhBV5S+NHiTkx6Hzc9USMJ+xvqeVakNDdc5NKyzzBndpErz7HNDXWbJPLf2+ChudTooBIMwAEeti8C5dNqs0ORrzibRMGT0vXWZW913twXvujBd+Muofc8qdp+GCKnlG3Q43wNfPGrdRQK7u+Vwn4pYRIuR3JZ1b3pqdpi5GHUnEW2DFEM4hTknVbA5NozW1WNNS2rP9JhdqkNGfmvIEDk5evgm422i2ttg==', randomString='IpuLm3Hw8u/ocCUAT2u5dDmHrSD6xLj9G98mBNJCrUwWThY/PbRfju4gNUt9caAO2B0hsZfQSvEH83y1rUC0Wh0hmZzn8r5EXbznYGWIgmazJ8QHhdiWW0TrSv2HyB9Xuw7wDqAZs+cIWHfa18Y3T8ehXztw11Bo4MNegjng/duO2rsyyuJIZKRJQ2H1aHxipQYJVuMsRzJmlMDIObXxYDyjqx+fD9m5vsYfHnIqJYbe9/210O0MBOt9cWjvwCgDElIab2cDEx0ggsNYP4cMlRAZ0xTZLzV64ugtYZM4W73kd+fEAt9QC8Lmy7mopa6PT7hE/qE73rr5FQ/B6vCmjg==', digitalSignature='At9TXvIrO9zOKH31tkjuEUPstyQNBzKzCPbNPfBlW51ojjMX8WgOwqNbW33Bt6dW9pPXSjSz9oOOhBAtrldyR2ifHje3r39L0OGUBlKlXexmj13sxc1oKO/U6WT3ddDYMAHC9kZxZUgcONelLXxBAO+UlrebkljJo6QBLW53Owov82XsUaSj7yzAuTdaZ+g6i3GrJI9bL7o+bdIext5A6EOwSfD4gDPMZlZT7coqJkWoEGobmNsjOowJlvniZXYGEwBpzoLFeUNQs6n+hjlcjJXowJLJnjwjnrOqg4DzLF7+SjYasvILVoKk2iuXldSE65W/u/svWnbjkBxj/aYWjg==', IV='duWbLEzfaWypH0MnIWuFDQ=='}
-SecureDTO{data='2ijnNEnlKWcy7TV0Y0kOCqJw9FS1DRD/jilY79h1WOJ3dvLvcVgGzmnQMrQYlqyDa+aqpUUXRILtNKVEIgLQYbLo7DXeTTSkCyJWi1OwDhGG+FGCcjIIVXAhbIGiddd87s+8zTKivBHEOJxwCp/L0T/o+OroSmRQ9LdrTRgDvBr4+ppfBtWkIklijudt0VW3sxVAA0MaP6ZA8c9pv+yS3sju45m7rXb241anf4dMEl80ZwC09xzgpDK66al9CFrik6fVNzQvqPPFuU6aapth+0dN0F1ehx8+TrdF2JR6kXyCQ7KruqC1a5G4fDUtNAcITU0B3stnsNAsyu9SHrIad6FWKIccCV9dYvqkpNLVln6Z8gRzCxPGwLwVDO0vazZKkB6jXx0czcr3LyUVir41Qwq7EO0FHI4VJhb7KhUIW0W55pF9q8f8gb4eqnF9hQfygaFnVW0sSvIR0OgN/89GNpDCHZqzCbael1+9tnUzmKXGFZF6l7JhOXt/oi77JsYuHHL9q0lb3x0Sl6bkr9jtHISWKRs/NeXigmwlnGq1OzL+G2QnhVxz0kD+J9vlKnqpurbgYAAGNizO2Umdc5+DKWejMH8qjnux/u6JGibKNrlF35rVFmIIfart0qNOu4xKIC+TRoBlb/4VKLKy4R+csw==', randomString='JVL20cOUghoWQiXWg5lnSzXAEhmPRw7ZXJ7oDAGwjh1ZvKmep+S23UuFVOyTzmR0XQI+r0GW7a6NcPzyxf23K7cjhwhizYkdImdKPzPQOtUIe0ZigRhZ4VTURcTN/olq3GMmkEjWg1wkB7ggZSGm2T0LS8Kc8xX6WGJcQi+kXqYxGPR4DoenvKdiI5gA2aLIEXcf+H5tJcdAZzCFWuTk+DW4xKDxYFmAzZVU2Pc6rhrC74/08ZSlUtZ1iTcSP4E8PLTXQfrCd0fxr+VVYjdF809W3yjgKCS38uup2F/YSzRnO0CjuCu6NBKXusALn+91pzVVKJdf4QqyQH9cZVP4kw==', digitalSignature='nV7p0tD2FkVrCjP0V/nF6gOf1XnkGLbsoV0M2pdalbm8RUPLiCjROcHItl51MMFtunrS7aWewGHK41ns5HVcjlV43lzW0gqZ7Y53AFF69v2dakTsHPt+E8EUP1De3Dmj1oesjj9h9eHFLRXcAzNoLskKyT/mjwjssEH9adFhW85Akyrp/1hscshSljCxMBLh/Wz/rjQK0gcsa1nVAtvqObQIfR+9ecihIiilQIpxs8Jm1JAF3BN6ZZKxS4levCY0Dfu5F1gkvQ2ar6po2vDz8gnxKzHvU0fgTeow50DOnFguIcFw+EXAZIOWdO7I5VuaAt82NhWC8OrErljQk6vnLg==', IV='MISeB+4Mxll3q4+syECLuQ=='}
-SecureDTO{data='bEoCj4/c2Hffo3HsseXg370nL6Jat+3YS8Upyz5eqXnlqo5opbm/lw5vw7+/LCzpGcASmbGpySScPv0CgIrcXkomhYvq+4T5ts23j+ESUM5FAF6Yjwz6cs0U/5buReG7OcAuv6HvAnQ8eV5MvU8MnDG9wVw1ap9c+GPJIrUlZ7Dzlt1ytRkyJpvBsu1MyCtCfhLyiVZhjTq6yWp7MQ6aUdqjbYS5+1miijFPPKVtoGBM5Qz8YGbsRbD0KFgmraLd12/RMLcuGib7ljTrZdjkJ8P87U/vgW8t51MY235hDizAV3aHlMBcwFuoEANGS494F+6goGsT60B/kpWV3OO4CXkkuZNPt7UTn1279fQqLsIm57Bda5sTUPf8VWnCs1VFulS3xpLfR2u1pCxZBE/pc6taiUR8b2s5ITF/XGj89h08Npay0sNwWdHYYrUJkzhT6wU9VCAoY08S92HTCt9+dbuTKXpXMCNFboh26A+On9vplvmysrYF+HXjV1Oc5HMJHPd2vATO8agHzuZ9WyObrhyvkgdwIIK9wpgF4c6s4KU82nEOxcQ5W3eIgsD8M0tJKQJ/tE+WZgUKKW3ohlXtgDmqro0LEKm+am3wnzehCAEpC9jmHfXTrtlBbq5Cefp23UVEnSZPF03q3YA9lj/PhQ==', randomString='RyB3Ua29Vbkqv9sw8Kbw0IwZRvBLQF0zuOHIq9+pPLgg+tnfvnQu7xM9mpt80CIiDTQ5AzBRl9jFHDVU0GgYXcFdxDZ/fyfqDMa/hFl32KScM87pyCOHMrwP/UBAZiKmOm6iltwBXR51KLfiQcpihHDYTMu9AMV6DCIg8m/1Q/intOVZ5f4QaUiAeZofBFUoT+xQCPGwuuLlhoruogGD+4Xt2+z75nGO12OzgJyNy8DfYO6SYMh9h4Vd//QiuXbL1DkhCo2OyNdgNSrsqR8xzWyJoVQT52D2c/2aA2uO1fW0xE+nPPd6P57X6znHKdJfvdP1JMYVP07F4sFTj08Rzw==', digitalSignature='JiiL4IA2zVVS/w+B/6Pg1wF2jZjz7YmPtDreRH1x2bNbshvteJLorK96eCtyGqsPpSd/bhKvvtJBoDfWdK635Oi3jm3I0+nxpxW6z36gkEcwk1FbOqd9yVcM3T6xL+gxoROYFXASsdCREM32h17TR67elAxRgrJ8nYGgVNSXHEh4OrHKOwRzjOdkNF4nNuf2t8YgDtpcah3UfJQQDLX0vEzEQ7m1T4kVNrJ7xbF2EPF447oC4zYP5D6p2t+Z6iiPPueYrUTK71cad7IwNpZNn7WaQYQJzGXV8aiR/AeAkkjOobDzG+16N+C0RX6Rzdw5Eqovv2dmwJnTplKTFCJbBw==', IV='fAdouPGIFERU73QPKXUGBw=='}
-[CryptoService Debug] Encrypted object was:{"errorName":"Invalid report exception","description":"Not enough Proofs to approve the Report."}
-[CryptoService Debug] Encrypted object was:{"errorName":"Invalid report exception","description":"Not enough Proofs to approve the Report."}
-[Error - Invalid report exception] Not enough Proofs to approve the Report.
-[Error - Invalid report exception] Not enough Proofs to approve the Report.
-SecureDTO{data='dOcfHqBNBUabQWyvhzxjXeBM9K846iV0mhv8khqjuJD20YRPmSntg9INtqYf1ffETg6cK4UaAJpF/E0Bk6t6DIUy6m6nFqiHZZrfFuK7u6MAIi8Xd84y57dmv9piXiIfAMb82/xEF3qMHYIKOI9Dv29UtugX8dihRwX/kJtvXPihLaju5y1j4UKluJqGx40+y0I/utiq4gXc1s4o4XpCvtjT7YTNtuFYItW0y/VLUZ60uSSi2UwjnuUjjgWQOQavnmarRzMaX4KvDljQykM2UjXMudMR7AIDASv6RqywgCKiAQGElTeyUG4bQUWRmTGf8JDBZxB61+OkYLYC7HUNGZ+GhnOkB5vEg1UWtuRnhbQaitnilA+tw7jegw02ndFMECM+1p2uzQH7TZw9haNzSxVEMSbvNvlsCTyxYYgpgDxDr977xBlsEzBtY9bcK4lz4bKzD4/KBFglktkSc0vfSLqUJiWfce4LSCE5nU6ZpiVY+MpmyUTMszduEQ9AgE3MW+SSuGISXW2Ln5ZR4EfAmCNv1iZBn3x13YwdWFJFGhhPsp5r7gLD2AfwVbAdBJPUh0gWUatgFpnGLzKnkkoFgQLTwHicOxrxz5KcHV8I6LbcZ4lerTRLWB1jjLFYo/31qb2kjL3R940MVujumAdr5Q==', randomString='C+FJOTJ7mo9BVT5JAvvvqSQUFX3YrzDZ4AREOUB78WKlOtTi4YJaGqcEDRCLHgNdPZzPRt08fbthSgmiLtCFFYXl5bgH5wF6ERyVnoE+V7SmyEKCngrSdM96Bd/n6ilw+rnIWl6CDK533jAX5ZVTLcoKIbSYQzp14Mosqbx0NzkeN/yx81a9p5a+Lj21MFvofkDAyZ/4ASGF6Htswp33dkc2wgAm3131MgqMaYS9IqZ+EkzxT3mDdWC+Zh2znCTpYGoaXSK2Q68SrQ4VGq0zxvuCDGVlImr8fTyPytEVh2VuZNVu992VZMCU3WyBZjlfgVUNjRLjHOUnqIpZnerEWQ==', digitalSignature='YcbCoy/UAgla541lo0z94HVT8cKACbPv+ALydnmrSP2her7jvHXH4PhF4WaScaxOdi/BOONXT22KiAM+o6cLBzXxBuV1UnMY/GInCgOCkEB7o80qIpcRerOGV6SqxP4z+P3idrL5B3ODoazoQHLQ8iGDW8JtATVdYEfbf+8WxYT2WqvDIuYqHatuBWnlcqZtemXV1MguVWaw8LK2OcLw3WXzlXyifcYMG3YnQqQ3YTIE5ylZaAfzBaJrUNyP7dOUyjabBkAcvhbj0mqRR+YegvpFG/M+IKF6fQCGJRAWRHM4C+KtS8/KlZ7c6b+NW2nnZvtFGH4AC0+WIX6q5Hypyw==', IV='bm3yZ1ywaXedDYjDdVJH/A=='}
-[CryptoService Debug] Encrypted object was:{"errorName":"Invalid report exception","description":"Not enough Proofs to approve the Report."}
-[Error - Invalid report exception] Not enough Proofs to approve the Report.
-[CryptoService Debug] Encrypted object was:{"errorName":"Invalid report exception","description":"Not enough Proofs to approve the Report."}
-[Error - Invalid report exception] Not enough Proofs to approve the Report.
-
-[Client 1] Report Sent!
-Trying to obtain the Report...
-SecureDTO{data='qLLc6HUaRJS9nyhsCcCKjGdigP0+Ch6fBNLQ8GVVwR07R3/VGoNf+FHGUGspU742nF0kNqDcg43iKkFR2FL5uapbS6LOFY3iLajRG0Dp1LU=', randomString='bhuy7ki1g+HdB9Jz8pmgMKTDPCCbYhd+Or/ZNX0TTWP5g0+kZSxBfAQ+Fxkoy8U0bpktEjf/DhaSZVxfADL/9j7vWScN9JRoun2JilfxRqNRovu9VLuOSlw1/qhwAZEKmjFs6Jgqhl4Bva03pPvTridAxx5DilKPnZ7kUlr4vJdR01D32URvArZA9YR+H7dGSSdumJv5o5+7nQF5L00mvfkp3+zvNNVP9hd909WeDdCB98H3WJpr1eYySvtgSnbdZmXCgIG5jLFDCoJ9BUEsl4p1RSct9RNHorD8GnePCC4U7CGrko9XA9oD1h8JZlm45WfAjMDPTG+/oOenzBqW5Q==', digitalSignature='gCNUl+8468X/bO3/BrrcmLU7uBliHzE2220uS09wUkIvYmafmYh1dvOaiBB/mLrqiwU4x9H8QEH3+F0nKjExQnLLnPgOTJe2X4DwWH8SnEo2tDxzCGxcH/OOzKxcJwKknUa+n71o7TG0a6L/nEaehAQmdZONGXc9nwa8Fwf4DMOW/R3MiaviH8WfsJ4tdqKfVUnPepT4W/hEJqArl0oiK4bFjhPZrSsuSzVoFR+Bhv9x6Ci3hw74+mIZ0KEUipelqxZHBqF2MBAFHFam4jgytz8/lTqhYk2mt0gjPhHUaJ/wjArZGjC9Bj+KQFE5dACZ3ieP3xm3+yOxxp6iVXiQTQ==', IV='65qsOk00VzU5xLYzi4bLvw=='}
-SecureDTO{data='NWMgO5nJgFNXRBwAE68bs5yeeGBcos8rVmCe8irKRFNINfJS87v2t4uw44nw6v4pQCD8Rt/xwBkZ0Gkoffqc8+VtnDe7jJdrZeQ1RYm4Qoc=', randomString='mNFvd1feXPoHKgAA7fttg9JEoItUA8Pec2K2OpSG+/gonR+fX/mtvseM3Xz+qWoTPyNYvCB5DbHycAlG5Ut3UM2YQhEOCcqvMgqC42VHyUX3JUyL2EcQ3vNUEztaXPtWn8BQLk6AvhN+Ru2ErYupZA7juqcmANse0lvGdFLcGlBe9fmJ0bIv1/z/+e2Ua9l0kZLCe2El27AAQBQWXE97lu6YT7e3O/XmTOYH6o7ct34pc7KzDEe1AndWgBQU9S4M0eAZ83plOUY5OcyUAqFMaekdaT62SWVkUkESXQFcS2s1WyK4ZYqkqM8NcY5HORV/5x2YbWdAAPhiDpToepDGmg==', digitalSignature='YWsvCg46lC0GhlRnB1wPwSR8dUcQcWAcJiCeksOXIPUwo2Us7r5HmISez40vUDalpDG6ccR1teAS8i9WOkmrkTEmxsDmtyOxhgxMvqOgKB20lXKrtFvHoAVxhcnfKzAL23mOTcEmyduC5nGEl2x2D11gY2yQKaEWHpndmxXbm9pz3sxC9nqXurJXEAku5yiMdxKunzcBjzGPDwAT2sQmQiWL5FlJleJTt38hJLArVD2bv+SFSE6JDz9T+qo/DHvfYqXI9+rULoUzO1rqm1PuSe5NE30KqOg5zXlO9WQloRpDPhArgN9P0r26MP6akjJQ9YM8hWxrhgzKhCga72QCNQ==', IV='2msBTSwcr07AYWpHD8dqeQ=='}
-SecureDTO{data='4sD6UmzDRp3orrHP/wx7nGbHSJRXNiRq3LJsZOpMqLk2LGmFviQ6/eTFYf1ISFfSOYTwmBFWc6vp+AXaPu8n5xRlj8XoJYkmfv3hEy+E6cU=', randomString='gaS13pcrxXB6gDK82dU9DJ6kvuCR9bMqy9qAlZ1IwpnZNRgYtWBW6rrXHo3kT/BJSdtx+ZPeYxdFx224DnLNVG4yTsnJcYR0oWUJH5GeFTzQfp0vSPqHxd4L1//f3YfwmhiBN51OMTBskxz8Z8Jkyp5efND9lHlW1rFvnbTwChwrx0MbhAcuU2Zii70/Zi3gGLL5v0WbuJNUuS3TUxol2sGUWZ17hTRgceK2OSooev28z+OG6SJswiwUqMW9Vuw6rFsv2H2FV9NpBKPHNJXjVUvRpnFHltUY0xXGjhQysp6k8ixbH2kz4ofjKyjjAZgaI0TiN0ahpDRPmPlRUWK/3g==', digitalSignature='CTKLRlEOUI3oJ0ji9JNRgw+HrUlQCNx2jI+2AGT2huTjSSqDDhGtZBlX3f5eJrlj0OxBwJKYdyS8cWCP8Fiqj3WnnKego+EjjMbRr4sz3nws9FdYQDPP+qPlGkFBMv4o9KcYkI079Xeg8WnYcQrRKQFW6uUbnQl6Nwh707qWQJ1MrqZ29fXq2EioCUr/agpBQEuXIAXSSIIDbha+/Dn1Qy2SztDvWM3DS6fSy7vMTQSG/rWgjZbh6saPwo65d4IMbicHg1GD2kv34S3fLFy5ySyANJaly71vZZvPFIyd+OqtGkq/WCIVi9ocSj97UBRpDAXipI6mh48ncYFq6vNnEg==', IV='oSW55DKKCZz3x+CRBipybQ=='}
-
-[Client 1] Going to grid at client epoch: 2
-[Client1] My location: (1,1)
-[Client1] My neighbors are:
-Neighbor 2
-Neighbor 4
-Neighbor 3
-
-
-Asking for proof at http://127.0.0.1:9002/proof
-[ Client 1] Wasn't able to contact client 2
-Asking for proof at http://127.0.0.1:9004/proof
-[ Client 1] Wasn't able to contact client 4
-Asking for proof at http://127.0.0.1:9003/proof
-[ Client 1] Wasn't able to contact client 3
-
-[Client 1] Sending report to server:
-Report:
-Request of epoch 2 at location (1,1) made by user 1 with the Digital Signature Dyt7QBAr8NvVRO9z9f9DYbsINMJgxMoaUPuvOLuJ8NG9DfcMUC1wi0ZYLCoU9uYg8uHDpopW4GR/s/5l8tfAZ7/75+BA8sL6DTwEISeruOhPi7TAbRlC/roK6U+IOIIeSui2Dsp8gIWb+qwmMkoodSULCkK4kYqKT5ppghhhaoWM69s+U/QegJqxQkWuplDyJJmNAsWaCJVGcbQ7ZmW6SITjRIrr1h1NIapO9WH1zykl4Q+C3xSJK8xSM1Lagi6exeRLE2GnEihvOdFtBQV9bekMD4OZpVuS/jDzcQhAIzf12jObzNS2BbSXBVo9BOU86sa/+3IwkHs8xx7N39+BpA==
+pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException: Client 1 wasn't able to obtain at least (N+f)/2 responses.
+	at pt.ulisboa.tecnico.sec.secureclient.services.ByzantineRegularRegisterService.readFromRegisters(ByzantineRegularRegisterService.java:126) ~[classes!/:1.0]
+	at pt.ulisboa.tecnico.sec.secureclient.services.UserService.requestMyProofs(UserService.java:55) ~[classes!/:1.0]
+	at pt.ulisboa.tecnico.sec.secureclient.controllers.Controller.requestIssuedProofs(Controller.java:82) ~[classes!/:1.0]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197) ~[spring-web-5.3.4.jar!/:5.3.4]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141) ~[spring-web-5.3.4.jar!/:5.3.4]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626) ~[tomcat-embed-core-9.0.43.jar!/:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733) ~[tomcat-embed-core-9.0.43.jar!/:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.43.jar!/:9.0.43]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.4.jar!/:5.3.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.4.jar!/:5.3.4]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.4.jar!/:5.3.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.4.jar!/:5.3.4]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.4.jar!/:5.3.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.4.jar!/:5.3.4]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:887) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1684) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
+	at java.base/java.lang.Thread.run(Thread.java:829) ~[na:na]
 

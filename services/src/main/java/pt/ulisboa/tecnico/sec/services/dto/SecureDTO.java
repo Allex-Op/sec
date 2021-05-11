@@ -12,6 +12,8 @@ public class SecureDTO {
     private String digitalSignature;
     private String nonce;
     private String iv;
+    private long timestamp;
+    private int rid;
 
     //Don't delete constructor, necessary for Jackson to work
     public SecureDTO() {}
@@ -63,6 +65,22 @@ public class SecureDTO {
         this.nonce = nonce;
     }
 
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public int getRid() {
+        return rid;
+    }
+
+    public void setRid(int rid) {
+        this.rid = rid;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @Override
     public String toString() {
         return "SecureDTO{" +
@@ -70,6 +88,8 @@ public class SecureDTO {
                 ", randomString='" + randomString + '\'' +
                 ", digitalSignature='" + digitalSignature + '\'' +
                 ", IV='" + iv + '\'' +
+                ", Timestamp=" + timestamp +
+                ", RID=" + rid +
                 '}';
     }
 }

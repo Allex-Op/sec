@@ -8,7 +8,9 @@ public class RequestUserProofsDTO {
 	private String userIdSender;
 	private String userIdRequested;
 	private List<Integer> epochs;
-	
+
+	public RequestUserProofsDTO() {}
+
 	/**
 	 * @return the userIdSender
 	 */
