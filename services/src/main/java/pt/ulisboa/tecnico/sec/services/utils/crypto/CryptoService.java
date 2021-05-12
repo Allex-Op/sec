@@ -21,7 +21,7 @@ public class CryptoService {
      *  as the client already possesses the key.
      */
 	// to be used by the server cuz it uses Server private key
-	public static SecretKey getSecretKeyFromDTO(SecureDTO sec, String serverId) {
+	public static SecretKey getServerSecretKeyFromDTO(SecureDTO sec, String serverId) {
 	    try {
             // Obtain encrypted secret key in base64
             String randomString = sec.getRandomString();
@@ -41,6 +41,30 @@ public class CryptoService {
     }
 
     /**
+     *  Extracts secret key from the SecureDTO object, only called by the server
+     *  as the client already possesses the key.
+     */
+    // to be used by the server cuz it uses Server private key
+    public static SecretKey getClientSecretKeyFromDTO(SecureDTO sec, String clientId) {
+        try {
+            // Obtain encrypted secret key in base64
+            String randomString = sec.getRandomString();
+
+            // Getting the encrypted random string from Custom Protocol Response
+            byte[] encryptedStringBytes = CryptoUtils.decodeBase64(randomString);
+            PrivateKey kp = CryptoUtils.getClientPrivateKey(clientId);
+            byte[] decryptedStringBytes = CryptoUtils.decrypt(encryptedStringBytes, kp);
+
+            // Generate Secret Key
+            return CryptoUtils.createSharedKeyFromString(decryptedStringBytes);
+        } catch(Exception e) {
+            System.out.println("Error extracting secret key");
+        }
+
+        return null;
+    }
+
+    /**
      *  Function only called by the client to generate a secret key from random bytes
      */
     public static SecretKey generateSecretKey(byte[] randomBytes) {
@@ -55,6 +79,8 @@ public class CryptoService {
     }
 
     /**
+     * USED BY CLIENTS
+     *
      *  Returns the randomBytes (used to create the shared key) encrypted and encoded in base64,
      *  only used by the client.
      */
@@ -62,6 +88,24 @@ public class CryptoService {
         try {
             // Encrypt the random bytes with the server public key, so he can decrypt it later
             PublicKey pk = CryptoUtils.getServerPublicKey(serverId);
+            byte[] encryptedRandomBytes = CryptoUtils.encrypt(randomBytes, pk);
+            return CryptoUtils.encodeBase64(encryptedRandomBytes);
+        } catch(Exception e) {
+            System.out.println("Error encrypting random bytes with server public key");
+        }
+        return null;
+    }
+
+    /**
+     * USED BY CLIENTS
+     *
+     *  Returns the randomBytes (used to create the shared key) encrypted and encoded in base64,
+     *  only used by the client.
+     */
+    public static String serverEncryptRandomBytes(byte[] randomBytes, String userId) {
+        try {
+            // Encrypt the random bytes with the server public key, so he can decrypt it later
+            PublicKey pk = CryptoUtils.getClientPublicKey(userId);
             byte[] encryptedRandomBytes = CryptoUtils.encrypt(randomBytes, pk);
             return CryptoUtils.encodeBase64(encryptedRandomBytes);
         } catch(Exception e) {
@@ -96,6 +140,9 @@ public class CryptoService {
                 if (data.contains("errorName")) {
                     ErrorMessageResponse err = (ErrorMessageResponse) convertStringToJson(data, ErrorMessageResponse.class);
                     System.out.println("[Error - "+err.getErrorName()+"] "+err.getDescription());
+                } else {
+                    System.out.println("[CryptoService - extractEncryptedData] JsonProcessingException error, unencrypted data: " + data);
+                    System.out.println(e.getMessage());
                 }
             } catch(Exception egg) {
                 System.out.println("Message wasn't a ErrorMessage either.");
@@ -108,9 +155,15 @@ public class CryptoService {
     }
     
     // to be used by the server cuz it uses Server private key
-    public static Object extractEncryptedData(SecureDTO sec, Class<?> aClass, String serverId) {
-    	SecretKey originalKey = getSecretKeyFromDTO(sec, serverId);
+    public static Object serverExtractEncryptedData(SecureDTO sec, Class<?> aClass, String serverId) {
+    	SecretKey originalKey = getServerSecretKeyFromDTO(sec, serverId);
     	return extractEncryptedData(sec, aClass, originalKey);
+    }
+
+    // to be used by the client cuz it uses Server private key
+    public static Object clientExtractEncryptedData(SecureDTO sec, Class<?> aClass, String clientId) {
+        SecretKey originalKey = getClientSecretKeyFromDTO(sec, clientId);
+        return extractEncryptedData(sec, aClass, originalKey);
     }
 
 
@@ -164,6 +217,8 @@ public class CryptoService {
     }
     
     /**
+     * USED BY CLIENTS
+     *
      * Generates a new SecureDTO from user with userId specified that encapsulates 
      * a LocationReportDTO or a ReportDTO
      */
@@ -171,12 +226,23 @@ public class CryptoService {
         SecretKey key = generateSecretKey(randomBytes);
         return createSecureDTO(unsecureDTO, key, encryptRandomBytes(randomBytes,serverId), CryptoUtils.getClientPrivateKey(userId));
     }
+
+    /**
+     * USED BY SERVERS
+     *
+     * Generates a new SecureDTO from user with userId specified that encapsulates
+     * a LocationReportDTO or a ReportDTO
+     */
+    public static <T> SecureDTO serverGenerateNewSecureDTO(T unsecureDTO, String userId, byte[] randomBytes, String serverId) {
+        SecretKey key = generateSecretKey(randomBytes);
+        return createSecureDTO(unsecureDTO, key, serverEncryptRandomBytes(randomBytes, userId), CryptoUtils.getServerPrivateKey(serverId));
+    }
     
     /**
      * Generates a response SecureDTO of a client request that encapsulates a ReportDTO
      */
     public static <T> SecureDTO generateResponseSecureDTO(SecureDTO receivedSecureDTO, T unsecureResponseDTO, String serverId) {
-    	SecretKey key = getSecretKeyFromDTO(receivedSecureDTO, serverId);
+    	SecretKey key = getServerSecretKeyFromDTO(receivedSecureDTO, serverId);
     	return createSecureDTO(unsecureResponseDTO, key, "", CryptoUtils.getServerPrivateKey(serverId));
     }
 

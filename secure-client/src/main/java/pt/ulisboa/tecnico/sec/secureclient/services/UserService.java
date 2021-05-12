@@ -26,11 +26,11 @@ public class UserService implements IUserService {
      *  Requests a location report of a certain user at a certain epoch
      */
     @Override
-    public ReportDTO obtainLocationReport(String userIdSender, String userIdRequested, int epoch) {
+    public ReportDTO obtainLocationReport(String userIdSender, String userIdRequested, int epoch) throws ApplicationException {
         // Prepare the body of the HTTP request
         RequestLocationDTO req = buildRequestLocation(userIdSender, userIdRequested, epoch);
 
-    	return NetworkService.sendMessageToServers(req, ReportDTO.class, userIdSender, PathConfiguration.GET_REPORT_ENDPOINT);
+        return ByzantineAtomicRegisterService.readFromRegisters(req);
     }
 
     /**
@@ -38,7 +38,7 @@ public class UserService implements IUserService {
      */
     @Override
     public void submitLocationReport(String userID, ReportDTO reportDTO) throws ApplicationException {
-    	NetworkService.sendMessageToServersWithoutResponse(reportDTO, userID, PathConfiguration.SUBMIT_REPORT_ENDPOINT);
+        ByzantineAtomicRegisterService.writeToRegisters(reportDTO, userID);
     }
 
     /**

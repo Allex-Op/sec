@@ -12,7 +12,6 @@ import pt.ulisboa.tecnico.sec.services.exceptions.UnreachableClientException;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
 
-import javax.crypto.SecretKey;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,6 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Service used by the operations: obtainUsersAtLocation & requestMyProofs
  */
 public class ByzantineRegularRegisterService {
+    // Send HTTP requests
     private static RestTemplate restTemplate = new RestTemplate();
 
     // Ackowledgments sent by server during step 4
@@ -36,24 +36,6 @@ public class ByzantineRegularRegisterService {
     private static String timestamp = "";
 
     /**
-     * It will send a message "v" with a signature "o" and timestamp "wts"
-     * to all servers.
-     */
-    public void writeToRegisters() {
-    }
-
-    /**
-     * Called when the timestamp of the request sent
-     * to the servers is lower than the timestamp that the
-     * servers registers had.
-     *
-     * It will return without writing if it received more
-     * than (N+f)/2 ACKs.
-     */
-    public void receiveAck() {
-    }
-
-    /**
      * Called when the client wants to read
      * something from the server.
      *
@@ -64,8 +46,8 @@ public class ByzantineRegularRegisterService {
      * if its valid then add to the readlist until there are > (N+f)/2 messages.
      * Pick the value with the highest timestamp and return that to the user.
      */
-    public static <P, R> R readFromRegisters(P unsecureDTO, Class<R> responseClass, String userIdSender, String endpoint) throws ApplicationException {
-        // Used to block the requesting thread untill all assynchronous requests complete
+    public static synchronized <P, R> R readFromRegisters(P unsecureDTO, Class<R> responseClass, String userIdSender, String endpoint) throws ApplicationException {
+        // Used to block the requesting thread until all asynchronous requests complete
         CountDownLatch latch = new CountDownLatch(ByzantineConfigurations.NUMBER_OF_SERVERS);
 
         // Messages received from servers
@@ -78,30 +60,32 @@ public class ByzantineRegularRegisterService {
             int serverId = i;
             CompletableFuture.runAsync(() -> {
                 try {
+                    // Create secureDTO that will be sent to respective servers
                     byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
                     SecureDTO secureDTO = CryptoService.generateNewSecureDTO(unsecureDTO, userIdSender, randomBytes, serverId + "");
                     secureDTO.setRid(rid.incrementAndGet());
                     CryptoService.signSecureDTO(secureDTO, CryptoUtils.getClientPrivateKey(ClientApplication.userId));
 
+                    // Build the URL that the request will be sent
                     String url = PathConfiguration.buildUrl(PathConfiguration.getServerUrl(serverId), endpoint);
 
-                    try {
-                        SecureDTO sec = sendMessageToServer(secureDTO, url);
+                    // Send the message to the server & receive answer asynchronously
+                    SecureDTO sec = sendMessageToServer(secureDTO, url);
 
-                        if (sec == null) {
-                            System.out.println("[Client " + ClientApplication.userId + "] Wasn't able to contact server " + serverId);
-                        } else {
-                            if (secureDTO != null && CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey(serverId + ""))) {
-                                System.out.println("[Client " + ClientApplication.userId + "] Byzantine regular register received secureDTO");
-                                readlist.put(randomBytes, sec);
-                            }
+                    if (sec == null) {
+                        System.out.println("[Client " + ClientApplication.userId + "] Wasn't able to contact server " + serverId);
+                    } else {
+                        if (secureDTO != null && CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey(serverId + ""))) {
+                            System.out.println("[Client " + ClientApplication.userId + "] Byzantine regular register received secureDTO");
+                            readlist.put(randomBytes, sec);
                         }
-                    } catch(Exception e) {
-                        throw new UnreachableClientException("[Client "+ ClientApplication.userId+"] Wasn't able to contact server.");
                     }
                 } catch (Exception e){
                     System.out.println(e.getMessage());
                 }
+
+                // Decrement the latch after this asynchronous thread completes its work, so the main requester
+                // can keep working.
                 latch.countDown();
             });
         }
@@ -119,7 +103,7 @@ public class ByzantineRegularRegisterService {
 
         // If the number of replies is bigger than (N+f)/2, the byzantine quorum is met and 1 reply is correct
         if(readlist.size() > (ClientApplication.numberOfServers + ByzantineConfigurations.MAX_BYZANTINE_FAULTS) / 2) {
-            System.out.println("[Client " + ClientApplication.userId + "] Byzantine regular register obtained minumum quorum.");
+            System.out.println("[Client " + ClientApplication.userId + "] Byzantine regular register obtained minimum quorum.");
 
             // From the replies, choose the one with highest timestamp and return it
             byte[] randomBytes = highestval(readlist);
@@ -134,15 +118,19 @@ public class ByzantineRegularRegisterService {
     /**
      *  Sends HTTP request
      */
-    private static SecureDTO sendMessageToServer(SecureDTO message, String url) {
-        // Set HTTP headers
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+    private static SecureDTO sendMessageToServer(SecureDTO message, String url) throws UnreachableClientException {
+        try {
+            // Set HTTP headers
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
-        // Send request and return the SecureDTO with the ReportDTO encapsulated
-        HttpEntity<SecureDTO> entity = new HttpEntity<>(message, headers);
-        ResponseEntity<SecureDTO> result = restTemplate.exchange(url, HttpMethod.POST, entity, SecureDTO.class);
-        return result.getBody();
+            // Send request and return the SecureDTO with the ReportDTO encapsulated
+            HttpEntity<SecureDTO> entity = new HttpEntity<>(message, headers);
+            ResponseEntity<SecureDTO> result = restTemplate.exchange(url, HttpMethod.POST, entity, SecureDTO.class);
+            return result.getBody();
+        } catch (Exception e) {
+            throw new UnreachableClientException("[Client " + ClientApplication.userId + "] Byzantine Regular register - Wasn't able to contact server.");
+        }
     }
 
     /**

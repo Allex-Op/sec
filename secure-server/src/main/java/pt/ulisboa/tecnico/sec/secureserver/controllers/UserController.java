@@ -1,13 +1,13 @@
 package pt.ulisboa.tecnico.sec.secureserver.controllers;
 
 
-import org.apache.catalina.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import pt.ulisboa.tecnico.sec.secureserver.ServerApplication;
+import pt.ulisboa.tecnico.sec.secureserver.services.ByzantineAtomicRegisterService;
 import pt.ulisboa.tecnico.sec.secureserver.services.ByzantineRegularRegisterService;
 import pt.ulisboa.tecnico.sec.secureserver.services.NetworkService;
 import pt.ulisboa.tecnico.sec.secureserver.services.UserService;
@@ -40,7 +40,7 @@ public class UserController {
 	public SecureDTO obtainLocationReport(@RequestBody SecureDTO sec) throws ApplicationException {
 		try {
 			System.out.println("\n[SERVER " + ServerApplication.serverId + "] Received obtain report request.");
-			RequestLocationDTO req = (RequestLocationDTO) CryptoService.extractEncryptedData(sec, RequestLocationDTO.class, ServerApplication.serverId);
+			RequestLocationDTO req = (RequestLocationDTO) CryptoService.serverExtractEncryptedData(sec, RequestLocationDTO.class, ServerApplication.serverId);
 
 			if (req == null)
 				throw new ApplicationException("SecureDTO object was corrupt or malformed, was not possible to extract the information.");
@@ -49,41 +49,14 @@ public class UserController {
 			// Executes the "Double Echo Broadcast" protocol to guarantee that all machines achieve the same status
 			startDoubleEcho(req);
 
-			ReportDTO report = this.userService.obtainLocationReport(req.getUserIDSender(), req.getUserIDRequested(), req.getEpoch());
+			// Read report
+			ReportDTO report = ByzantineAtomicRegisterService.receiveReadRequest(req, sec.getRid(), (UserService) userService);
+
 			System.out.println("[SERVER " + ServerApplication.serverId + "] Requested report was:"+report.toString());
 			return CryptoService.generateResponseSecureDTO(sec, report, ServerApplication.serverId); // Mais a frente quando houver vários servers esta função tera que ter server ID
 		} catch(ApplicationException e) {
 			System.out.println("\n[SERVER " + ServerApplication.serverId + "] Exception caught, rethrowing for ExceptionHandler.");
-			SecretKey sk = CryptoService.getSecretKeyFromDTO(sec, ServerApplication.serverId);
-
-			if(sk == null)
-				return null;
-
-			e.setSecretKey(sk);
-			throw e;
-		}
-	}
-
-	/**
-	 *	HA user asks for classified info for all users
-	 */
-	@PostMapping(PathConfiguration.OBTAIN_USERS_AT_LOCATION_EPOCH_ENDPOINT)
-	public SecureDTO obtainUsersAtLocation(@RequestBody SecureDTO sec) throws ApplicationException {
-		try {
-			RequestLocationDTO req = (RequestLocationDTO) CryptoService.extractEncryptedData(sec, RequestLocationDTO.class, ServerApplication.serverId);
-
-			if (req == null)
-				throw new ApplicationException("SecureDTO object was corrupt or malformed, was not possible to extract the information.");
-			verifyRequestSignatureAndNonce(sec, req.getUserIDSender(), PathConfiguration.OBTAIN_USERS_AT_LOCATION_EPOCH_ENDPOINT);
-
-			// Executes the "Double Echo Broadcast" protocol to guarantee that all machines achieve the same status
-			startDoubleEcho(req);
-
-			// Reads from the register
-			return ByzantineRegularRegisterService.receiveReadRequest(req, sec, userService);
-		} catch(ApplicationException e) {
-			System.out.println("\n[SERVER " + ServerApplication.serverId + "] Exception caught, rethrowing for ExceptionHandler.");
-			SecretKey sk = CryptoService.getSecretKeyFromDTO(sec, ServerApplication.serverId);
+			SecretKey sk = CryptoService.getServerSecretKeyFromDTO(sec, ServerApplication.serverId);
 
 			if(sk == null)
 				return null;
@@ -100,25 +73,25 @@ public class UserController {
 	public SecureDTO submitLocationReport(@RequestBody SecureDTO sec) throws ApplicationException {
 		try {
 			System.out.println("\n[SERVER" + ServerApplication.serverId + "] Received submit report request.");
-			ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(sec, ReportDTO.class, ServerApplication.serverId);
+			ReportDTO report = (ReportDTO) CryptoService.serverExtractEncryptedData(sec, ReportDTO.class, ServerApplication.serverId);
 			if (report == null)
 				throw new ApplicationException("[SERVER " + ServerApplication.serverId + "] SecureDTO object was corrupt or malformed, was not possible to extract the information.");
 
 			String clientId = report.getRequestProofDTO().getUserID();
-			verifyRequestSignatureAndNonce(sec, clientId, "/submitReport");
+			verifyRequestSignatureAndNonce(sec, clientId, PathConfiguration.SUBMIT_REPORT_ENDPOINT);
 
 			// Executes the "Double Echo Broadcast" protocol to guarantee that all machines achieve the same status
 			startDoubleEcho(report);
 
 			// Submit report
-			this.userService.submitLocationReport(report.getRequestProofDTO().getUserID(), report);
+			AcknowledgeDto ack = ByzantineAtomicRegisterService.receiveWriteRequest(clientId, report, sec.getTimestamp(), (UserService) userService);
 
 			// Report submitted, return to client
 			System.out.println("[SERVER " + ServerApplication.serverId + "] Report submitted successfully for client " + clientId);
-			return CryptoService.generateResponseSecureDTO(sec, "Report submitted successfully.", ServerApplication.serverId); // Mais a frente quando houver vários servers esta função tera que ter server ID
+			return CryptoService.generateResponseSecureDTO(sec, ack, ServerApplication.serverId);
 		} catch(ApplicationException e) {
 			System.out.println("\n[SERVER " + ServerApplication.serverId + "] Exception caught, rethrowing for ExceptionHandler.");
-			SecretKey sk = CryptoService.getSecretKeyFromDTO(sec, ServerApplication.serverId);
+			SecretKey sk = CryptoService.getServerSecretKeyFromDTO(sec, ServerApplication.serverId);
 
 			if(sk == null)
 				return null;
@@ -128,6 +101,37 @@ public class UserController {
 		}
 	}
 
+
+	/**
+	 *	HA user asks for classified info for all users
+	 */
+	@PostMapping(PathConfiguration.OBTAIN_USERS_AT_LOCATION_EPOCH_ENDPOINT)
+	public SecureDTO obtainUsersAtLocation(@RequestBody SecureDTO sec) throws ApplicationException {
+		try {
+			RequestLocationDTO req = (RequestLocationDTO) CryptoService.serverExtractEncryptedData(sec, RequestLocationDTO.class, ServerApplication.serverId);
+
+			if (req == null)
+				throw new ApplicationException("SecureDTO object was corrupt or malformed, was not possible to extract the information.");
+			verifyRequestSignatureAndNonce(sec, req.getUserIDSender(), PathConfiguration.OBTAIN_USERS_AT_LOCATION_EPOCH_ENDPOINT);
+
+			// Executes the "Double Echo Broadcast" protocol to guarantee that all machines achieve the same status
+			startDoubleEcho(req);
+
+			// Reads from the register
+			return ByzantineRegularRegisterService.receiveReadRequest(req, sec, userService);
+		} catch(ApplicationException e) {
+			System.out.println("\n[SERVER " + ServerApplication.serverId + "] Exception caught, rethrowing for ExceptionHandler.");
+			SecretKey sk = CryptoService.getServerSecretKeyFromDTO(sec, ServerApplication.serverId);
+
+			if(sk == null)
+				return null;
+
+			e.setSecretKey(sk);
+			throw e;
+		}
+	}
+
+
 	/**
 	 *	User requests all the proofs he previously issued
 	 */
@@ -135,7 +139,7 @@ public class UserController {
 	public SecureDTO requestMyProofs(@RequestBody SecureDTO sec) throws ApplicationException {
 		try {
 			System.out.println("\n[SERVER" + ServerApplication.serverId + "] Received get client issued proofs request.");
-			RequestUserProofsDTO requestUserProofs = (RequestUserProofsDTO) CryptoService.extractEncryptedData(sec, RequestUserProofsDTO.class, ServerApplication.serverId);
+			RequestUserProofsDTO requestUserProofs = (RequestUserProofsDTO) CryptoService.serverExtractEncryptedData(sec, RequestUserProofsDTO.class, ServerApplication.serverId);
 			if (requestUserProofs == null)
 				throw new ApplicationException("[SERVER " + ServerApplication.serverId + "] SecureDTO object was corrupt or malformed, was not possible to extract the information.");
 	
@@ -149,7 +153,7 @@ public class UserController {
 			return ByzantineRegularRegisterService.receiveReadRequest(requestUserProofs, sec, userService);
 		} catch(ApplicationException e) {
 			System.out.println("\n[SERVER " + ServerApplication.serverId + "] Exception caught, rethrowing for ExceptionHandler.");
-			SecretKey sk = CryptoService.getSecretKeyFromDTO(sec, ServerApplication.serverId);
+			SecretKey sk = CryptoService.getServerSecretKeyFromDTO(sec, ServerApplication.serverId);
 
 			if(sk == null)
 				return null;
@@ -160,10 +164,8 @@ public class UserController {
 	}
 
 
-
-
 	/***********************************************************************************************/
-	/* 							Auxiliary Fnctions	- Double Echo Broadcast						   */
+	/* 							Auxiliary Functions	- Double Echo Broadcast						   */
 	/***********************************************************************************************/
 
 
@@ -209,7 +211,7 @@ public class UserController {
 	 */
 	@PostMapping(PathConfiguration.SERVER_ECHO)
 	public void echo(@RequestBody SecureDTO secureDTO) throws ApplicationException {
-		RequestDTO requestDTO = (RequestDTO) CryptoService.extractEncryptedData(secureDTO, RequestDTO.class, ServerApplication.serverId);
+		RequestDTO requestDTO = (RequestDTO) CryptoService.serverExtractEncryptedData(secureDTO, RequestDTO.class, ServerApplication.serverId);
 		if (requestDTO == null)
 			throw new ApplicationException("[SERVER " + ServerApplication.serverId + "] SecureDTO object was corrupt or malformed, was not possible to extract the information.");
 		System.out.println("\n[SERVER" + ServerApplication.serverId + "] Received an echo from " + requestDTO.getServerId());
@@ -223,7 +225,7 @@ public class UserController {
 	 */
 	@PostMapping(PathConfiguration.SERVER_READY)
 	public void ready(@RequestBody SecureDTO secureDTO) throws ApplicationException {
-		RequestDTO requestDTO = (RequestDTO) CryptoService.extractEncryptedData(secureDTO, RequestDTO.class, ServerApplication.serverId);
+		RequestDTO requestDTO = (RequestDTO) CryptoService.serverExtractEncryptedData(secureDTO, RequestDTO.class, ServerApplication.serverId);
 		if (requestDTO == null)
 			throw new ApplicationException("[SERVER " + ServerApplication.serverId + "] SecureDTO object was corrupt or malformed, was not possible to extract the information.");
 		System.out.println("\n[SERVER" + ServerApplication.serverId + "] Received a ready from " + requestDTO.getServerId());
@@ -232,9 +234,24 @@ public class UserController {
 	}
 
 
+	/***********************************************************************************************/
+	/* 						Auxiliary Functions	- Byzantine Atomic Register						   */
+	/***********************************************************************************************/
+
+	@PostMapping(PathConfiguration.READ_COMPLETE_ENDPOINT)
+	public void readComplete(@RequestBody SecureDTO secureDTO) throws ApplicationException {
+		ReadCompleteDTO readCompleteDTO = (ReadCompleteDTO) CryptoService.serverExtractEncryptedData(secureDTO, ReadCompleteDTO.class, ServerApplication.serverId);
+		if(readCompleteDTO == null)
+			throw new ApplicationException("[SERVER " + ServerApplication.serverId + "] SecureDTO object was corrupt or malformed, was not possible to extract the information.");
+		System.out.println("\n[SERVER" + ServerApplication.serverId + "] Received a READ COMPLETE from " + readCompleteDTO.getClientId());
+
+		ByzantineAtomicRegisterService.readCompleteReceived(readCompleteDTO);
+	}
+
+
 
 	/***********************************************************************************************/
-	/* 							Auxiliary Fnctions	- Secure Channels							   */
+	/* 							Auxiliary Functions	- Secure Channels							   */
 	/***********************************************************************************************/
 
 	/**

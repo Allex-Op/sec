@@ -7,86 +7,58 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.4.3)
 
-2021-05-11 14:13:21.593  INFO 20838 --- [           main] p.u.t.s.secureclient.ClientApplication   : Starting ClientApplication v1.0 using Java 11.0.11 on ubuntu with PID 20838 (/home/allex/Secure-Communication/secure-client/target/secure-client-1.0.jar started by allex in /home/allex/Secure-Communication)
-2021-05-11 14:13:21.595  INFO 20838 --- [           main] p.u.t.s.secureclient.ClientApplication   : No active profile set, falling back to default profiles: default
-2021-05-11 14:13:22.980  INFO 20838 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9001 (http)
-2021-05-11 14:13:22.997  INFO 20838 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2021-05-11 14:13:22.998  INFO 20838 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
-2021-05-11 14:13:23.073  INFO 20838 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2021-05-11 14:13:23.074  INFO 20838 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1368 ms
-2021-05-11 14:13:23.382  INFO 20838 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2021-05-11 14:13:23.617  INFO 20838 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
-2021-05-11 14:13:23.664  INFO 20838 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9001 (http) with context path ''
-2021-05-11 14:13:23.700  INFO 20838 --- [           main] p.u.t.s.secureclient.ClientApplication   : Started ClientApplication in 2.67 seconds (JVM running for 3.117)
-2021-05-11 14:13:30.224  INFO 20838 --- [nio-9001-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-05-11 14:13:30.225  INFO 20838 --- [nio-9001-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2021-05-11 14:13:30.226  INFO 20838 --- [nio-9001-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-05-12 13:56:46.164  INFO 29537 --- [           main] p.u.t.s.secureclient.ClientApplication   : Starting ClientApplication v1.0 using Java 11.0.11 on ubuntu with PID 29537 (/home/allex/Secure-Communication/secure-client/target/secure-client-1.0.jar started by allex in /home/allex/Secure-Communication)
+2021-05-12 13:56:46.173  INFO 29537 --- [           main] p.u.t.s.secureclient.ClientApplication   : No active profile set, falling back to default profiles: default
+2021-05-12 13:56:54.065  INFO 29537 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9001 (http)
+2021-05-12 13:56:54.155  INFO 29537 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-05-12 13:56:54.163  INFO 29537 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
+2021-05-12 13:56:54.519  INFO 29537 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-05-12 13:56:54.542  INFO 29537 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 7885 ms
+2021-05-12 13:56:56.434  INFO 29537 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-12 13:56:57.690  INFO 29537 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2021-05-12 13:56:57.994  INFO 29537 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9001 (http) with context path ''
+2021-05-12 13:56:58.229  INFO 29537 --- [           main] p.u.t.s.secureclient.ClientApplication   : Started ClientApplication in 15.277 seconds (JVM running for 18.059)
+2021-05-12 13:57:57.146  INFO 29537 --- [nio-9001-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-05-12 13:57:57.146  INFO 29537 --- [nio-9001-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-05-12 13:57:57.148  INFO 29537 --- [nio-9001-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
 
-[Client1] Sending request to obtain issued proofs at epoch 0
-Reading public key: /home/allex/Secure-Communication/services/src/main/java/pt/ulisboa/tecnico/sec/services/keys/server/S0pub.key
-Error reading server public key
-Reading public key: /home/allex/Secure-Communication/services/src/main/java/pt/ulisboa/tecnico/sec/services/keys/server/S1pub.key
-Reading public key: /home/allex/Secure-Communication/services/src/main/java/pt/ulisboa/tecnico/sec/services/keys/server/S2pub.key
-Reading public key: /home/allex/Secure-Communication/services/src/main/java/pt/ulisboa/tecnico/sec/services/keys/server/S3pub.key
-Error encrypting random bytes with server public key
-[Client 1] Wasn't able to contact server.
-[Client 1] Wasn't able to contact server.
-[Client 1] Wasn't able to contact server.
-[Client 1] Wasn't able to contact server.
-2021-05-11 14:13:30.574 ERROR 20838 --- [nio-9001-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException: Client 1 wasn't able to obtain at least (N+f)/2 responses.] with root cause
+[Client1] Sending report request for user 1 at epoch0
+[Client 1] READ Byzantine Atomic register - received secureDTO
+[Error - Invalid Request Exception] No report found.
+null
+[Client 1] READ Byzantine Atomic register - received secureDTO
+[Error - Invalid Request Exception] No report found.
+null
+[Client 1] READ Byzantine Atomic register - received secureDTO
+[Error - Invalid Request Exception] No report found.
+null
+[Client 1] READ Byzantine Atomic register - received secureDTO
+[Error - Invalid Request Exception] No report found.
+null
+Application Exception error: Client 1 wasn't able to obtain at least (N+f)/2 responses for the READ atomic operation, some servers may be in an inconsistent status.
+Submitting report at epoch: 0
+[Client 1] WRITE Byzantine Atomic register - received secureDTO
 
-pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException: Client 1 wasn't able to obtain at least (N+f)/2 responses.
-	at pt.ulisboa.tecnico.sec.secureclient.services.ByzantineRegularRegisterService.readFromRegisters(ByzantineRegularRegisterService.java:126) ~[classes!/:1.0]
-	at pt.ulisboa.tecnico.sec.secureclient.services.UserService.requestMyProofs(UserService.java:55) ~[classes!/:1.0]
-	at pt.ulisboa.tecnico.sec.secureclient.controllers.Controller.requestIssuedProofs(Controller.java:82) ~[classes!/:1.0]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197) ~[spring-web-5.3.4.jar!/:5.3.4]
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141) ~[spring-web-5.3.4.jar!/:5.3.4]
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626) ~[tomcat-embed-core-9.0.43.jar!/:4.0.FR]
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.4.jar!/:5.3.4]
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733) ~[tomcat-embed-core-9.0.43.jar!/:4.0.FR]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.43.jar!/:9.0.43]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.4.jar!/:5.3.4]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.4.jar!/:5.3.4]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.4.jar!/:5.3.4]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.4.jar!/:5.3.4]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.4.jar!/:5.3.4]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.4.jar!/:5.3.4]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:887) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1684) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.43.jar!/:9.0.43]
-	at java.base/java.lang.Thread.run(Thread.java:829) ~[na:na]
+[SERVER1] Received an echo from server Id: 3
+[Client 1] WRITE Byzantine Atomic register - received secureDTO
 
+[SERVER1] Received an echo from server Id: 1
+[Client 1] WRITE Byzantine Atomic register - received secureDTO
+
+[SERVER1] Received an echo from server Id: 4
+[Client 1] WRITE Byzantine Atomic register - received secureDTO
+[Client 1] Write Byzantine Atomic register obtained minimum quorum to execute the write request!
+Report probably submitted
+
+[SERVER1] Received an echo from server Id: 2
+
+[Client1] Sending report request for user 1 at epoch0
+[Client 1] READ Byzantine Atomic register - received secureDTO
+[Client 1] READ Byzantine Atomic register - received secureDTO
+[Client 1] READ Byzantine Atomic register - received secureDTO
+[Client 1] READ Byzantine Atomic register - received secureDTO
+[Client id:1] Obtained byzantine quorum for the atomic READ operation!
+[Client id:1] READ Byzantine Atomic register - Sent READCOMPLETE message to serverId: 1
+[Client id:1] READ Byzantine Atomic register - Sent READCOMPLETE message to serverId: 2
+[Client id:1] READ Byzantine Atomic register - Sent READCOMPLETE message to serverId: 4
+[Client id:1] READ Byzantine Atomic register - Sent READCOMPLETE message to serverId: 3

@@ -76,4 +76,9 @@ public class ExceptionHandlerClient {
 
         return clientResp;
     }
+
+    @ExceptionHandler(ApplicationException.class)
+    private void handleApplicationException(ApplicationException e, HttpServletRequest req) {
+        System.out.println("Application Exception error: " + e.getLocalizedMessage());
+    }
 }

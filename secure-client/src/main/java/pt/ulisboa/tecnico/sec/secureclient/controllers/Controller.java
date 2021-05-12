@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import pt.ulisboa.tecnico.sec.secureclient.ClientApplication;
+import pt.ulisboa.tecnico.sec.secureclient.services.ByzantineAtomicRegisterService;
 import pt.ulisboa.tecnico.sec.secureclient.services.UserService;
 import pt.ulisboa.tecnico.sec.services.configs.ByzantineConfigurations;
 import pt.ulisboa.tecnico.sec.services.configs.PathConfiguration;
@@ -17,6 +18,7 @@ import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -66,9 +68,34 @@ public class Controller {
 	 *	Client asks for its location report at a certain epoch
 	 */
 	@GetMapping("/locations/{epoch}")
-	public ReportDTO requestLocationInformation(@PathVariable int epoch) {
+	public ReportDTO requestLocationInformation(@PathVariable int epoch) throws ApplicationException {
 		System.out.println("\n[Client"+ClientApplication.userId+"] Sending report request for user "+ ClientApplication.userId + " at epoch" + epoch);
 		return userService.obtainLocationReport(ClientApplication.userId, ClientApplication.userId, epoch);
+	}
+
+	/**
+	 *	Client submits report, only used for debug as usually does this is EpochTriggerMonitor
+	 */
+	@GetMapping(PathConfiguration.SUBMIT_REPORT_ENDPOINT)
+	public void submitReport() throws ApplicationException {
+		System.out.println("Submitting report at epoch: " + ClientApplication.epoch);
+		RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(10, 2, ClientApplication.epoch, ClientApplication.userId, "");
+		CryptoService.signRequestProofDTO(requestProofDTO);
+
+		ProofDTO proofDTO1 = DTOFactory.makeProofDTO(ClientApplication.epoch, "1", requestProofDTO, "");
+		CryptoService.signProofDTO(proofDTO1);
+
+		ProofDTO proofDTO2 = DTOFactory.makeProofDTO(ClientApplication.epoch, "2", requestProofDTO, "");
+		CryptoService.signProofDTO(proofDTO2);
+
+		ProofDTO proofDTO3 = DTOFactory.makeProofDTO(ClientApplication.epoch, "4", requestProofDTO, "");
+		CryptoService.signProofDTO(proofDTO3);
+
+		ReportDTO report = DTOFactory.makeReportDTO(requestProofDTO, Arrays.asList(proofDTO1,proofDTO2,proofDTO3));
+
+		ClientApplication.epoch--;
+		userService.submitLocationReport(ClientApplication.userId, report);
+		System.out.println("Report probably submitted");
 	}
 
 	/**
@@ -87,5 +114,22 @@ public class Controller {
 		}
 
 		return response;
+	}
+
+
+	/***********************************************************************************************/
+	/* 						Auxiliary Functions	- Byzantine Atomic Register						   */
+	/***********************************************************************************************/
+
+
+	@PostMapping(PathConfiguration.SPONTANEOUS_READ_ATOMIC_REGISTER)
+	public void receiveSpontaneousRead(@RequestBody SecureDTO sec, @PathVariable String serverId) throws ApplicationException {
+		ReportDTO report = (ReportDTO) CryptoService.clientExtractEncryptedData(sec, ReportDTO.class, ClientApplication.userId);
+		if (report == null)
+			throw new ApplicationException("[CLIENT " + ClientApplication.userId + "] SecureDTO object was corrupt or malformed, was not possible to extract the information at /spontaneousRead.");
+		System.out.println("\n[SERVER" + ClientApplication.userId + "] Received an echo from server Id: " + serverId);
+
+		// Submit it to the answers received data structure
+		ByzantineAtomicRegisterService.receiveSpontaneousRead(report, sec.getTimestamp(), serverId);
 	}
 }

@@ -8,6 +8,7 @@ public class PathConfiguration {
 
 	public static final String SERVER_URL = HOST + ":8080";
 	public static final int SERVER_PORT_BASE = 9200;
+	public static final int CLIENT_PORT_BASE = 9000;
 
 	public static final String GET_REPORT_ENDPOINT =  "/getReport";
 	public static final String SUBMIT_REPORT_ENDPOINT =  "/submitReport";
@@ -16,12 +17,16 @@ public class PathConfiguration {
 	public static final String SERVER_ECHO = "/echo";
 	public static final String SERVER_READY = "/ready";
 
+	public static final String SPONTANEOUS_READ_ATOMIC_REGISTER_ENDPOINT = "/spontaneousRead/";
+	public static final String SPONTANEOUS_READ_ATOMIC_REGISTER = "/spontaneousRead/{serverId}";
+	public static final String READ_COMPLETE_ENDPOINT = "/readComplete";
+
 	// Key Paths
 
 	public static final String CLIENT_KEY_FOLDER = System.getProperty("user.dir") + "/services/src/main/java/pt/ulisboa/tecnico/sec/services/keys/client";
 	public static final String SERVER_KEY_FOLDER = System.getProperty("user.dir") + "/services/src/main/java/pt/ulisboa/tecnico/sec/services/keys/server";
 
-	private PathConfiguration() {}
+    private PathConfiguration() {}
 	
 	public static String buildUrl(String host, String endpoint) { return host + endpoint; }
 	
