@@ -2,7 +2,7 @@ package pt.ulisboa.tecnico.sec.secureclient.commands.appcommands;
 
 import pt.ulisboa.tecnico.sec.secureclient.SpecialClientApplication;
 import pt.ulisboa.tecnico.sec.secureclient.commands.Command;
-import pt.ulisboa.tecnico.sec.secureclient.services.SpecialUserService;
+import pt.ulisboa.tecnico.sec.secureclient.services.SpecialUserServiceWithRegisters;
 import pt.ulisboa.tecnico.sec.services.configs.PathConfiguration;
 import pt.ulisboa.tecnico.sec.services.dto.DTOFactory;
 import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
@@ -14,7 +14,7 @@ import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
 import java.util.List;
 
 public class GatherProofsTestCommand extends Command {
-    private SpecialUserService userService = new SpecialUserService();
+    private SpecialUserServiceWithRegisters userService = new SpecialUserServiceWithRegisters();
 
     public static final int EXPECTED_ARGUMENTS = 1;
 

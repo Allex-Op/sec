@@ -1,11 +1,15 @@
 package pt.ulisboa.tecnico.sec.secureclient.commands.appcommands;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import pt.ulisboa.tecnico.sec.secureclient.SpecialClientApplication;
 import pt.ulisboa.tecnico.sec.secureclient.commands.Command;
-import pt.ulisboa.tecnico.sec.secureclient.services.SpecialUserService;
+import pt.ulisboa.tecnico.sec.secureclient.services.ProofOfWorkService;
+import pt.ulisboa.tecnico.sec.secureclient.services.SpecialUserServiceWithRegisters;
+import pt.ulisboa.tecnico.sec.services.configs.ByzantineConfigurations;
+import pt.ulisboa.tecnico.sec.services.configs.PathConfiguration;
 import pt.ulisboa.tecnico.sec.services.dto.DTOFactory;
 import pt.ulisboa.tecnico.sec.services.dto.ProofDTO;
 import pt.ulisboa.tecnico.sec.services.dto.ReportDTO;
@@ -17,7 +21,7 @@ import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
 
 public class ObtainReportTestCommand extends Command {
-	private SpecialUserService userService = new SpecialUserService();
+	private SpecialUserServiceWithRegisters userService = new SpecialUserServiceWithRegisters();
 
     public static final int EXPECTED_ARGUMENTS = 1;
 
@@ -56,30 +60,39 @@ public class ObtainReportTestCommand extends Command {
 		obtainReport(userIdSender, userIdRequested, epoch);
 	}
 	
-	private void reportWithInvalidSignature() {
+	private void reportWithInvalidSignature() throws ApplicationException {
 		System.out.println("[Test case 3] It will try to obtain a report but it will send a packet with an invalid signature. It shall fail.");
 		
 		// the data
 		String userIdSender = SpecialClientApplication.userId;
 		String userIdRequested = SpecialClientApplication.userId;
 		int epoch = 1;
-		
+
 		// Prepare the body of the HTTP request
         RequestLocationDTO req = new RequestLocationDTO();
         req.setUserIDSender(userIdSender);
         req.setUserIDRequested(userIdRequested);
         req.setEpoch(epoch);
-		
-        // Convert the above request body to a secure request object
+
+		// Build secure dtos
 		byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes, "1");
-		
-        // changing digital signature
-        secureDTO.setDigitalSignature("THIS_IS_AN_INVALID_SIGNATURE_LAHLAHLAH");
-        
-        ReportDTO report = this.userService.obtainInfo(secureDTO, randomBytes);
+		ArrayList<SecureDTO> secureDTOS = new ArrayList<>();
+		for (int serverId = 1; serverId <= ByzantineConfigurations.NUMBER_OF_SERVERS; serverId++) {
+			// Create secureDTO that will be sent to respective servers
+			SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes, serverId + "");
+
+			// Build the proof of work
+			secureDTO.setProofOfWork(ProofOfWorkService.findSolution(secureDTO.getData()));
+
+			// Sign the DTO with an invalid signature
+			secureDTO.setDigitalSignature("Fake digital signature");
+
+			secureDTOS.add(secureDTO);
+		}
+
+		ReportDTO report = this.userService.obtainInfo(secureDTOS, randomBytes, PathConfiguration.GET_REPORT_ENDPOINT);
         System.out.println("Obtained report: ");
-		if (report != null) 
+		if (report != null)
 			System.out.println(report.toString());
 	}
 	
@@ -94,7 +107,7 @@ public class ObtainReportTestCommand extends Command {
 		obtainReport(userIdSender, userIdRequested, epoch);		
 	}
 	
-	private void packetNonceRepeated() {
+	private void packetNonceRepeated() throws ApplicationException {
 		System.out.println("[Test case 5] It will obtain a report and then try to obtain it again with replay attack (same nonce). It shall fail for the 2nd one.");
 		System.out.println("[Test case 5] NOTE: For this test case it will submit a test report and obtain it.");
 		
@@ -111,26 +124,39 @@ public class ObtainReportTestCommand extends Command {
         req.setUserIDSender(userIdSender);
         req.setUserIDRequested(userIdRequested);
         req.setEpoch(epoch);
-		
-        // Convert the above request body to a secure request object
-		byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes, "1");
-        
+
         System.out.println("[Special Client "+ SpecialClientApplication.userId+"] Trying to obtain the reports...");
-		
-        ReportDTO report1 = this.userService.obtainInfo(secureDTO, randomBytes);
+
+		// Build secure dtos
+		byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
+		ArrayList<SecureDTO> secureDTOS = new ArrayList<>();
+		for (int serverId = 1; serverId <= ByzantineConfigurations.NUMBER_OF_SERVERS; serverId++) {
+			// Create secureDTO that will be sent to respective servers
+			SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes, serverId + "");
+
+			// Build the proof of work
+			secureDTO.setProofOfWork(ProofOfWorkService.findSolution(secureDTO.getData()));
+
+			// Sign the DTO with an invalid signature
+			CryptoService.signSecureDTO(secureDTO, CryptoUtils.getClientPrivateKey(SpecialClientApplication.userId));
+
+			secureDTOS.add(secureDTO);
+		}
+
+		// Sends DTOs
+        ReportDTO report1 = this.userService.obtainInfo(secureDTOS, randomBytes, PathConfiguration.GET_REPORT_ENDPOINT);
         System.out.println("Obtained report: ");
 		if (report1 != null)
 			System.out.println(report1.toString());
-		
-        ReportDTO report2 = this.userService.obtainInfo(secureDTO, randomBytes);
+
+
+		ReportDTO report2 = this.userService.obtainInfo(secureDTOS, randomBytes, PathConfiguration.GET_REPORT_ENDPOINT);
         System.out.println("Obtained report: ");
 		if (report2 != null) 
 			System.out.println(report2.toString());
 	}
 	
 	// AUXILIAR FUNCTIONS
-	
 	private void obtainReport(String userIdSender, String userIdRequested, int epoch) {
 		try {
 			ReportDTO report = this.userService.obtainLocationReport(userIdSender, userIdRequested, epoch);

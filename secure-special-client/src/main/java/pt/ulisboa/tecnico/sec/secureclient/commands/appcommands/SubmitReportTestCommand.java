@@ -3,7 +3,10 @@ package pt.ulisboa.tecnico.sec.secureclient.commands.appcommands;
 import pt.ulisboa.tecnico.sec.secureclient.SpecialClientApplication;
 import pt.ulisboa.tecnico.sec.secureclient.commands.Command;
 import pt.ulisboa.tecnico.sec.secureclient.exceptions.NotSufficientArgumentsException;
-import pt.ulisboa.tecnico.sec.secureclient.services.SpecialUserService;
+import pt.ulisboa.tecnico.sec.secureclient.services.ProofOfWorkService;
+import pt.ulisboa.tecnico.sec.secureclient.services.SpecialUserServiceWithRegisters;
+import pt.ulisboa.tecnico.sec.services.configs.ByzantineConfigurations;
+import pt.ulisboa.tecnico.sec.services.configs.PathConfiguration;
 import pt.ulisboa.tecnico.sec.services.dto.*;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 import pt.ulisboa.tecnico.sec.services.exceptions.UnreachableClientException;
@@ -11,11 +14,12 @@ import pt.ulisboa.tecnico.sec.services.interfaces.ISpecialUserService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class SubmitReportTestCommand extends Command {
-    private ISpecialUserService userService = new SpecialUserService();
+    private ISpecialUserService userService = new SpecialUserServiceWithRegisters();
 
     public static final int EXPECTED_ARGUMENTS = 1;
 
@@ -117,7 +121,7 @@ public class SubmitReportTestCommand extends Command {
         sendReport(report);
     }
 
-    private void packetNonceRepeated() throws UnreachableClientException {
+    private void packetNonceRepeated() throws ApplicationException {
         System.out.println("[Test case 4] It will submit 2 valid reports but with a repeated nonce (Replay Attack). The 2nd submission will fail as the 2nd packet nonce already was seen.");
         RequestProofDTO requestProofDTO = DTOFactory.makeRequestProofDTO(10, 2, epochInReport, SpecialClientApplication.userId, "");
         CryptoService.signRequestProofDTO(requestProofDTO);
@@ -133,14 +137,25 @@ public class SubmitReportTestCommand extends Command {
 
         ReportDTO report = DTOFactory.makeReportDTO(requestProofDTO, Arrays.asList(proofDTO1,proofDTO2,proofDTO3));
 
+        // Build secure dtos
         byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
+        ArrayList<SecureDTO> secureDTOS = new ArrayList<>();
+        for (int serverId = 1; serverId <= ByzantineConfigurations.NUMBER_OF_SERVERS; serverId++) {
+            // Create secureDTO that will be sent to respective servers
+            SecureDTO secureDTO = CryptoService.generateNewSecureDTO(report, SpecialClientApplication.userId, randomBytes, serverId + "");
 
-        // We will send this secureDTO two times, because it will contain the same 'NONCE'
-        SecureDTO secureDTO = CryptoService.generateNewSecureDTO(report, SpecialClientApplication.userId, randomBytes, "1");
+            // Build the proof of work
+            secureDTO.setProofOfWork(ProofOfWorkService.findSolution(secureDTO.getData()));
+
+            // Sign the DTO with an invalid signature
+            CryptoService.signSecureDTO(secureDTO, CryptoUtils.getClientPrivateKey(SpecialClientApplication.userId));
+
+            secureDTOS.add(secureDTO);
+        }
 
         epochInReport--;
-        ((SpecialUserService) userService).sendInfo(secureDTO, randomBytes);
-        ((SpecialUserService) userService).sendInfo(secureDTO, randomBytes);
+        ((SpecialUserServiceWithRegisters) userService).sendInfo(secureDTOS, randomBytes, PathConfiguration.SUBMIT_REPORT_ENDPOINT);
+        ((SpecialUserServiceWithRegisters) userService).sendInfo(secureDTOS, randomBytes, PathConfiguration.SUBMIT_REPORT_ENDPOINT);
     }
 
     private void reportWithMessageStealing() throws ApplicationException {

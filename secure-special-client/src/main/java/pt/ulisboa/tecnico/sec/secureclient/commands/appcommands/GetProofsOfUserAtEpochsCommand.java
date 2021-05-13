@@ -6,13 +6,13 @@ import java.util.List;
 import pt.ulisboa.tecnico.sec.secureclient.SpecialClientApplication;
 import pt.ulisboa.tecnico.sec.secureclient.commands.Command;
 import pt.ulisboa.tecnico.sec.secureclient.exceptions.NotSufficientArgumentsException;
-import pt.ulisboa.tecnico.sec.secureclient.services.SpecialUserService;
+import pt.ulisboa.tecnico.sec.secureclient.services.SpecialUserServiceWithRegisters;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 import pt.ulisboa.tecnico.sec.services.interfaces.ISpecialUserService;
 
 public class GetProofsOfUserAtEpochsCommand extends Command {
 	
-	private ISpecialUserService userService = new SpecialUserService();
+	private ISpecialUserService userService = new SpecialUserServiceWithRegisters();
 	
 	public static final int EXPECTED_ARGUMENTS = 2; // in this case is the minimum 
 

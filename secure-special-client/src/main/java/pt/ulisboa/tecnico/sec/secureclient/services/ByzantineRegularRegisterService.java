@@ -2,17 +2,19 @@ package pt.ulisboa.tecnico.sec.secureclient.services;
 
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-import pt.ulisboa.tecnico.sec.secureclient.ClientApplication;
+import pt.ulisboa.tecnico.sec.secureclient.SpecialClientApplication;
 import pt.ulisboa.tecnico.sec.services.configs.ByzantineConfigurations;
 import pt.ulisboa.tecnico.sec.services.configs.PathConfiguration;
-import pt.ulisboa.tecnico.sec.services.dto.ResponseUserProofsDTO;
 import pt.ulisboa.tecnico.sec.services.dto.SecureDTO;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 import pt.ulisboa.tecnico.sec.services.exceptions.UnreachableClientException;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
@@ -25,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ByzantineRegularRegisterService {
     // Send HTTP requests
     private static RestTemplate restTemplate = new RestTemplate();
-
+    
     // Request ID for the current read, the server must return the same r = rid
     private static AtomicInteger rid = new AtomicInteger(0);
 
@@ -46,7 +48,7 @@ public class ByzantineRegularRegisterService {
         CountDownLatch latch = new CountDownLatch(ByzantineConfigurations.NUMBER_OF_SERVERS);
 
         // Messages received from servers
-        ConcurrentHashMap<byte[], SecureDTO> readlist = new ConcurrentHashMap<>();
+        List<SecureDTO> readlist = Collections.synchronizedList(new ArrayList<SecureDTO>());
 
         SecureDTO response = null;
 
@@ -55,7 +57,7 @@ public class ByzantineRegularRegisterService {
         ArrayList<SecureDTO> secureDTOS = buildSecureDtosForAllServers(unsecureDTO, userIdSender, randomBytes, rid.incrementAndGet());
 
         // Send to each server a read request with the current RID
-        for (int i = 1; i <= ClientApplication.numberOfServers; i++) {
+        for (int i = 1; i <= SpecialClientApplication.numberOfServers; i++) {
             int serverId = i;
 
             // Get secureDto
@@ -70,11 +72,11 @@ public class ByzantineRegularRegisterService {
                     SecureDTO sec = sendMessageToServer(secureDTO, url);
 
                     if (sec == null) {
-                        System.out.println("[Client " + ClientApplication.userId + "] Wasn't able to contact server " + serverId);
+                        System.out.println("[Client " + SpecialClientApplication.userId + "] Wasn't able to contact server " + serverId);
                     } else {
                         if (secureDTO != null && CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey(serverId + ""))) {
-                            System.out.println("[Client " + ClientApplication.userId + "] Byzantine regular register received secureDTO");
-                            readlist.put(randomBytes, sec);
+                            System.out.println("[Client " + SpecialClientApplication.userId + "] Byzantine regular register received secureDTO");
+                            readlist.add(sec);
                         }
                     }
                 } catch (Exception e){
@@ -99,17 +101,17 @@ public class ByzantineRegularRegisterService {
 
 
         // If the number of replies is bigger than (N+f)/2, the byzantine quorum is met and 1 reply is correct
-        if(readlist.size() > (ClientApplication.numberOfServers + ByzantineConfigurations.MAX_BYZANTINE_FAULTS) / 2) {
-            System.out.println("[Client " + ClientApplication.userId + "] Byzantine regular register obtained minimum quorum.");
+        if(readlist.size() > (SpecialClientApplication.numberOfServers + ByzantineConfigurations.MAX_BYZANTINE_FAULTS) / 2) {
+            System.out.println("[Client " + SpecialClientApplication.userId + "] Byzantine regular register obtained minimum quorum.");
 
             // From the replies, choose the one with highest timestamp and return it
-            byte[] currRandomBytes = highestval(readlist);
-            R unwrappedDTO = (R) CryptoService.extractEncryptedData(readlist.get(currRandomBytes), responseClass, CryptoUtils.createSharedKeyFromString(currRandomBytes));
+            SecureDTO highestSecureDto = highestval(readlist);
+            R unwrappedDTO = (R) CryptoService.extractEncryptedData(highestSecureDto, responseClass, CryptoUtils.createSharedKeyFromString(randomBytes));
             return unwrappedDTO;
         }
 
         // A byzantine quorum minimum wasn't met.
-        throw new ApplicationException("Client " + ClientApplication.userId + " wasn't able to obtain at least (N+f)/2 responses.");
+        throw new ApplicationException("Client " + SpecialClientApplication.userId + " wasn't able to obtain at least (N+f)/2 responses.");
     }
 
     /**
@@ -126,30 +128,26 @@ public class ByzantineRegularRegisterService {
             ResponseEntity<SecureDTO> result = restTemplate.exchange(url, HttpMethod.POST, entity, SecureDTO.class);
             return result.getBody();
         } catch (Exception e) {
-            throw new UnreachableClientException("[Client " + ClientApplication.userId + "] Byzantine Regular register - Wasn't able to contact server.");
+            throw new UnreachableClientException("[Client " + SpecialClientApplication.userId + "] Byzantine Regular register - Wasn't able to contact server.");
         }
     }
 
     /**
      * From a list of secure dto's, returns the one
      * with highest timestamp.
+     * @param readlist
      */
-    private static byte[] highestval(ConcurrentHashMap<byte[], SecureDTO> readlist) {
-        byte[] highestKey = null;
-        long highestTimestamp = 0;
+    private static SecureDTO highestval(List<SecureDTO> readlist) {
+        SecureDTO highestSecureDto = readlist.get(0);
+        long highestTimestamp = highestSecureDto.getTimestamp();
 
-        for (byte[] bytes : readlist.keySet()) {
-            if(highestKey == null)
-                highestKey = bytes;
-
-            long currTimestamp = readlist.get(bytes).getTimestamp();
-            if( currTimestamp > highestTimestamp) {
-                highestKey = bytes;
-                highestTimestamp = currTimestamp;
-            }
+        for (SecureDTO secureDTO : readlist) {
+            long currTimestamp = secureDTO.getTimestamp();
+            if(currTimestamp > highestTimestamp)
+                highestSecureDto = secureDTO;
         }
 
-        return highestKey;
+        return highestSecureDto;
     }
 
 
@@ -171,7 +169,7 @@ public class ByzantineRegularRegisterService {
             secureDTO.setProofOfWork(ProofOfWorkService.findSolution(secureDTO.getData()));
 
             // Sign the DTO
-            CryptoService.signSecureDTO(secureDTO, CryptoUtils.getClientPrivateKey(ClientApplication.userId));
+            CryptoService.signSecureDTO(secureDTO, CryptoUtils.getClientPrivateKey(SpecialClientApplication.userId));
 
             secureDTOS.add(secureDTO);
         }
