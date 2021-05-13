@@ -12,8 +12,13 @@ public class SecureDTO {
     private String digitalSignature;
     private String nonce;
     private String iv;
+
+    // Registers
     private long timestamp;
     private int rid;
+
+    // Proof of Work
+    private String proofOfWork;
 
     //Don't delete constructor, necessary for Jackson to work
     public SecureDTO() {}
@@ -79,6 +84,14 @@ public class SecureDTO {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getProofOfWork() {
+        return proofOfWork;
+    }
+
+    public void setProofOfWork(String proofOfWork) {
+        this.proofOfWork = proofOfWork;
     }
 
     @Override

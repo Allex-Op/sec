@@ -211,4 +211,17 @@ public class CryptoUtils {
         return null;
     }
 
+
+    public static byte[] computeSHA256Hash(String... input) throws NoSuchAlgorithmException {
+        String messageConcat = String.join("", input);
+        return computeSHA256Hash(messageConcat.getBytes());
+    }
+
+    private static byte[] computeSHA256Hash(byte[] inputBytes) throws NoSuchAlgorithmException {
+        byte[] digestBytes;
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        digestBytes = digest.digest(inputBytes);
+        return digestBytes;
+    }
+
 }

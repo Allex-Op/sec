@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import pt.ulisboa.tecnico.sec.secureserver.ServerApplication;
-import pt.ulisboa.tecnico.sec.secureserver.services.ByzantineAtomicRegisterService;
-import pt.ulisboa.tecnico.sec.secureserver.services.ByzantineRegularRegisterService;
-import pt.ulisboa.tecnico.sec.secureserver.services.NetworkService;
-import pt.ulisboa.tecnico.sec.secureserver.services.UserService;
+import pt.ulisboa.tecnico.sec.secureserver.services.*;
 import pt.ulisboa.tecnico.sec.services.configs.PathConfiguration;
 import pt.ulisboa.tecnico.sec.services.dto.*;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
@@ -39,6 +36,8 @@ public class UserController {
 	@PostMapping(PathConfiguration.GET_REPORT_ENDPOINT)
 	public SecureDTO obtainLocationReport(@RequestBody SecureDTO sec) throws ApplicationException {
 		try {
+			verifyProofOfWork(sec);
+
 			System.out.println("\n[SERVER " + ServerApplication.serverId + "] Received obtain report request.");
 			RequestLocationDTO req = (RequestLocationDTO) CryptoService.serverExtractEncryptedData(sec, RequestLocationDTO.class, ServerApplication.serverId);
 
@@ -72,6 +71,8 @@ public class UserController {
 	@PostMapping(PathConfiguration.SUBMIT_REPORT_ENDPOINT)
 	public SecureDTO submitLocationReport(@RequestBody SecureDTO sec) throws ApplicationException {
 		try {
+			verifyProofOfWork(sec);
+
 			System.out.println("\n[SERVER" + ServerApplication.serverId + "] Received submit report request.");
 			ReportDTO report = (ReportDTO) CryptoService.serverExtractEncryptedData(sec, ReportDTO.class, ServerApplication.serverId);
 			if (report == null)
@@ -108,6 +109,8 @@ public class UserController {
 	@PostMapping(PathConfiguration.OBTAIN_USERS_AT_LOCATION_EPOCH_ENDPOINT)
 	public SecureDTO obtainUsersAtLocation(@RequestBody SecureDTO sec) throws ApplicationException {
 		try {
+			verifyProofOfWork(sec);
+
 			RequestLocationDTO req = (RequestLocationDTO) CryptoService.serverExtractEncryptedData(sec, RequestLocationDTO.class, ServerApplication.serverId);
 
 			if (req == null)
@@ -138,6 +141,8 @@ public class UserController {
 	@PostMapping(PathConfiguration.GET_PROOFS_AT_EPOCHS_ENDPOINT)
 	public SecureDTO requestMyProofs(@RequestBody SecureDTO sec) throws ApplicationException {
 		try {
+			verifyProofOfWork(sec);
+
 			System.out.println("\n[SERVER" + ServerApplication.serverId + "] Received get client issued proofs request.");
 			RequestUserProofsDTO requestUserProofs = (RequestUserProofsDTO) CryptoService.serverExtractEncryptedData(sec, RequestUserProofsDTO.class, ServerApplication.serverId);
 			if (requestUserProofs == null)
@@ -267,4 +272,14 @@ public class UserController {
 		((UserService) this.userService).verifyNonce(userId, sec.getNonce());
 	}
 
+
+	private void verifyProofOfWork(SecureDTO sec) throws ApplicationException {
+		// Verify if the solution is correct
+		if(!ProofOfWorkService.verifySolution(sec)) {
+			System.out.println("[Server id: " + ServerApplication.serverId+"] Proof of work failed.");
+			throw new ApplicationException("Invalid proof of work.");
+		} else {
+			System.out.println("[Server id: " + ServerApplication.serverId+"] Proof of work valid.");
+		}
+	}
 }

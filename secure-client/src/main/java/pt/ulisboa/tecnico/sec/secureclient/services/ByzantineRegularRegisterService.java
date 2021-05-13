@@ -25,15 +25,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ByzantineRegularRegisterService {
     // Send HTTP requests
     private static RestTemplate restTemplate = new RestTemplate();
-
-    // Ackowledgments sent by server during step 4
-    private static Map<String, SecureDTO> acklist = new ConcurrentHashMap<>();
-
+    
     // Request ID for the current read, the server must return the same r = rid
     private static AtomicInteger rid = new AtomicInteger(0);
 
-    // Timestamp of the request, used by both server and client
-    private static String timestamp = "";
 
     /**
      * Called when the client wants to read
@@ -55,17 +50,19 @@ public class ByzantineRegularRegisterService {
 
         SecureDTO response = null;
 
+        // Build the secureDtos
+        byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
+        ArrayList<SecureDTO> secureDTOS = buildSecureDtosForAllServers(unsecureDTO, userIdSender, randomBytes, rid.incrementAndGet());
+
         // Send to each server a read request with the current RID
         for (int i = 1; i <= ClientApplication.numberOfServers; i++) {
             int serverId = i;
+
+            // Get secureDto
+            SecureDTO secureDTO = secureDTOS.get(i-1);
+
             CompletableFuture.runAsync(() -> {
                 try {
-                    // Create secureDTO that will be sent to respective servers
-                    byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-                    SecureDTO secureDTO = CryptoService.generateNewSecureDTO(unsecureDTO, userIdSender, randomBytes, serverId + "");
-                    secureDTO.setRid(rid.incrementAndGet());
-                    CryptoService.signSecureDTO(secureDTO, CryptoUtils.getClientPrivateKey(ClientApplication.userId));
-
                     // Build the URL that the request will be sent
                     String url = PathConfiguration.buildUrl(PathConfiguration.getServerUrl(serverId), endpoint);
 
@@ -106,8 +103,8 @@ public class ByzantineRegularRegisterService {
             System.out.println("[Client " + ClientApplication.userId + "] Byzantine regular register obtained minimum quorum.");
 
             // From the replies, choose the one with highest timestamp and return it
-            byte[] randomBytes = highestval(readlist);
-            R unwrappedDTO = (R) CryptoService.extractEncryptedData(readlist.get(randomBytes), responseClass, CryptoUtils.createSharedKeyFromString(randomBytes));
+            byte[] currRandomBytes = highestval(readlist);
+            R unwrappedDTO = (R) CryptoService.extractEncryptedData(readlist.get(currRandomBytes), responseClass, CryptoUtils.createSharedKeyFromString(currRandomBytes));
             return unwrappedDTO;
         }
 
@@ -155,4 +152,30 @@ public class ByzantineRegularRegisterService {
         return highestKey;
     }
 
+
+    /**
+     *  Builds a list of secure DTOs that will be sent to the server
+     */
+    private static <R> ArrayList<SecureDTO> buildSecureDtosForAllServers(R req, String userIdSender, byte[] randomBytes, int rid) throws ApplicationException {
+        ArrayList<SecureDTO> secureDTOS = new ArrayList<>();
+        for (int serverId = 1; serverId <= ByzantineConfigurations.NUMBER_OF_SERVERS; serverId++) {
+            // Create secureDTO that will be sent to respective servers
+            SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes, serverId + "");
+
+            // Set RID for read requests, not needed for WRITE requests
+            if(rid != -1)
+                secureDTO.setRid(rid);
+
+            // Build the proof of work
+            //TODO: Fazer apenas um proof of work
+            secureDTO.setProofOfWork(ProofOfWorkService.findSolution(secureDTO.getData()));
+
+            // Sign the DTO
+            CryptoService.signSecureDTO(secureDTO, CryptoUtils.getClientPrivateKey(ClientApplication.userId));
+
+            secureDTOS.add(secureDTO);
+        }
+
+        return secureDTOS;
+    }
 }

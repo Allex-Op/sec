@@ -60,15 +60,17 @@ public class ByzantineAtomicRegisterService {
         // Timestamp for the current write
         long currTimestamp = timestamp.incrementAndGet();
 
+        // Build secure dtos
+        byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
+        ArrayList<SecureDTO> secureDTOS = buildSecureDtosForAllServers(report, userIdSender, randomBytes, -1, currTimestamp);
+
         for (int i = 1; i <= ByzantineConfigurations.NUMBER_OF_SERVERS; i++) {
             int serverId = i;
+
+            SecureDTO secureDTO = secureDTOS.get(i-1);
+
             CompletableFuture.runAsync(() -> {
                 try {
-                    // Create secureDTO that will be sent to respective servers
-                    byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-                    SecureDTO secureDTO = CryptoService.generateNewSecureDTO(report, userIdSender, randomBytes, serverId + "");
-                    secureDTO.setTimestamp(currTimestamp);
-                    CryptoService.signSecureDTO(secureDTO, CryptoUtils.getClientPrivateKey(ClientApplication.userId));
 
                     // Build the URL that the request will be sent
                     String url = PathConfiguration.buildUrl(PathConfiguration.getServerUrl(serverId), PathConfiguration.SUBMIT_REPORT_ENDPOINT);
@@ -82,12 +84,20 @@ public class ByzantineAtomicRegisterService {
                         System.out.println("[Client " + ClientApplication.userId + "] WRITE Byzantine Atomic register - Wasn't able to contact server " + serverId);
                     } else {
                         // Check if the received response has a valid digital signature
-                        if (secureDTO != null && CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey(serverId + ""))) {
+                        if (CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey(serverId + ""))) {
                             System.out.println("[Client " + ClientApplication.userId + "] WRITE Byzantine Atomic register - received secureDTO");
 
                             // Adds the received acknowledge to acklist so the quorum can be checked
                             AcknowledgeDto ackDto = (AcknowledgeDto) CryptoService.extractEncryptedData(sec, AcknowledgeDto.class, CryptoUtils.createSharedKeyFromString(randomBytes));
-                            acklist.put(ackDto.getServerId(), ackDto);
+
+                            // When application exceptions are thrown by the server e.g. "report duplicated" or "report not found"
+                            // the server won't answer an ACKNOWLEDGE DTO but an ErrorMessageResponse, which will then fail the conversion
+                            // in the function extractEncryptedData above. Then this client request will throw an exception saying
+                            // that the byzantine quorum wasn't meet, which is false...
+                            if(ackDto == null)
+                                acklist.put(serverId+"", new AcknowledgeDto());
+                            else
+                                acklist.put(ackDto.getServerId(), ackDto);
                         }
                     }
                 } catch (Exception e){
@@ -124,6 +134,7 @@ public class ByzantineAtomicRegisterService {
         throw new ApplicationException("Client " + ClientApplication.userId + " wasn't able to obtain at least (N+f)/2 responses for the WRITE atomic operation, some servers may be in an inconsistent status.");
     }
 
+
     /**
      *  Starts an atomic read to the server registers.
      *
@@ -140,17 +151,22 @@ public class ByzantineAtomicRegisterService {
         // Clear all answers entries for all timestamps
         answers.clear();
 
+        //Secure dtos to be sent
         // Send READ request to all servers
+        byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
+        ArrayList<SecureDTO> secDtos = buildSecureDtosForAllServers(req, req.getUserIDSender(), randomBytes, currRid, -1);
+
         for (int i = 1; i <= ByzantineConfigurations.NUMBER_OF_SERVERS; i++) {
             int serverId = i;
+
+            // Copy to be able to use it locally in the lambda of the async task
+            byte[] finalRandomBytes = randomBytes;
+
+            // The secure DTO being sent
+            SecureDTO secureDTO = secDtos.get(serverId-1);
+
             CompletableFuture.runAsync(() -> {
                 try {
-                    // Create secureDTO that will be sent to respective servers
-                    byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-                    SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, req.getUserIDSender(), randomBytes, serverId + "");
-                    secureDTO.setRid(currRid);
-                    CryptoService.signSecureDTO(secureDTO, CryptoUtils.getClientPrivateKey(ClientApplication.userId));
-
                     // Build the URL that the request will be sent
                     String url = PathConfiguration.buildUrl(PathConfiguration.getServerUrl(serverId), PathConfiguration.GET_REPORT_ENDPOINT);
 
@@ -163,11 +179,11 @@ public class ByzantineAtomicRegisterService {
                         System.out.println("[Client " + ClientApplication.userId + "] READ Byzantine Atomic register - Wasn't able to contact server " + serverId);
                     } else {
                         // Check if the received response has a valid digital signature
-                        if (secureDTO != null && CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey(serverId + ""))) {
+                        if (CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey(serverId + ""))) {
                             System.out.println("[Client " + ClientApplication.userId + "] READ Byzantine Atomic register - received secureDTO");
 
                             // Adds the received acknowledge to acklist so the quorum can be checked
-                            ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(sec, ReportDTO.class, CryptoUtils.createSharedKeyFromString(randomBytes));
+                            ReportDTO report = (ReportDTO) CryptoService.extractEncryptedData(sec, ReportDTO.class, CryptoUtils.createSharedKeyFromString(finalRandomBytes));
 
                             // Creates an entry for the current timestamp if there is not  one already
                             answers.putIfAbsent(sec.getTimestamp(), new ConcurrentHashMap<>());
@@ -196,10 +212,14 @@ public class ByzantineAtomicRegisterService {
             }
         } while (!responses);
 
+
         // If the read value from the server is equal to the current rid
         // check for each timestamp entry, if there exists a value "v"
         // which its count is higher than (N+f)/2, if there is send a READCOMPLETE message
         // to all servers to unregister itself from the listening list.
+        randomBytes = CryptoUtils.generateRandom32Bytes();
+        secDtos = buildSecureDtosForAllServers(req, req.getUserIDSender(), randomBytes, currRid, -1);
+
         ArrayList<ReportDTO> reports = flattenHashMaps();
         for (ReportDTO report : reports) {
             int occurrences = Collections.frequency(reports, report);
@@ -214,14 +234,12 @@ public class ByzantineAtomicRegisterService {
 
                 for (int i = 1; i <= ByzantineConfigurations.NUMBER_OF_SERVERS; i++) {
                     int serverId = i;
+
+                    // Create secureDTO that will be sent to respective servers
+                    SecureDTO secureDTO = secDtos.get(serverId-1);
+
                     CompletableFuture.runAsync(() -> {
                         try {
-                            // Create secureDTO that will be sent to respective servers
-                            byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-                            SecureDTO secureDTO = CryptoService.generateNewSecureDTO(readCompleteDTO, ClientApplication.userId, randomBytes, serverId + "");
-                            secureDTO.setRid(currRid);
-                            CryptoService.signSecureDTO(secureDTO, CryptoUtils.getClientPrivateKey(ClientApplication.userId));
-
                             // Build the URL that the request will be sent
                             String url = PathConfiguration.buildUrl(PathConfiguration.getServerUrl(serverId), PathConfiguration.READ_COMPLETE_ENDPOINT);
 
@@ -267,6 +285,37 @@ public class ByzantineAtomicRegisterService {
         answers.putIfAbsent(timestamp, new ConcurrentHashMap<>());
         answers.get(timestamp).put(serverId, report);
     }
+
+    /**
+     *  Builds a list of secure DTOs that will be sent to the server
+     */
+    private static <R> ArrayList<SecureDTO> buildSecureDtosForAllServers(R req, String userIdSender, byte[] randomBytes, int rid, long timestamp) throws ApplicationException {
+        ArrayList<SecureDTO> secureDTOS = new ArrayList<>();
+        for (int serverId = 1; serverId <= ByzantineConfigurations.NUMBER_OF_SERVERS; serverId++) {
+            // Create secureDTO that will be sent to respective servers
+            SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes, serverId + "");
+
+            // Set timestamp
+            if(timestamp != -1)
+                secureDTO.setTimestamp(timestamp);
+
+            // Set RID for read requests, not needed for WRITE requests
+            if(rid != -1)
+                secureDTO.setRid(rid);
+
+            // Build the proof of work
+            //TODO: Fazer apenas um proof of work
+            secureDTO.setProofOfWork(ProofOfWorkService.findSolution(secureDTO.getData()));
+
+            // Sign the DTO
+            CryptoService.signSecureDTO(secureDTO, CryptoUtils.getClientPrivateKey(ClientApplication.userId));
+
+            secureDTOS.add(secureDTO);
+        }
+
+        return secureDTOS;
+    }
+
 
     /**
      *  Sends HTTP request

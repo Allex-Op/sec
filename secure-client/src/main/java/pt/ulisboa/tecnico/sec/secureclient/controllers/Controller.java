@@ -95,7 +95,6 @@ public class Controller {
 
 		ClientApplication.epoch--;
 		userService.submitLocationReport(ClientApplication.userId, report);
-		System.out.println("Report probably submitted");
 	}
 
 	/**
