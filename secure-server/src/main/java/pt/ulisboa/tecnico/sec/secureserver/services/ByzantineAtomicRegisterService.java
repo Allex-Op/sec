@@ -121,6 +121,7 @@ public class ByzantineAtomicRegisterService {
             ResponseEntity<SecureDTO> result = restTemplate.exchange(url, HttpMethod.POST, entity, SecureDTO.class);
             return result.getBody();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new UnreachableClientException("[Server " + ServerApplication.serverId + "] Byzantine Atomic register - Wasn't able to contact server.");
         }
     }

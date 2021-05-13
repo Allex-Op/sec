@@ -92,7 +92,6 @@ public class NetworkService {
 
                     // Number of times that this request was "ECHOED" by other servers
                     int numRequestEchoed = Collections.frequency(requests, temp);
-
                     // If the request was "ECHOED" more than (N+f)/2, then current server sends a ready message to all other servers (STEP 5 protocol)
                     if ( numRequestEchoed > (ByzantineConfigurations.NUMBER_OF_SERVERS + ByzantineConfigurations.MAX_BYZANTINE_FAULTS) / 2
                             && !sentReady.containsKey(clientMap.getKey())) {
@@ -138,7 +137,6 @@ public class NetworkService {
 
                     // Number of "READY" messages sent by other servers to the current request
                     int numOfReady = Collections.frequency(requests, temp);
-
                     // If we received more than f ( number of faulty processess) "READY" messages without sending a READY message
                     // it means we missed a couple "ECHO" messages. Change the state to sentReady
                     // and send the READIES to other servers.
@@ -212,6 +210,7 @@ public class NetworkService {
         if (!delivered.containsKey(clientId)) {
                 try {
                     // If it times out, there is still the chance that the request completed
+                    //TODO Problems with time server 4 completes the write request but the others fail o obtain a byz quorum
                     Object deliveryLock = deliverWait.get(lockName);
                     synchronized (deliveryLock) {
                         deliveryLock.wait(20000);

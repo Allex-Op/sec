@@ -46,7 +46,7 @@ public class ByzantineRegularRegisterService {
         CountDownLatch latch = new CountDownLatch(ByzantineConfigurations.NUMBER_OF_SERVERS);
 
         // Messages received from servers
-        ConcurrentHashMap<byte[], SecureDTO> readlist = new ConcurrentHashMap<>();
+        List<SecureDTO> readlist = Collections.synchronizedList(new ArrayList<SecureDTO>());
 
         SecureDTO response = null;
 
@@ -74,7 +74,7 @@ public class ByzantineRegularRegisterService {
                     } else {
                         if (secureDTO != null && CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey(serverId + ""))) {
                             System.out.println("[Client " + ClientApplication.userId + "] Byzantine regular register received secureDTO");
-                            readlist.put(randomBytes, sec);
+                            readlist.add(sec);
                         }
                     }
                 } catch (Exception e){
@@ -103,8 +103,8 @@ public class ByzantineRegularRegisterService {
             System.out.println("[Client " + ClientApplication.userId + "] Byzantine regular register obtained minimum quorum.");
 
             // From the replies, choose the one with highest timestamp and return it
-            byte[] currRandomBytes = highestval(readlist);
-            R unwrappedDTO = (R) CryptoService.extractEncryptedData(readlist.get(currRandomBytes), responseClass, CryptoUtils.createSharedKeyFromString(currRandomBytes));
+            SecureDTO highestSecureDto = highestval(readlist);
+            R unwrappedDTO = (R) CryptoService.extractEncryptedData(highestSecureDto, responseClass, CryptoUtils.createSharedKeyFromString(randomBytes));
             return unwrappedDTO;
         }
 
@@ -134,22 +134,17 @@ public class ByzantineRegularRegisterService {
      * From a list of secure dto's, returns the one
      * with highest timestamp.
      */
-    private static byte[] highestval(ConcurrentHashMap<byte[], SecureDTO> readlist) {
-        byte[] highestKey = null;
-        long highestTimestamp = 0;
+    private static SecureDTO highestval(List<SecureDTO> readlist) {
+        SecureDTO highestSecureDto = readlist.get(0);
+        long highestTimestamp = highestSecureDto.getTimestamp();
 
-        for (byte[] bytes : readlist.keySet()) {
-            if(highestKey == null)
-                highestKey = bytes;
-
-            long currTimestamp = readlist.get(bytes).getTimestamp();
-            if( currTimestamp > highestTimestamp) {
-                highestKey = bytes;
-                highestTimestamp = currTimestamp;
-            }
+        for (SecureDTO secureDTO : readlist) {
+            long currTimestamp = secureDTO.getTimestamp();
+            if(currTimestamp > highestTimestamp)
+                highestSecureDto = secureDTO;
         }
 
-        return highestKey;
+        return highestSecureDto;
     }
 
 

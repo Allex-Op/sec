@@ -58,7 +58,8 @@ public class ByzantineAtomicRegisterService {
         ConcurrentHashMap<String, AcknowledgeDto> acklist = new ConcurrentHashMap<String, AcknowledgeDto>();
 
         // Timestamp for the current write
-        long currTimestamp = timestamp.incrementAndGet();
+        timestamp.set(System.currentTimeMillis());
+        long currTimestamp = timestamp.get();
 
         // Build secure dtos
         byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
@@ -218,7 +219,12 @@ public class ByzantineAtomicRegisterService {
         // which its count is higher than (N+f)/2, if there is send a READCOMPLETE message
         // to all servers to unregister itself from the listening list.
         randomBytes = CryptoUtils.generateRandom32Bytes();
-        secDtos = buildSecureDtosForAllServers(req, req.getUserIDSender(), randomBytes, currRid, -1);
+        // Send READCOMPLETE to all servers
+        ReadCompleteDTO readCompleteDTO = new ReadCompleteDTO();
+        readCompleteDTO.setRid(currRid);
+        readCompleteDTO.setClientId(ClientApplication.userId);
+
+        secDtos = buildSecureDtosForAllServers(readCompleteDTO, ClientApplication.userId, randomBytes, currRid, -1);
 
         ArrayList<ReportDTO> reports = flattenHashMaps();
         for (ReportDTO report : reports) {
@@ -226,11 +232,6 @@ public class ByzantineAtomicRegisterService {
             if(occurrences > (ClientApplication.numberOfServers + ByzantineConfigurations.MAX_BYZANTINE_FAULTS) / 2) {
                 answers.clear();
                 System.out.println("[Client id:" + ClientApplication.userId+"] Obtained byzantine quorum for the atomic READ operation!");
-
-                // Send READCOMPLETE to all servers
-                ReadCompleteDTO readCompleteDTO = new ReadCompleteDTO();
-                readCompleteDTO.setRid(currRid);
-                readCompleteDTO.setClientId(ClientApplication.userId);
 
                 for (int i = 1; i <= ByzantineConfigurations.NUMBER_OF_SERVERS; i++) {
                     int serverId = i;
@@ -291,9 +292,13 @@ public class ByzantineAtomicRegisterService {
      */
     private static <R> ArrayList<SecureDTO> buildSecureDtosForAllServers(R req, String userIdSender, byte[] randomBytes, int rid, long timestamp) throws ApplicationException {
         ArrayList<SecureDTO> secureDTOS = new ArrayList<>();
+        SecureDTO sec = CryptoService.generatePartialSecureDTO(req, randomBytes);
+
+        // Build the proof of work
+        sec.setProofOfWork(ProofOfWorkService.findSolution(sec.getData()));
+
         for (int serverId = 1; serverId <= ByzantineConfigurations.NUMBER_OF_SERVERS; serverId++) {
-            // Create secureDTO that will be sent to respective servers
-            SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes, serverId + "");
+            SecureDTO secureDTO = CryptoService.completeSecureDTO(sec,userIdSender,randomBytes,serverId+"");
 
             // Set timestamp
             if(timestamp != -1)
@@ -303,16 +308,11 @@ public class ByzantineAtomicRegisterService {
             if(rid != -1)
                 secureDTO.setRid(rid);
 
-            // Build the proof of work
-            //TODO: Fazer apenas um proof of work
-            secureDTO.setProofOfWork(ProofOfWorkService.findSolution(secureDTO.getData()));
-
             // Sign the DTO
             CryptoService.signSecureDTO(secureDTO, CryptoUtils.getClientPrivateKey(ClientApplication.userId));
 
             secureDTOS.add(secureDTO);
         }
-
         return secureDTOS;
     }
 

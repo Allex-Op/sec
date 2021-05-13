@@ -198,7 +198,54 @@ public class CryptoService {
         return null;
     }
 
+    /**
+     *  Creates a Partial SecureDTO
+     */
+    public static SecureDTO createPartialSecureDTO(Object dataDTO, SecretKey key) {
+        try {
+            // Convert dataDTO (e.g. ReportDTO) to a string
+            ObjectMapper mapper = new ObjectMapper();
+            String stringDTO = mapper.writeValueAsString(dataDTO);
 
+            // Generate IV
+            byte[] ivBytes = new byte[CryptoConfiguration.IV_SIZE_BYTES];
+            new SecureRandom().nextBytes(ivBytes);
+            String ivString = CryptoUtils.encodeBase64(ivBytes);
+
+            // Encrypt DataDTO with AES with the previously generated key
+            String data = CryptoUtils.encrypt(key, stringDTO, ivBytes);
+
+            // Build the secureDTO
+            SecureDTO sec = new SecureDTO(data, ivString);
+
+            return sec;
+        } catch(Exception e) {
+            System.out.println("Error creating Partial secureDTO...");
+        }
+
+        return null;
+    }
+
+    /**
+     *  Generates a partial secureDTO that will still require a timestamp and the rid
+     */
+    public static SecureDTO creteCompleteSecureDTO(SecureDTO secureDTO, String randomString, PrivateKey signKey){
+        try {
+            SecureDTO sec = new SecureDTO(secureDTO.getData(), secureDTO.getIv());
+            sec.setNonce(CryptoUtils.generateNonce());
+            sec.setRandomString(randomString);
+            sec.setProofOfWork(secureDTO.getProofOfWork());
+
+            // Sign the secureDTO
+            signSecureDTO(sec, signKey);
+
+            return sec;
+        } catch(Exception e) {
+            System.out.println("Error creating secureDTO...");
+        }
+
+        return null;
+    }
 
     /**
      *  Verifies the digital signature of request report and proofs
@@ -225,6 +272,21 @@ public class CryptoService {
     public static <T> SecureDTO generateNewSecureDTO(T unsecureDTO, String userId, byte[] randomBytes, String serverId) {
         SecretKey key = generateSecretKey(randomBytes);
         return createSecureDTO(unsecureDTO, key, encryptRandomBytes(randomBytes,serverId), CryptoUtils.getClientPrivateKey(userId));
+    }
+
+    /**
+     * USED BY CLIENTS
+     *
+     * Generates a new Partial SecureDTO from user that encapsulates
+     * a LocationReportDTO or a ReportDTO
+     */
+    public static <T> SecureDTO generatePartialSecureDTO(T unsecureDTO, byte[] randomBytes) {
+        SecretKey key = generateSecretKey(randomBytes);
+        return createPartialSecureDTO(unsecureDTO, key);
+    }
+
+    public static SecureDTO completeSecureDTO(SecureDTO partialSecureDTO, String userId, byte[] randomBytes, String serverId){
+        return creteCompleteSecureDTO(partialSecureDTO, encryptRandomBytes(randomBytes, serverId), CryptoUtils.getClientPrivateKey(userId));
     }
 
     /**
