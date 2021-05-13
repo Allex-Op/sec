@@ -7,32 +7,34 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.4.3)
 
-2021-05-13 06:01:33.420  INFO 34406 --- [           main] p.u.t.s.secureserver.ServerApplication   : Starting ServerApplication v1.0 using Java 11.0.11 on ubuntu with PID 34406 (/home/allex/Secure-Communication/secure-server/target/secure-server-1.0.jar started by allex in /home/allex/Secure-Communication)
-2021-05-13 06:01:33.442  INFO 34406 --- [           main] p.u.t.s.secureserver.ServerApplication   : No active profile set, falling back to default profiles: default
-2021-05-13 06:01:39.126  INFO 34406 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2021-05-13 06:01:39.293  INFO 34406 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52 ms. Found 0 JPA repository interfaces.
-2021-05-13 06:01:43.463  INFO 34406 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9203 (http)
-2021-05-13 06:01:43.545  INFO 34406 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2021-05-13 06:01:43.550  INFO 34406 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
-2021-05-13 06:01:43.878  INFO 34406 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2021-05-13 06:01:43.893  INFO 34406 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 10167 ms
-2021-05-13 06:01:45.208  INFO 34406 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2021-05-13 06:01:45.598  INFO 34406 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.28.Final
-2021-05-13 06:01:46.460  INFO 34406 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2021-05-13 06:01:47.076  INFO 34406 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2021-05-13 06:01:48.812  INFO 34406 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2021-05-13 06:01:49.009  INFO 34406 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
-2021-05-13 06:01:53.660  INFO 34406 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2021-05-13 06:01:54.588  INFO 34406 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-05-13 06:01:55.449  WARN 34406 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2021-05-13 06:01:56.062  INFO 34406 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2021-05-13 06:01:56.813  INFO 34406 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
-2021-05-13 06:01:56.926  INFO 34406 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9203 (http) with context path ''
-2021-05-13 06:01:56.955  INFO 34406 --- [           main] p.u.t.s.secureserver.ServerApplication   : Started ServerApplication in 26.531 seconds (JVM running for 30.619)
-[Server Id: 3] Server heartbeat at 2021-05-13 06:02:01.947
-2021-05-13 06:02:06.696  INFO 34406 --- [nio-9203-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-05-13 06:02:06.699  INFO 34406 --- [nio-9203-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2021-05-13 06:02:06.701  INFO 34406 --- [nio-9203-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2021-05-13 17:52:52.280  INFO 8466 --- [           main] p.u.t.s.secureserver.ServerApplication   : Starting ServerApplication v1.0 using Java 11.0.11 on ubuntu with PID 8466 (/home/thunder-marks/IdeaProjects/Secure-Communication/secure-server/target/secure-server-1.0.jar started by root in /home/thunder-marks/IdeaProjects/Secure-Communication)
+2021-05-13 17:52:52.294  INFO 8466 --- [           main] p.u.t.s.secureserver.ServerApplication   : No active profile set, falling back to default profiles: default
+2021-05-13 17:52:55.470  INFO 8466 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-05-13 17:52:55.580  INFO 8466 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52 ms. Found 0 JPA repository interfaces.
+2021-05-13 17:52:58.781  INFO 8466 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9203 (http)
+2021-05-13 17:52:58.887  INFO 8466 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-05-13 17:52:58.909  INFO 8466 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
+2021-05-13 17:52:59.256  INFO 8466 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-05-13 17:52:59.256  INFO 8466 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 6649 ms
+2021-05-13 17:53:00.151  INFO 8466 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-05-13 17:53:00.292  INFO 8466 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.28.Final
+2021-05-13 17:53:00.661  INFO 8466 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-05-13 17:53:01.026  INFO 8466 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-05-13 17:53:02.206  INFO 8466 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-05-13 17:53:02.287  INFO 8466 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2021-05-13 17:53:05.013  INFO 8466 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-13 17:53:05.425  INFO 8466 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-05-13 17:53:05.831  WARN 8466 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-05-13 17:53:06.194  INFO 8466 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-13 17:53:06.807  INFO 8466 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2021-05-13 17:53:06.893  INFO 8466 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9203 (http) with context path ''
+2021-05-13 17:53:06.926  INFO 8466 --- [           main] p.u.t.s.secureserver.ServerApplication   : Started ServerApplication in 16.847 seconds (JVM running for 20.363)
+[Server Id: 3] Server heartbeat at 2021-05-13 17:53:11.907
+[Server Id: 3] Server heartbeat at 2021-05-13 17:53:21.907
+[Server Id: 3] Server heartbeat at 2021-05-13 17:53:31.907
+2021-05-13 17:53:36.678  INFO 8466 --- [nio-9203-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-05-13 17:53:36.679  INFO 8466 --- [nio-9203-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-05-13 17:53:36.681  INFO 8466 --- [nio-9203-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 [Server id: 3] Proof of work valid.
 
 [SERVER3] Received submit report request.
@@ -40,41 +42,1021 @@
 [SERVER3] Received an echo from 2
 
 [SERVER3] Received an echo from 1
-
-[SERVER3] Received an echo from 4
-
-[SERVER3] Received a ready from 1
-
-[SERVER3] Received a ready from 2
-
-[SERVER3] Received a ready from 4
-[Server Id: 3] Byzantine Atomic Register WRITE, sending ACK to clientId: 1
-[SERVER 3] Report submitted successfully for client 1
-[Server Id: 3] Server heartbeat at 2021-05-13 06:02:11.947
-[Server id: 3] Proof of work valid.
-
-[SERVER 3] Received obtain report request.
-
-[SERVER3] Received an echo from 1
-
-[SERVER3] Received an echo from 4
-
-[SERVER3] Received an echo from 2
-
-[SERVER3] Received a ready from 4
-
-[SERVER3] Received a ready from 1
-
-[SERVER3] Received a ready from 2
-[SERVER 3] Requested report was:Report:
+NUmber of Requests Echoed: 2[Request: [Report:
 Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
  * Proof of epoch 0 made by user 2
  * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
 
-[CryptoService - extractEncryptedData] JsonProcessingException error, unencrypted data: {"x":0,"y":0,"epoch":0,"userIDSender":"1","userIDRequested":"1"}
-Unrecognized field "x" (class pt.ulisboa.tecnico.sec.services.dto.ReadCompleteDTO), not marked as ignorable (2 known properties: "rid", "clientId"])
- at [Source: (String)"{"x":0,"y":0,"epoch":0,"userIDSender":"1","userIDRequested":"1"}"; line: 1, column: 7] (through reference chain: pt.ulisboa.tecnico.sec.services.dto.ReadCompleteDTO["x"])
+[SERVER3] Received a ready from 4
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+[Server Id: 3] Server heartbeat at 2021-05-13 17:53:41.907
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+[Server Id: 3] Server heartbeat at 2021-05-13 17:53:51.906
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+[Server Id: 3] Server heartbeat at 2021-05-13 17:54:01.909
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 2[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+], Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+
+[SERVER 3] Exception caught, rethrowing for ExceptionHandler.
 Invalid application exception occurred.
-Error: [SERVER 3] SecureDTO object was corrupt or malformed, was not possible to extract the information.
-Error creating secureDTO...
-[Server Id: 3] Server heartbeat at 2021-05-13 06:02:21.947
+Error: Broadcast was unable to met a quorum
+
+[SERVER3] Received an echo from 4
+
+[SERVER3] Received a ready from 4
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+[Server Id: 3] Server heartbeat at 2021-05-13 17:54:11.907
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+[Server Id: 3] Server heartbeat at 2021-05-13 17:54:21.907
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+[Server Id: 3] Server heartbeat at 2021-05-13 17:54:31.907
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+[Server Id: 3] Server heartbeat at 2021-05-13 17:54:41.907
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+NUmber of Requests Echoed: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]
+Number of Requests READY: 1[Request: [Report:
+Request of epoch 0 at location (10,2) made by user 1
+ * Proof of epoch 0 made by user 1
+ * Proof of epoch 0 made by user 2
+ * Proof of epoch 0 made by user 4
+]]

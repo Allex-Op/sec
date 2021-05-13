@@ -30,6 +30,11 @@ public class SecureDTO {
         this.iv = iv;
     }
 
+    public SecureDTO(String data, String iv) {
+        this.data = data;
+        this.iv = iv;
+    }
+
     public String getData() {
         return data;
     }

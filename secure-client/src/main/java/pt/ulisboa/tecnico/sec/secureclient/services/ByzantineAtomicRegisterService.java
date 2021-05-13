@@ -291,9 +291,13 @@ public class ByzantineAtomicRegisterService {
      */
     private static <R> ArrayList<SecureDTO> buildSecureDtosForAllServers(R req, String userIdSender, byte[] randomBytes, int rid, long timestamp) throws ApplicationException {
         ArrayList<SecureDTO> secureDTOS = new ArrayList<>();
+        SecureDTO sec = CryptoService.generatePartialSecureDTO(req, randomBytes);
+
+        // Build the proof of work
+        sec.setProofOfWork(ProofOfWorkService.findSolution(sec.getData()));
+
         for (int serverId = 1; serverId <= ByzantineConfigurations.NUMBER_OF_SERVERS; serverId++) {
-            // Create secureDTO that will be sent to respective servers
-            SecureDTO secureDTO = CryptoService.generateNewSecureDTO(req, userIdSender, randomBytes, serverId + "");
+            SecureDTO secureDTO = CryptoService.completeSecureDTO(sec,userIdSender,randomBytes,serverId+"");
 
             // Set timestamp
             if(timestamp != -1)
@@ -303,16 +307,11 @@ public class ByzantineAtomicRegisterService {
             if(rid != -1)
                 secureDTO.setRid(rid);
 
-            // Build the proof of work
-            //TODO: Fazer apenas um proof of work
-            secureDTO.setProofOfWork(ProofOfWorkService.findSolution(secureDTO.getData()));
-
             // Sign the DTO
             CryptoService.signSecureDTO(secureDTO, CryptoUtils.getClientPrivateKey(ClientApplication.userId));
 
             secureDTOS.add(secureDTO);
         }
-
         return secureDTOS;
     }
 
