@@ -22,9 +22,10 @@ public class PathConfiguration {
 	public static final String READ_COMPLETE_ENDPOINT = "/readComplete";
 
 	// Key Paths
-
-	public static final String CLIENT_KEY_FOLDER = System.getProperty("user.dir") + "/services/src/main/java/pt/ulisboa/tecnico/sec/services/keys/client";
-	public static final String SERVER_KEY_FOLDER = System.getProperty("user.dir") + "/services/src/main/java/pt/ulisboa/tecnico/sec/services/keys/server";
+	public static final String MAIN_DIR = System.getProperty("user.dir");
+	public static final String KEYSTORE_LOCATION = MAIN_DIR + "/secKeystore.jks";
+	public static final String CLIENT_KEY_FOLDER = MAIN_DIR + "/services/src/main/java/pt/ulisboa/tecnico/sec/services/keys/client";
+	public static final String SERVER_KEY_FOLDER = MAIN_DIR + "/services/src/main/java/pt/ulisboa/tecnico/sec/services/keys/server";
 
     private PathConfiguration() {}
 	

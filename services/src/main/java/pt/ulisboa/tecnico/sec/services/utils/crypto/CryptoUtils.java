@@ -9,6 +9,7 @@ import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
@@ -162,24 +163,41 @@ public class CryptoUtils {
     
     public static PrivateKey getClientPrivateKey(String userId) {
         try {
+            //TODO: Replace by SYSTEM ENVIRONMENT VARIABLE "keystore_password"
+            char[] pwdArray = "sec".toCharArray();
+            KeyStore ks = KeyStore.getInstance("JKS");
+            ks.load(new FileInputStream(PathConfiguration.KEYSTORE_LOCATION), pwdArray);
+
+            return (PrivateKey) ks.getKey("c"+userId, pwdArray);
+            /*
             return CryptoUtils.readKeyPairFromFile(
                     PathConfiguration.CLIENT_KEY_FOLDER + "/c" + userId + "pub.key",
                     PathConfiguration.CLIENT_KEY_FOLDER + "/c" + userId + "priv.key"
             ).getPrivate();
+             */
         } catch(Exception e) {
-            System.out.println("Error reading client "+userId+ " private key");
+            System.out.println("Error reading client "+userId+ " private key: " + e.getMessage());
         }
         return null;
     }
 
     public static PublicKey getClientPublicKey(String userId) {
         try {
+            //TODO: Replace by SYSTEM ENVIRONMENT VARIABLE "keystore_password"
+            char[] pwdArray = "sec".toCharArray();
+
+            KeyStore ks = KeyStore.getInstance("JKS");
+            ks.load(new FileInputStream(PathConfiguration.KEYSTORE_LOCATION), pwdArray);
+
+            return ks.getCertificate("C"+userId).getPublicKey();
+            /*
             return CryptoUtils.readKeyPairFromFile(
                     PathConfiguration.CLIENT_KEY_FOLDER + "/c" + userId + "pub.key",
                     PathConfiguration.CLIENT_KEY_FOLDER + "/c" + userId + "priv.key"
             ).getPublic();
+             */
         } catch(Exception e) {
-            System.out.println("Error reading client "+userId+ " private key");
+            System.out.println("Error reading client "+userId+ " private key: " + e.getMessage());
         }
 
         return null;
@@ -187,12 +205,22 @@ public class CryptoUtils {
 
     public static PrivateKey getServerPrivateKey(String serverId) {
         try {
+            //TODO: Replace by SYSTEM ENVIRONMENT VARIABLE "keystore_password"
+            char[] pwdArray = "sec".toCharArray();
+
+            KeyStore ks = KeyStore.getInstance("JKS");
+            ks.load(new FileInputStream(PathConfiguration.KEYSTORE_LOCATION), pwdArray);
+
+            return (PrivateKey) ks.getKey("s"+serverId, pwdArray);
+            /*
             return CryptoUtils.readKeyPairFromFile(
                     PathConfiguration.getServerPublicKey(serverId),
                     PathConfiguration.getServerPrivateKey(serverId)
             ).getPrivate();
+             */
         } catch(Exception e) {
-            System.out.println("Error reading server private key");
+            System.out.println("Error reading server private key: " + e.getMessage());
+            System.out.println(e.getStackTrace());
         }
 
         return null;
@@ -200,12 +228,21 @@ public class CryptoUtils {
 
     public static PublicKey getServerPublicKey(String serverId) {
         try {
+            //TODO: Replace by SYSTEM ENVIRONMENT VARIABLE "keystore_password"
+            char[] pwdArray = "sec".toCharArray();
+
+            KeyStore ks = KeyStore.getInstance("JKS");
+            ks.load(new FileInputStream(PathConfiguration.KEYSTORE_LOCATION), pwdArray);
+
+            return ks.getCertificate("S"+serverId).getPublicKey();
+            /*
         	return CryptoUtils.readKeyPairFromFile(
                     PathConfiguration.getServerPublicKey(serverId),
                     PathConfiguration.getServerPrivateKey(serverId)
             ).getPublic();
+             */
         } catch(Exception e) {
-            System.out.println("Error reading server public key");
+            System.out.println("Error reading server public key: " + e.getMessage());
         }
 
         return null;

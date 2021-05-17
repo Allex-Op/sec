@@ -13,6 +13,8 @@ public class CryptoConfiguration {
     public static final String CIPHER_ALGO = SYMMETRIC_ENCRYPTION_ALGO + "/CBC/PKCS5Padding";
     public static final String SIGN_ALGO = "SHA256withRSA";
 
+    public static final String KEYSTORE_PASSWORD = System.getenv("keystore_password");
+
     private CryptoConfiguration(){}
 
 }
