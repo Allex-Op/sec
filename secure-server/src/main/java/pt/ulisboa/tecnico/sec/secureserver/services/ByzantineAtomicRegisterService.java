@@ -10,7 +10,6 @@ import pt.ulisboa.tecnico.sec.services.exceptions.UnreachableClientException;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -72,7 +71,7 @@ public class ByzantineAtomicRegisterService {
 
                     // Send the message to the server, this endpoint won't return anything
                     // so its pointless to wait for response.
-                    sendMessageToServer(secureDTO, url);
+                    sendMessageToClient(secureDTO, url);
                     System.out.println("[Server Id: " + ServerApplication.serverId + "] Spontaneous read sent successfully.");
                 } catch(Exception e) {
                     System.out.println(e.getMessage());
@@ -110,7 +109,7 @@ public class ByzantineAtomicRegisterService {
     /**
      *  Sends HTTP request
      */
-    private static SecureDTO sendMessageToServer(SecureDTO message, String url) throws UnreachableClientException {
+    private static SecureDTO sendMessageToClient(SecureDTO message, String url) throws UnreachableClientException {
         try {
             // Set HTTP headers
             HttpHeaders headers = new HttpHeaders();

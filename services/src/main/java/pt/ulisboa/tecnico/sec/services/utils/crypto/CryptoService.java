@@ -148,7 +148,7 @@ public class CryptoService {
                 System.out.println("Message wasn't a ErrorMessage either.");
             }
         } catch(Exception e) {
-            System.out.println("Error caught in the extractEncryptedData function...");
+            System.out.println("Error caught in the extractEncryptedData function..." + e.getMessage());
         }
 
         return null;

@@ -289,8 +289,9 @@ public class NetworkService {
             // Convert the above request body to a secure request object
             byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
             SecureDTO secureDTO = CryptoService.generateNewSecureDTO(request, ServerApplication.serverId, randomBytes, serverId + "");
+            CryptoService.signSecureDTO(secureDTO, CryptoUtils.getServerPrivateKey(ServerApplication.serverId));
 
-            String url = PathConfiguration.buildUrl(PathConfiguration.getServerUrl(serverId), path);
+            String url = PathConfiguration.buildUrl(PathConfiguration.getServerUrl(serverId), path + ServerApplication.serverId);
             sendMessageToServer(secureDTO, url);
         }
     }

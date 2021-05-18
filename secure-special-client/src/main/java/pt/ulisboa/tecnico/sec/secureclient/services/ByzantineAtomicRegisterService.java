@@ -218,7 +218,13 @@ public class ByzantineAtomicRegisterService {
         // which its count is higher than (N+f)/2, if there is send a READCOMPLETE message
         // to all servers to unregister itself from the listening list.
         randomBytes = CryptoUtils.generateRandom32Bytes();
-        secDtos = buildSecureDtosForAllServers(req, req.getUserIDSender(), randomBytes, currRid, -1);
+
+        // Send READCOMPLETE to all servers
+        ReadCompleteDTO readCompleteDTO = new ReadCompleteDTO();
+        readCompleteDTO.setRid(currRid);
+        readCompleteDTO.setClientId(SpecialClientApplication.userId);
+
+        secDtos = buildSecureDtosForAllServers(readCompleteDTO, req.getUserIDSender(), randomBytes, currRid, -1);
 
         ArrayList<ReportDTO> reports = flattenHashMaps();
         for (ReportDTO report : reports) {
@@ -227,10 +233,6 @@ public class ByzantineAtomicRegisterService {
                 answers.clear();
                 System.out.println("[Client id:" + SpecialClientApplication.userId+"] Obtained byzantine quorum for the atomic READ operation!");
 
-                // Send READCOMPLETE to all servers
-                ReadCompleteDTO readCompleteDTO = new ReadCompleteDTO();
-                readCompleteDTO.setRid(currRid);
-                readCompleteDTO.setClientId(SpecialClientApplication.userId);
 
                 for (int i = 1; i <= ByzantineConfigurations.NUMBER_OF_SERVERS; i++) {
                     int serverId = i;

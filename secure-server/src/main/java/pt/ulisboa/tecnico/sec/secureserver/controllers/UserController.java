@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.sec.secureserver.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -214,12 +215,15 @@ public class UserController {
 	 * Received ECHO message during the "Double Echo Broadcast" protocol, calls
 	 * NetworkService to add it to the data structures.
 	 */
-	@PostMapping(PathConfiguration.SERVER_ECHO)
-	public void echo(@RequestBody SecureDTO secureDTO) throws ApplicationException {
+	@PostMapping(PathConfiguration.SERVER_ECHO_ENDPOINT)
+	public void echo(@RequestBody SecureDTO secureDTO, @PathVariable String sendingServerId) throws ApplicationException {
 		RequestDTO requestDTO = (RequestDTO) CryptoService.serverExtractEncryptedData(secureDTO, RequestDTO.class, ServerApplication.serverId);
 		if (requestDTO == null)
 			throw new ApplicationException("[SERVER " + ServerApplication.serverId + "] SecureDTO object was corrupt or malformed, was not possible to extract the information.");
 		System.out.println("\n[SERVER" + ServerApplication.serverId + "] Received an echo from " + requestDTO.getServerId());
+
+		// Verify if the "echo" comes really from a server
+		verifyServerSignatureAndNonce(secureDTO, sendingServerId, PathConfiguration.SERVER_ECHO);
 
 		networkService.echo(requestDTO);
 	}
@@ -228,12 +232,15 @@ public class UserController {
 	 * Received READY message during the "Double Echo Broadcast" protocol, calls
 	 * NetworkService to add it to the data structures.
 	 */
-	@PostMapping(PathConfiguration.SERVER_READY)
-	public void ready(@RequestBody SecureDTO secureDTO) throws ApplicationException {
+	@PostMapping(PathConfiguration.SERVER_READY_ENDPOINT)
+	public void ready(@RequestBody SecureDTO secureDTO, @PathVariable String sendingServerId) throws ApplicationException {
 		RequestDTO requestDTO = (RequestDTO) CryptoService.serverExtractEncryptedData(secureDTO, RequestDTO.class, ServerApplication.serverId);
 		if (requestDTO == null)
 			throw new ApplicationException("[SERVER " + ServerApplication.serverId + "] SecureDTO object was corrupt or malformed, was not possible to extract the information.");
 		System.out.println("\n[SERVER" + ServerApplication.serverId + "] Received a ready from " + requestDTO.getServerId());
+
+		// Verify if the "ready" comes really from a server
+		verifyServerSignatureAndNonce(secureDTO, sendingServerId, PathConfiguration.SERVER_READY);
 
 		networkService.ready(requestDTO);
 	}
@@ -250,6 +257,8 @@ public class UserController {
 			throw new ApplicationException("[SERVER " + ServerApplication.serverId + "] SecureDTO object was corrupt or malformed, was not possible to extract the information.");
 		System.out.println("\n[SERVER" + ServerApplication.serverId + "] Received a READ COMPLETE from " + readCompleteDTO.getClientId());
 
+		verifyRequestSignatureAndNonce(secureDTO, readCompleteDTO.getClientId(), PathConfiguration.SUBMIT_REPORT_ENDPOINT);
+
 		ByzantineAtomicRegisterService.readCompleteReceived(readCompleteDTO);
 	}
 
@@ -265,12 +274,27 @@ public class UserController {
 	private void verifyRequestSignatureAndNonce(SecureDTO sec, String userId, String endpoint) throws ApplicationException {
 		// Verifies the signature of the Secure DTO
 		if (!CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getClientPublicKey(userId))) {
-			throw new SignatureCheckFailedException("Digital signature check at " + endpoint + " failed.");
+			throw new SignatureCheckFailedException("Digital signature check of client at " + endpoint + " failed.");
 		}
 
 		// Verifies if the nonce is repeated, if not adds it to the database to the according user.
 		((UserService) this.userService).verifyNonce(userId, sec.getNonce());
 	}
+
+
+	/**
+	 * Verifies if the signature of a server request is valid and if it is not throws a exception
+	 */
+	private void verifyServerSignatureAndNonce(SecureDTO sec, String serverId, String endpoint) throws ApplicationException {
+		// Verifies the signature of the Secure DTO
+		if (!CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey(serverId))) {
+			throw new SignatureCheckFailedException("Digital signature check of server at " + endpoint + " with serverId: " + serverId + " failed.");
+		}
+
+		// Verifies if the nonce is repeated, if not adds it to the database to the according user.
+		((UserService) this.userService).verifyNonce(serverId, sec.getNonce());
+	}
+
 
 
 	private void verifyProofOfWork(SecureDTO sec) throws ApplicationException {

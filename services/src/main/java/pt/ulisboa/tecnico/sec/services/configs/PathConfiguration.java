@@ -14,8 +14,10 @@ public class PathConfiguration {
 	public static final String SUBMIT_REPORT_ENDPOINT =  "/submitReport";
 	public static final String OBTAIN_USERS_AT_LOCATION_EPOCH_ENDPOINT = "/locations/management/";
 	public static final String GET_PROOFS_AT_EPOCHS_ENDPOINT = "/getProofs";
-	public static final String SERVER_ECHO = "/echo";
-	public static final String SERVER_READY = "/ready";
+	public static final String SERVER_ECHO_ENDPOINT = "/echo/{sendingServerId}";
+	public static final String SERVER_READY_ENDPOINT = "/ready/{sendingServerId}";
+	public static final String SERVER_ECHO = "/echo/";
+	public static final String SERVER_READY = "/ready/";
 
 	public static final String SPONTANEOUS_READ_ATOMIC_REGISTER_ENDPOINT = "/spontaneousRead/";
 	public static final String SPONTANEOUS_READ_ATOMIC_REGISTER = "/spontaneousRead/{serverId}";
@@ -33,6 +35,8 @@ public class PathConfiguration {
 	
 	public static String getServerUrl(int server) { return HOST + ":" + (SERVER_PORT_BASE + server); }
 	public static String getClientURL(int client) { return buildUrl(HOST + ":" + (9000 + client), "/proof"); }
+	public static String getSpontaneousReadURL(int client, int serverId) { return buildUrl(HOST + ":" + (9000 + client), SPONTANEOUS_READ_ATOMIC_REGISTER_ENDPOINT + serverId); }
+
 	public static String getGetReportURL(int server) { return buildUrl(getServerUrl(server), GET_REPORT_ENDPOINT); }
 	public static String getSubmitReportURL(int server) { return buildUrl(getServerUrl(server), SUBMIT_REPORT_ENDPOINT); }
 	public static String getObtainUsersAtLocationEpochURL(int server) { return buildUrl(getServerUrl(server), OBTAIN_USERS_AT_LOCATION_EPOCH_ENDPOINT); }

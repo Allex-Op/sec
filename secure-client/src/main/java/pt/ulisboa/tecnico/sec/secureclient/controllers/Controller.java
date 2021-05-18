@@ -128,6 +128,11 @@ public class Controller {
 			throw new ApplicationException("[CLIENT " + ClientApplication.userId + "] SecureDTO object was corrupt or malformed, was not possible to extract the information at /spontaneousRead.");
 		System.out.println("\n[SERVER" + ClientApplication.userId + "] Received an echo from server Id: " + serverId);
 
+		// Check if the "spontaneous read" really comes from a server or some random malicious person
+		if (!CryptoService.checkSecureDTODigitalSignature(sec, CryptoUtils.getServerPublicKey(serverId))) {
+			throw new SignatureCheckFailedException("Digital signature check of client at /spontaneousRead failed.");
+		}
+
 		// Submit it to the answers received data structure
 		ByzantineAtomicRegisterService.receiveSpontaneousRead(report, sec.getTimestamp(), serverId);
 	}

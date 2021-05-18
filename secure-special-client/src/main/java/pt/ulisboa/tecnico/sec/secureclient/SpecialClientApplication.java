@@ -82,6 +82,9 @@ public class SpecialClientApplication extends SpringBootServletInitializer imple
 		commandDispatcher.register("submitreporttest", new SubmitReportTestCommand());
 		commandDispatcher.register("gatherproofstest", new GatherProofsTestCommand());
 		commandDispatcher.register("obtainreporttest", new ObtainReportTestCommand());
+		commandDispatcher.register("broadcasttest", new ByzantineBroadcastTestCommand());
+		commandDispatcher.register("registertest", new ByzantineRegisterTestCommand());
+
 		// help commands
 		commandDispatcher.register("help", new HelpCommand());
 		commandDispatcher.register("clear", new ClearCommand());

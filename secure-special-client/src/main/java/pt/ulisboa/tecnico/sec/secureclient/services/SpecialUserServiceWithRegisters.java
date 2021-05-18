@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.sec.secureclient.services;
 
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import pt.ulisboa.tecnico.sec.secureclient.SpecialClientApplication;
@@ -12,6 +13,7 @@ import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoService;
 import pt.ulisboa.tecnico.sec.services.utils.crypto.CryptoUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -118,5 +120,17 @@ public class SpecialUserServiceWithRegisters implements ISpecialUserService {
         }
 
         return clientResponse.getProof();
+    }
+
+    public SecureDTO sendSecureDtoToServerOrClient(String url, SecureDTO sec) {
+        RestTemplate restTemplate = new RestTemplate();
+        // Set HTTP headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+
+        // Send request and return the SecureDTO with the ReportDTO encapsulated
+        HttpEntity<SecureDTO> entity = new HttpEntity<>(sec, headers);
+        ResponseEntity<SecureDTO> result = restTemplate.exchange(url, HttpMethod.POST, entity, SecureDTO.class);
+        return result.getBody();
     }
 }
