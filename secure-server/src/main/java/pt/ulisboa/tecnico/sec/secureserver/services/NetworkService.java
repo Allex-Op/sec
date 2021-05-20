@@ -156,6 +156,9 @@ public class NetworkService {
                         //Instruct requests that are waiting for the protocol to complete, to wake up
                         // and continue working.
                         Object deliveryLock = deliverWait.get(clientMap.getKey());
+                        if (deliveryLock == null){
+                            continue;
+                        }
                         synchronized (deliveryLock) {
                             deliveryLock.notifyAll();
                         }
@@ -282,9 +285,6 @@ public class NetworkService {
      */
     static void sendReadyOrEcho(RequestDTO request, String path) {
         for (int serverId = 1; serverId<= ServerApplication.numberOfServers; serverId++) {
-            // Don't send echo and ready to itself
-            if(String.valueOf(serverId).equals(ServerApplication.serverId))
-                continue;
 
             // Convert the above request body to a secure request object
             byte[] randomBytes = CryptoUtils.generateRandom32Bytes();

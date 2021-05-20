@@ -19,4 +19,13 @@ public class ResponseUserProofsDTO {
 		return proofs;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (ProofDTO proof : proofs) {
+			sb.append(proof.toString() + "\n");
+		}
+		return "ResponseUserProofsDTO: " + sb.toString();
+	}
+
 }

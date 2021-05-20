@@ -7,6 +7,7 @@ import pt.ulisboa.tecnico.sec.secureclient.SpecialClientApplication;
 import pt.ulisboa.tecnico.sec.secureclient.commands.Command;
 import pt.ulisboa.tecnico.sec.secureclient.exceptions.NotSufficientArgumentsException;
 import pt.ulisboa.tecnico.sec.secureclient.services.SpecialUserServiceWithRegisters;
+import pt.ulisboa.tecnico.sec.services.dto.ResponseUserProofsDTO;
 import pt.ulisboa.tecnico.sec.services.exceptions.ApplicationException;
 import pt.ulisboa.tecnico.sec.services.interfaces.ISpecialUserService;
 
@@ -25,7 +26,9 @@ public class GetProofsOfUserAtEpochsCommand extends Command {
 			for (int i = 1; i < arguments.size(); i++) {
 				addNumberToListOfEpochs(epochs, arguments.get(i));
 			}
-			userService.requestMyProofs(SpecialClientApplication.userId, arguments.get(0), epochs);
+			ResponseUserProofsDTO response  = userService.requestMyProofs(SpecialClientApplication.userId, arguments.get(0), epochs);
+			System.out.println(response);
+
 		} catch (NumberFormatException e) {
 			throw new NotSufficientArgumentsException("[Special Client\"" + SpecialClientApplication.userId + 
 					"\"] X_location, Y_location and Epoch must be an Integer.");
