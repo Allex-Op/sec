@@ -7,32 +7,14 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.4.3)
 
-2021-05-18 15:14:57.046  INFO 11379 --- [           main] p.u.t.s.secureclient.ClientApplication   : Starting ClientApplication v1.0 using Java 11.0.11 on ubuntu with PID 11379 (/home/allex/Secure-Communication/secure-client/target/secure-client-1.0.jar started by allex in /home/allex/Secure-Communication)
-2021-05-18 15:14:57.049  INFO 11379 --- [           main] p.u.t.s.secureclient.ClientApplication   : No active profile set, falling back to default profiles: default
-2021-05-18 15:14:59.211  INFO 11379 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9001 (http)
-2021-05-18 15:14:59.225  INFO 11379 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2021-05-18 15:14:59.226  INFO 11379 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
-2021-05-18 15:14:59.305  INFO 11379 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2021-05-18 15:14:59.305  INFO 11379 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2089 ms
-2021-05-18 15:14:59.636  INFO 11379 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2021-05-18 15:14:59.978  INFO 11379 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
-2021-05-18 15:15:00.059  INFO 11379 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9001 (http) with context path ''
-2021-05-18 15:15:00.105  INFO 11379 --- [           main] p.u.t.s.secureclient.ClientApplication   : Started ClientApplication in 3.71 seconds (JVM running for 4.157)
-2021-05-18 15:15:48.786  INFO 11379 --- [nio-9001-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-05-18 15:15:48.787  INFO 11379 --- [nio-9001-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2021-05-18 15:15:48.788  INFO 11379 --- [nio-9001-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-Error extracting secret key
-Error caught in the extractEncryptedData function...No installed provider supports this key: (null)
-Application Exception error: [CLIENT 1] SecureDTO object was corrupt or malformed, was not possible to extract the information at /spontaneousRead.
-Error extracting secret key
-Error caught in the extractEncryptedData function...No installed provider supports this key: (null)
-Application Exception error: [CLIENT 1] SecureDTO object was corrupt or malformed, was not possible to extract the information at /spontaneousRead.
-Error extracting secret key
-Error caught in the extractEncryptedData function...No installed provider supports this key: (null)
-Application Exception error: [CLIENT 1] SecureDTO object was corrupt or malformed, was not possible to extract the information at /spontaneousRead.
-Error extracting secret key
-Error caught in the extractEncryptedData function...No installed provider supports this key: (null)
-Application Exception error: [CLIENT 1] SecureDTO object was corrupt or malformed, was not possible to extract the information at /spontaneousRead.
-Error extracting secret key
-Error caught in the extractEncryptedData function...No installed provider supports this key: (null)
-Application Exception error: [CLIENT 1] SecureDTO object was corrupt or malformed, was not possible to extract the information at /spontaneousRead.
+2021-05-20 11:49:08.943  INFO 4608 --- [           main] p.u.t.s.secureclient.ClientApplication   : Starting ClientApplication v1.0 using Java 11.0.11 on ubuntu with PID 4608 (/home/thunder-marks/IdeaProjects/Secure-Communication/secure-client/target/secure-client-1.0.jar started by thunder-marks in /home/thunder-marks/IdeaProjects/Secure-Communication)
+2021-05-20 11:49:08.954  INFO 4608 --- [           main] p.u.t.s.secureclient.ClientApplication   : No active profile set, falling back to default profiles: default
+2021-05-20 11:49:10.326  INFO 4608 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9001 (http)
+2021-05-20 11:49:10.347  INFO 4608 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-05-20 11:49:10.348  INFO 4608 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
+2021-05-20 11:49:10.433  INFO 4608 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-05-20 11:49:10.433  INFO 4608 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1367 ms
+2021-05-20 11:49:10.656  INFO 4608 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-20 11:49:10.838  INFO 4608 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2021-05-20 11:49:10.869  INFO 4608 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9001 (http) with context path ''
+2021-05-20 11:49:10.882  INFO 4608 --- [           main] p.u.t.s.secureclient.ClientApplication   : Started ClientApplication in 2.688 seconds (JVM running for 3.23)

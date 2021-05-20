@@ -7,117 +7,36 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.4.3)
 
-2021-05-18 15:01:21.997  INFO 10367 --- [           main] p.u.t.s.secureserver.ServerApplication   : Starting ServerApplication v1.0 using Java 11.0.11 on ubuntu with PID 10367 (/home/allex/Secure-Communication/secure-server/target/secure-server-1.0.jar started by allex in /home/allex/Secure-Communication)
-2021-05-18 15:01:22.017  INFO 10367 --- [           main] p.u.t.s.secureserver.ServerApplication   : No active profile set, falling back to default profiles: default
-2021-05-18 15:01:27.100  INFO 10367 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2021-05-18 15:01:27.276  INFO 10367 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 87 ms. Found 0 JPA repository interfaces.
-2021-05-18 15:01:30.738  INFO 10367 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9203 (http)
-2021-05-18 15:01:30.837  INFO 10367 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2021-05-18 15:01:30.847  INFO 10367 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
-2021-05-18 15:01:31.206  INFO 10367 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2021-05-18 15:01:31.209  INFO 10367 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 8899 ms
-2021-05-18 15:01:32.685  INFO 10367 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2021-05-18 15:01:33.140  INFO 10367 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.28.Final
-2021-05-18 15:01:34.004  INFO 10367 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2021-05-18 15:01:34.677  INFO 10367 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2021-05-18 15:01:36.387  INFO 10367 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2021-05-18 15:01:36.557  INFO 10367 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
-2021-05-18 15:01:42.011  INFO 10367 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2021-05-18 15:01:42.899  INFO 10367 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-05-18 15:01:43.821  WARN 10367 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2021-05-18 15:01:44.893  INFO 10367 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2021-05-18 15:01:45.726  INFO 10367 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
-2021-05-18 15:01:45.889  INFO 10367 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9203 (http) with context path ''
-2021-05-18 15:01:45.943  INFO 10367 --- [           main] p.u.t.s.secureserver.ServerApplication   : Started ServerApplication in 26.575 seconds (JVM running for 30.857)
-[Server Id: 3] Server heartbeat at 2021-05-18 15:01:50.924
-[Server Id: 3] Server heartbeat at 2021-05-18 15:02:00.922
-2021-05-18 15:02:06.092  INFO 10367 --- [nio-9203-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-05-18 15:02:06.094  INFO 10367 --- [nio-9203-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2021-05-18 15:02:06.102  INFO 10367 --- [nio-9203-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
-[Server id: 3] Proof of work valid.
-
-[SERVER3] Received submit report request.
-[Server Id: 3] Server heartbeat at 2021-05-18 15:02:10.924
-
-[SERVER3] Received an echo from 2
-
-[SERVER3] Received an echo from 1
-
-[SERVER3] Received an echo from 4
-
-[SERVER3] Received a ready from 1
-
-[SERVER3] Received a ready from 2
-
-[SERVER3] Received a ready from 4
-[Server Id: 3] Byzantine Atomic Register WRITE, sending ACK to clientId: 100
-[SERVER 3] Report submitted successfully for client 100
-[Server Id: 3] Server heartbeat at 2021-05-18 15:02:20.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:02:30.922
-[Server id: 3] Proof of work valid.
-
-[SERVER 3] Received obtain report request.
-
-[SERVER3] Received an echo from 1
-
-[SERVER3] Received an echo from 2
-[Server Id: 3] Server heartbeat at 2021-05-18 15:02:40.922
-
-[SERVER3] Received an echo from 4
-
-[SERVER3] Received a ready from 1
-
-[SERVER3] Received a ready from 2
-
-[SERVER3] Received a ready from 4
-[SERVER 3] Requested report was:Report:
-Request of epoch -1 at location (10,2) made by user 100
- * Proof of epoch -1 made by user 1
- * Proof of epoch -1 made by user 2
- * Proof of epoch -1 made by user 4
-
-
-[SERVER3] Received a READ COMPLETE from 100
-[Server Id: 3] Server heartbeat at 2021-05-18 15:02:50.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:03:00.922
-[Server id: 3] Proof of work valid.
-
-[SERVER 3] Received obtain report request.
-
-[SERVER3] Received an echo from 1
-
-[SERVER3] Received an echo from 2
-[Server Id: 3] Server heartbeat at 2021-05-18 15:03:10.922
-
-[SERVER3] Received an echo from 4
-
-[SERVER3] Received a ready from 1
-
-[SERVER3] Received a ready from 2
-
-[SERVER3] Received a ready from 4
-
-[SERVER 3] Exception caught, rethrowing for ExceptionHandler.
-Invalid application exception occurred.
-Error: UserId 100100100 not found.
-[Server Id: 3] Server heartbeat at 2021-05-18 15:03:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:03:30.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:03:40.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:03:50.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:04:00.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:04:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:04:20.925
-[Server Id: 3] Server heartbeat at 2021-05-18 15:04:30.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:04:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:04:50.922
-
-[SERVER3] Received an echo from 1
-[Server Id: 3] Server heartbeat at 2021-05-18 15:05:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:05:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:05:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:05:30.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:05:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:05:50.922
+2021-05-20 11:59:51.545  INFO 3213 --- [           main] p.u.t.s.secureserver.ServerApplication   : Starting ServerApplication v1.0 using Java 11.0.11 on ubuntu with PID 3213 (/home/thunder-marks/IdeaProjects/Secure-Communication/secure-server/target/secure-server-1.0.jar started by thunder-marks in /home/thunder-marks/IdeaProjects/Secure-Communication)
+2021-05-20 11:59:51.578  INFO 3213 --- [           main] p.u.t.s.secureserver.ServerApplication   : No active profile set, falling back to default profiles: default
+2021-05-20 11:59:54.971  INFO 3213 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-05-20 11:59:55.068  INFO 3213 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 55 ms. Found 0 JPA repository interfaces.
+2021-05-20 11:59:58.651  INFO 3213 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9203 (http)
+2021-05-20 11:59:58.712  INFO 3213 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-05-20 11:59:58.731  INFO 3213 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
+2021-05-20 11:59:58.984  INFO 3213 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-05-20 11:59:58.985  INFO 3213 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 7113 ms
+2021-05-20 12:00:00.354  INFO 3213 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-05-20 12:00:00.696  INFO 3213 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.28.Final
+2021-05-20 12:00:01.360  INFO 3213 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-05-20 12:00:01.733  INFO 3213 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-05-20 12:00:02.685  INFO 3213 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-05-20 12:00:02.752  INFO 3213 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2021-05-20 12:00:06.222  INFO 3213 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-20 12:00:06.589  INFO 3213 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-05-20 12:00:07.580  WARN 3213 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-05-20 12:00:08.583  INFO 3213 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-20 12:00:10.821  INFO 3213 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2021-05-20 12:00:11.506  INFO 3213 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9203 (http) with context path ''
+2021-05-20 12:00:11.636  INFO 3213 --- [           main] p.u.t.s.secureserver.ServerApplication   : Started ServerApplication in 22.688 seconds (JVM running for 27.122)
+[Server Id: 3] Server heartbeat at 2021-05-20 12:00:16.604
+[Server Id: 3] Server heartbeat at 2021-05-20 12:00:26.603
+[Server Id: 3] Server heartbeat at 2021-05-20 12:00:36.603
+[Server Id: 3] Server heartbeat at 2021-05-20 12:00:46.603
+[Server Id: 3] Server heartbeat at 2021-05-20 12:00:56.604
+2021-05-20 12:00:59.891  INFO 3213 --- [nio-9203-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-05-20 12:00:59.894  INFO 3213 --- [nio-9203-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-05-20 12:00:59.896  INFO 3213 --- [nio-9203-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 [Server id: 3] Proof of work valid.
 
 [SERVER3] Received submit report request.
@@ -125,140 +44,18 @@ Error: UserId 100100100 not found.
 [SERVER3] Received an echo from 1
 
 [SERVER3] Received an echo from 2
+[Server Id: 3] Server heartbeat at 2021-05-20 12:01:06.604
 
-[SERVER3] Received an echo from 4
-[Server Id: 3] Server heartbeat at 2021-05-18 15:06:00.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:06:10.922
+[SERVER3] Received a ready from 4
+[Server Id: 3] Server heartbeat at 2021-05-20 12:01:16.604
 
 [SERVER 3] Exception caught, rethrowing for ExceptionHandler.
 Invalid application exception occurred.
 Error: Broadcast was unable to met a quorum
-[Server Id: 3] Server heartbeat at 2021-05-18 15:06:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:06:30.926
-[Server Id: 3] Server heartbeat at 2021-05-18 15:06:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:06:50.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:07:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:07:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:07:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:07:30.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:07:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:07:50.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:08:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:08:10.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:08:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:08:30.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:08:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:08:50.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:09:00.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:09:10.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:09:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:09:30.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:09:40.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:09:50.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:10:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:10:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:10:20.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:10:30.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:10:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:10:50.924
-[Server Id: 3] Server heartbeat at 2021-05-18 15:11:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:11:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:11:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:11:30.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:11:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:11:50.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:12:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:12:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:12:20.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:12:30.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:12:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:12:50.924
-[Server Id: 3] Server heartbeat at 2021-05-18 15:13:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:13:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:13:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:13:30.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:13:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:13:50.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:14:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:14:10.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:14:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:14:30.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:14:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:14:50.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:15:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:15:10.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:15:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:15:30.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:15:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:15:50.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:16:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:16:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:16:20.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:16:30.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:16:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:16:50.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:17:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:17:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:17:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:17:30.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:17:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:17:50.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:18:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:18:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:18:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:18:30.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:18:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:18:50.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:19:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:19:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:19:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:19:30.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:19:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:19:50.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:20:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:20:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:20:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:20:30.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:20:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:20:50.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:21:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:21:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:21:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:21:30.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:21:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:21:50.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:22:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:22:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:22:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:22:30.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:22:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:22:50.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:23:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:23:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:23:20.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:23:30.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:23:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:23:50.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:24:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:24:10.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:24:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:24:30.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:24:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:24:50.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:25:00.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:25:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:25:20.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:25:30.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:25:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:25:50.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:26:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:26:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:26:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:26:30.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:26:40.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:26:50.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:27:00.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:27:10.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:27:20.922
-[Server Id: 3] Server heartbeat at 2021-05-18 15:27:30.923
-[Server Id: 3] Server heartbeat at 2021-05-18 15:27:40.922
+[Server Id: 3] Server heartbeat at 2021-05-20 12:01:26.604
+
+[SERVER3] Received an echo from 4
+
+[SERVER3] Received a ready from 4
+[Server Id: 3] Server heartbeat at 2021-05-20 12:01:36.604
+[Server Id: 3] Server heartbeat at 2021-05-20 12:01:46.604

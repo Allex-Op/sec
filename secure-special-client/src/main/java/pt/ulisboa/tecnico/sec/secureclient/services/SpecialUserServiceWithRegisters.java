@@ -65,24 +65,18 @@ public class SpecialUserServiceWithRegisters implements ISpecialUserService {
 	}
 
     /**
-     *  Request the proofs I issued
+     *  Requests user issued proofs
      */
-	@Override
-	public ResponseUserProofsDTO requestMyProofs(String userIdSender, String userIdRequested, List<Integer> epochs) throws ApplicationException {
-		RequestUserProofsDTO requestUserProofsDTO = new RequestUserProofsDTO();
-		requestUserProofsDTO.setUserIdSender(userIdSender);
-		requestUserProofsDTO.setUserIdRequested(userIdRequested);
-		requestUserProofsDTO.setEpochs(epochs);
-		
-		byte[] randomBytes = CryptoUtils.generateRandom32Bytes();
-		SecureDTO secureDTO = CryptoService.generateNewSecureDTO(requestUserProofsDTO, userIdSender, randomBytes, "1");
-		
-		String urlAPI = PathConfiguration.getGetProofsAtEpochsURL(1);
+    @Override
+    public ResponseUserProofsDTO requestMyProofs(String userIdSender, String userIdRequested, List<Integer> epochs)
+            throws ApplicationException {
+        RequestUserProofsDTO requestUserProofsDTO = new RequestUserProofsDTO();
+        requestUserProofsDTO.setUserIdSender(userIdSender);
+        requestUserProofsDTO.setUserIdRequested(userIdRequested);
+        requestUserProofsDTO.setEpochs(epochs);
 
-        ResponseUserProofsDTO response = ByzantineRegularRegisterService.readFromRegisters(secureDTO, ResponseUserProofsDTO.class, SpecialClientApplication.userId, urlAPI);
-		return response;
-	}
-
+        return ByzantineRegularRegisterService.readFromRegisters(requestUserProofsDTO, ResponseUserProofsDTO.class, userIdSender, PathConfiguration.GET_PROOFS_AT_EPOCHS_ENDPOINT);
+    }
 
     /**
      *  Used to realize tests with a pre-created secureDTO
@@ -133,4 +127,5 @@ public class SpecialUserServiceWithRegisters implements ISpecialUserService {
         ResponseEntity<SecureDTO> result = restTemplate.exchange(url, HttpMethod.POST, entity, SecureDTO.class);
         return result.getBody();
     }
+
 }
